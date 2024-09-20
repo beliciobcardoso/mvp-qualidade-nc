@@ -62,7 +62,7 @@ export default function Component() {
                                                 {...provided.draggableProps}
                                                 className="list-none"
                                             >
-                                                <Card>
+                                                <Card className="m-4">
                                                     <CardHeader className="flex flex-row items-center">
                                                         <div {...provided.dragHandleProps} className="mr-2 cursor-move">
                                                             <GripVertical className="h-5 w-5 text-gray-500" />
@@ -92,7 +92,7 @@ export default function Component() {
                                                 {...provided.draggableProps}
                                                 className="list-none"
                                             >
-                                                <Card>
+                                                <Card className="m-4">
                                                     <CardHeader className="flex flex-row items-center">
                                                         <div {...provided.dragHandleProps} className="mr-2 cursor-move">
                                                             <GripVertical className="h-5 w-5 text-gray-500" />
