@@ -1,5 +1,4 @@
 'use client'
-import { redirect } from 'next/navigation'
 
 import {
   ColumnDef,
@@ -13,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react'
+import { ArrowUpDown, ChevronDown } from 'lucide-react'
 import * as React from 'react'
 
 import { Badge } from '@/components/ui/badge'
@@ -22,9 +21,6 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
@@ -37,7 +33,9 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
+import { useState } from 'react'
 import data from './dados'
+import { DialogRelatorio } from './dialogRelatorio'
 
 export type Relatorio = {
   id: number
@@ -58,7 +56,7 @@ export type Relatorio = {
   tipoEstrutura: string
 }
 
-export const columns: ColumnDef<Relatorio>[] = [
+const columns: ColumnDef<Relatorio>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
@@ -151,33 +149,17 @@ export const columns: ColumnDef<Relatorio>[] = [
     ),
   },
   {
-    id: 'actions',
-    enableHiding: false,
+    accessorKey: 'EditReport',
+    header: '',
     cell: ({ row }) => {
-      const relatorio = row.original
-
       return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => console.log(relatorio.id)}>
-                Copy Relatorio ID
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => redirect('/manual')}>
-                View customer
-              </DropdownMenuItem>
-              <DropdownMenuItem>View Relatorio details</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </>
+        console.log(row.original),
+        (
+          <DialogRelatorio
+          // relatorio={row.original}
+          // onEdit={() => handleEditReport(row.original)}
+          />
+        )
       )
     },
   },
@@ -191,7 +173,7 @@ export function TableRelatorio() {
   const [globalFilter, setGlobalFilter] = React.useState('')
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [rowSelection, setRowSelection] = useState({})
 
   const table = useReactTable({
     data,
