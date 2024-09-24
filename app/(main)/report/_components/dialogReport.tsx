@@ -15,7 +15,7 @@ export function DialogReport({
   dialogButton,
   dialogTitle,
   dialogDescription,
-  getItems,
+  dialogPerson,
 }: DialogReportProps) {
   return (
     <Dialog>
@@ -27,7 +27,7 @@ export function DialogReport({
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
-        <ReportForm getItems={getItems ?? []} />
+        <ReportForm person={dialogPerson ?? ''} />
       </DialogContent>
     </Dialog>
   )

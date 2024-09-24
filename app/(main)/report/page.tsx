@@ -9,10 +9,14 @@ export default function Report() {
         dialogDescription="Tela para criar um novo relatório"
       />
       <DialogReport
-        dialogButton="Editar Relatório"
-        dialogTitle="Editar Relatório"
-        dialogDescription="Tela para editar um relatório"
-        getItems={['item 1', 'item 2']}
+        dialogButton={'Editar Relatório'}
+        dialogTitle={'Editar Relatório'}
+        dialogDescription={'Tela para editar um relatório'}
+        dialogPerson={{
+          nome: 'Belicio',
+          email: 'bello@example.com',
+          cargo: 'Analista de TI',
+        }}
       />
     </div>
   )
