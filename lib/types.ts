@@ -26,3 +26,10 @@ export type DialogReportProps = {
 export type PersonProps = {
   person: string
 }
+
+export type PhotoAnalisys = {
+  id?: number
+  idReport: number
+  url: string
+  name: string
+}
