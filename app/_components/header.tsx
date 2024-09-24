@@ -20,9 +20,9 @@ export default function Header() {
               Manual
             </li>
           </Link>
-          <Link href="/app">
+          <Link href="/report">
             <li className="hover:bg-white hover:text-slate-900 py-2 px-4 rounded-sm">
-              ADD
+              Report
             </li>
           </Link>
         </ul>
