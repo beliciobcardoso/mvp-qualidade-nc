@@ -1,4 +1,4 @@
-import { TableRelatorio } from './tableRelatorio'
+import { TableRelatorio } from './table/tableRelatorio'
 
 export default function ListaRelatorio() {
   return (

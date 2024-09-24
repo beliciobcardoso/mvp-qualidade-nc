@@ -1,6 +1,5 @@
 'use client'
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -11,10 +10,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { ArrowUpDown, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 
 import { getRelatorios } from '@/app/_components/relatorio/actions'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -32,139 +30,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Relatorio } from '@/lib/types'
-import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
-import { DialogRelatorio } from './dialogRelatorio'
-
-// export type Relatorio = {
-//   id: number
-//   nomeCliente: string
-//   idSite: string
-//   altura?: string
-//   endereco: string
-//   bairro: string
-//   numero: string
-//   cidade: string
-//   uf: string
-//   tecnico: string
-//   dataServico: Date
-//   createdAt: Date
-//   updatedAt?: Date
-//   finishedAt?: Date
-//   tipoSite: string
-//   tipoEstrutura: string
-// }
-
-const columns: ColumnDef<Relatorio>[] = [
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => {
-      const { updatedAt, finishedAt } = row.original
-
-      let status = 'Criado'
-      let statusVariant = 'bg-blue-500'
-
-      if (finishedAt) {
-        status = 'Finalizado'
-        statusVariant = 'bg-green-500'
-      } else if (updatedAt) {
-        status = 'Em andamento'
-        statusVariant = 'bg-yellow-500'
-      }
-
-      return <Badge className={cn(statusVariant, 'text-left')}>{status}</Badge>
-    },
-  },
-  {
-    accessorKey: 'nomeCliente',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Cliente
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => (
-      <div className="pl-4">{row.getValue('nomeCliente')}</div>
-    ),
-  },
-  {
-    accessorKey: 'idSite',
-    header: 'ID Site',
-    cell: ({ row }) => <div className="text-left">{row.original.idSite}</div>,
-  },
-  {
-    accessorKey: 'endereco',
-    header: 'Endereço',
-    cell: ({ row }) => <div className="text-left">{row.original.endereco}</div>,
-  },
-  {
-    accessorKey: 'bairro',
-    header: 'Bairro',
-    cell: ({ row }) => <div className="text-left">{row.original.bairro}</div>,
-  },
-  {
-    accessorKey: 'numero',
-    header: 'Número',
-    cell: ({ row }) => <div className="text-left">{row.original.numero}</div>,
-  },
-  {
-    accessorKey: 'cidade',
-    header: 'Cidade',
-    cell: ({ row }) => <div className="text-left">{row.original.cidade}</div>,
-  },
-  {
-    accessorKey: 'uf',
-    header: 'UF',
-    cell: ({ row }) => <div className="text-left">{row.original.uf}</div>,
-  },
-  {
-    accessorKey: 'tecnico',
-    header: 'Técnico',
-    cell: ({ row }) => <div className="text-left">{row.original.tecnico}</div>,
-  },
-  {
-    accessorKey: 'dataServico',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Data do Serviço
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => (
-      <div className="text-left font-medium pl-4">
-        {row.original.dataServico.toLocaleDateString()}
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'EditReport',
-    header: '',
-    cell: ({ row }) => {
-      const relatorio = row.original
-      // console.log(relatorio)
-      return (
-        <DialogRelatorio
-          dialogButton={'Editar'}
-          dialogDescription={'Editar Relatório'}
-          dialogTitle={'Tela para Editar Relatório'}
-          relatorio={relatorio}
-          // onEdit={() => handleEditReport(row.original)}
-        />
-      )
-    },
-  },
-]
+import { columns } from './columnDef'
 
 export function TableRelatorio() {
   const [sorting, setSorting] = useState<SortingState>([])

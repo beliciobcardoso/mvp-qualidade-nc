@@ -23,5 +23,6 @@ export async function saveRelatorio(data: Relatorio) {
 }
 
 export async function getRelatorios() {
-  return await prisma.report.findMany()
+  const relatorios = await prisma.report.findMany()
+  return relatorios as Relatorio[]
 }
