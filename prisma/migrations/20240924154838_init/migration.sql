@@ -12,7 +12,7 @@ CREATE TABLE "report" (
     "tecnico" TEXT NOT NULL,
     "dataServico" DATETIME NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
+    "updatedAt" DATETIME,
     "finishedAt" DATETIME,
     "tipoSite" TEXT NOT NULL,
     "tipoEstrutura" TEXT NOT NULL
