@@ -4,9 +4,9 @@ export default function Report() {
   return (
     <div className="flex justify-around">
       <DialogReport
-        dialogButton="Criar Relatório"
-        dialogTitle="Criar Relatório"
-        dialogDescription="Tela para criar um novo relatório"
+        dialogButton={'Criar Relatório'}
+        dialogTitle={'Criar Relatório'}
+        dialogDescription={'Tela para criar um novo relatório'}
       />
       <DialogReport
         dialogButton={'Editar Relatório'}

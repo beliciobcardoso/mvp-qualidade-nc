@@ -1,4 +1,4 @@
-import { Relatorio } from './tableRelatorio'
+import { Relatorio } from '@/lib/types'
 
 const data: Relatorio[] = [
   {
@@ -15,8 +15,8 @@ const data: Relatorio[] = [
     dataServico: new Date('2023-01-01'),
     createdAt: new Date('2023-01-01'),
     updatedAt: new Date('2023-01-02'),
-    tipoSite: 'Residencial',
-    tipoEstrutura: 'Concreto',
+    tipoSite: 'green field',
+    tipoEstrutura: 'poste concreto',
   },
   {
     id: 2,
@@ -33,8 +33,8 @@ const data: Relatorio[] = [
     createdAt: new Date('2023-02-01'),
     updatedAt: new Date('2023-02-02'),
     finishedAt: new Date('2023-02-03'),
-    tipoSite: 'Comercial',
-    tipoEstrutura: 'Aço',
+    tipoSite: 'roof top',
+    tipoEstrutura: 'poste metalico',
   },
   {
     id: 3,
@@ -50,8 +50,8 @@ const data: Relatorio[] = [
     dataServico: new Date('2023-03-01'),
     createdAt: new Date('2023-03-03'),
     updatedAt: new Date('2023-03-03'),
-    tipoSite: 'Industrial',
-    tipoEstrutura: 'Madeira',
+    tipoSite: 'green field',
+    tipoEstrutura: 'outros',
   },
   {
     id: 4,
@@ -66,8 +66,8 @@ const data: Relatorio[] = [
     tecnico: 'Tecnico D',
     dataServico: new Date('2023-04-01'),
     createdAt: new Date('2023-04-01'),
-    tipoSite: 'Residencial',
-    tipoEstrutura: 'Concreto',
+    tipoSite: 'roof top',
+    tipoEstrutura: 'torre metalica',
   },
 ]
 

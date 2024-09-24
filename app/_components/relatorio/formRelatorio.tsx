@@ -23,12 +23,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Relatorio } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { saveRelatorio } from './actions'
 
 const formSchema = z.object({
   nomeCliente: z
@@ -54,21 +56,49 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-export default function FormRelatorio() {
+export default function FormRelatorio({ report }: { report?: Relatorio }) {
+  // const [items, setItems] = useState<Relatorio>()
+  // if (relatorio) {
+  //   setItems({
+  //     ...relatorio,
+  //     createdAt: new Date(), // provide default or actual values for missing properties
+  //   })
+  // }
+
+  // console.log(report)
+
   // 1. Define your form.
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nomeCliente: '',
-      altura: '',
+      nomeCliente: report ? report.nomeCliente : '',
+      idSite: report ? report.idSite : '',
+      altura: report ? report.altura : '',
+      endereco: report ? report.endereco : '',
+      bairro: report ? report.bairro : '',
+      numero: report ? report.numero : '',
+      cidade: report ? report.cidade : '',
+      uf: report ? report.uf : '',
+      tecnico: report ? report.tecnico : '',
+      dataServico: report ? new Date(report.dataServico) : new Date(),
+      tipoSite: report ? report.tipoSite : '',
+      tipoEstrutura: report ? report.tipoEstrutura : '',
     },
   })
 
-  // 2. Define a submit handler.
   function onSubmit(values: FormValues) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    if (report) {
+      saveRelatorio({
+        ...values,
+        id: report.id,
+        createdAt: report.createdAt,
+      })
+    } else {
+      saveRelatorio({
+        ...values,
+        createdAt: new Date(),
+      })
+    }
   }
   return (
     <>
@@ -79,11 +109,16 @@ export default function FormRelatorio() {
               <FormField
                 control={form.control}
                 name="nomeCliente"
+                // defaultValue={relatorio?.nomeCliente}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Cliente</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nome do Cliente" {...field} />
+                      <Input
+                        placeholder="Nome do Cliente"
+                        {...field}
+                        defaultValue={report?.nomeCliente}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -297,7 +332,7 @@ export default function FormRelatorio() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit">Salvar</Button>
           </DialogFooter>
         </form>
       </Form>

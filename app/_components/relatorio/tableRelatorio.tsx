@@ -1,5 +1,4 @@
 'use client'
-
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -32,29 +31,30 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { Relatorio } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import data from './dados'
 import { DialogRelatorio } from './dialogRelatorio'
 
-export type Relatorio = {
-  id: number
-  nomeCliente: string
-  idSite: string
-  altura?: string
-  endereco: string
-  bairro: string
-  numero: string
-  cidade: string
-  uf: string
-  tecnico: string
-  dataServico: Date
-  createdAt: Date
-  updatedAt?: Date
-  finishedAt?: Date
-  tipoSite: string
-  tipoEstrutura: string
-}
+// export type Relatorio = {
+//   id: number
+//   nomeCliente: string
+//   idSite: string
+//   altura?: string
+//   endereco: string
+//   bairro: string
+//   numero: string
+//   cidade: string
+//   uf: string
+//   tecnico: string
+//   dataServico: Date
+//   createdAt: Date
+//   updatedAt?: Date
+//   finishedAt?: Date
+//   tipoSite: string
+//   tipoEstrutura: string
+// }
 
 const columns: ColumnDef<Relatorio>[] = [
   {
@@ -152,14 +152,16 @@ const columns: ColumnDef<Relatorio>[] = [
     accessorKey: 'EditReport',
     header: '',
     cell: ({ row }) => {
+      const relatorio = row.original
+      // console.log(relatorio)
       return (
-        console.log(row.original),
-        (
-          <DialogRelatorio
-          // relatorio={row.original}
+        <DialogRelatorio
+          dialogButton={'Editar'}
+          dialogDescription={'Editar Relatório'}
+          dialogTitle={'Tela para Editar Relatório'}
+          relatorio={relatorio}
           // onEdit={() => handleEditReport(row.original)}
-          />
-        )
+        />
       )
     },
   },
