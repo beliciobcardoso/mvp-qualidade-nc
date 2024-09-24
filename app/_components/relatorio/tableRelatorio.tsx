@@ -12,8 +12,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { ArrowUpDown, ChevronDown } from 'lucide-react'
-import * as React from 'react'
 
+import { getRelatorios } from '@/app/_components/relatorio/actions'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -33,8 +33,7 @@ import {
 } from '@/components/ui/table'
 import { Relatorio } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
-import data from './dados'
+import { useEffect, useState } from 'react'
 import { DialogRelatorio } from './dialogRelatorio'
 
 // export type Relatorio = {
@@ -168,14 +167,17 @@ const columns: ColumnDef<Relatorio>[] = [
 ]
 
 export function TableRelatorio() {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  )
-  const [globalFilter, setGlobalFilter] = React.useState('')
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [globalFilter, setGlobalFilter] = useState('')
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
+
+  const [data, setData] = useState<Relatorio[]>([])
+
+  useEffect(() => {
+    getRelatorios().then((relatorios) => setData(relatorios))
+  }, [])
 
   const table = useReactTable({
     data,

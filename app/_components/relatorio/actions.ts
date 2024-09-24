@@ -1,9 +1,27 @@
 'use server'
+import { prisma } from '@/lib/prisma'
 import { Relatorio } from '@/lib/types'
 
 export async function saveRelatorio(data: Relatorio) {
   // save relatorio to database asynchronously
-  const teste = await data
+  if (data.id) {
+    return await prisma.report.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        ...data,
+      },
+    })
+  }
 
-  return console.log(teste)
+  return await prisma.report.create({
+    data: {
+      ...data,
+    },
+  })
+}
+
+export async function getRelatorios() {
+  return await prisma.report.findMany()
 }

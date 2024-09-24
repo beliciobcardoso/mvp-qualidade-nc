@@ -57,17 +57,6 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>
 
 export default function FormRelatorio({ report }: { report?: Relatorio }) {
-  // const [items, setItems] = useState<Relatorio>()
-  // if (relatorio) {
-  //   setItems({
-  //     ...relatorio,
-  //     createdAt: new Date(), // provide default or actual values for missing properties
-  //   })
-  // }
-
-  // console.log(report)
-
-  // 1. Define your form.
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
