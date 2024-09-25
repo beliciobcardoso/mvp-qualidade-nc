@@ -25,3 +25,13 @@ export async function savePhotoAnalisys(data: PhotoAnalisys) {
 export async function getPhotoAnalisys() {
   return await prisma.photoAnalisys.findMany()
 }
+
+export async function getPhotoAnalisysById(id: number) {
+  const photoAnalisys = await prisma.photoAnalisys.findMany({
+    where: {
+      idReport: id,
+    },
+  })
+
+  return photoAnalisys
+}
