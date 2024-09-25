@@ -26,3 +26,12 @@ export async function getRelatorios() {
   const relatorios = await prisma.report.findMany()
   return relatorios as Relatorio[]
 }
+
+export async function getRelatorioById(id: number) {
+  const relatorio = await prisma.report.findUnique({
+    where: {
+      id,
+    },
+  })
+  return relatorio as Relatorio
+}
