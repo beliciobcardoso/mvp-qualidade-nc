@@ -1,5 +1,6 @@
 import { getRelatorioById } from '@/app/_components/relatorio/actions'
 import { PhotoAnalisys } from '@/lib/types'
+import ServiceDescriptionForm from '../_components/service-description-form'
 import { getPhotoAnalisysById } from '../actions'
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -18,7 +19,9 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="w-44 h-44 bg-slate-400"></div>
         </div>
         <div className="flex flex-col">
-          <h1 className="text-center bg-blue-600 font-bold">DADOS DO SITE</h1>
+          <h1 className="text-lg text-center font-bold bg-blue-500 text-white p-2">
+            DADOS DO SITE
+          </h1>
           <div>
             <table className="w-full border-2 text-left">
               <tbody>
@@ -115,47 +118,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               </tbody>
             </table>
           </div>
-          <h1 className="text-center bg-blue-600 font-bold">
-            DESCRIÇÃO DOS SERVIÇOS REALIZADOS
-          </h1>
-          <form action="" className="px-2 bg-slate-400">
-            <div className="w-full">
-              <div className="flex w-[1f,250px,250px]">
-                <label htmlFor="SERVIÇOS REALIZADOS">
-                  SERVIÇOS REALIZADOS:
-                </label>
-                <label htmlFor="ok">OK</label>
-                <label htmlFor="na">N/A</label>
-              </div>
-              <div className="">
-                <input
-                  type="text"
-                  name="linha1"
-                  id="linha1"
-                  className="border-2 border-black w-full"
-                  placeholder="Digite os serviços realizados"
-                />
-              </div>
-              <div className="col-span-1 flex justify-center">
-                <input
-                  type="checkbox"
-                  name="ok1"
-                  id="ok1"
-                  className="h-7 w-7"
-                  title="OK1"
-                />
-              </div>
-              <div className="col-span-1 flex justify-center">
-                <input
-                  type="checkbox"
-                  name="na1"
-                  id="na1"
-                  className="h-7 w-7"
-                  title="na1"
-                />
-              </div>
-            </div>
-          </form>
+          <ServiceDescriptionForm />
         </div>
       </header>
       <aside className="bg-blue-500 w-full flex flex-col items-center">
