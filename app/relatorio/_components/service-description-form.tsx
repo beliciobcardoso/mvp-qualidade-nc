@@ -9,19 +9,37 @@ import {
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { DescriptionAnalisys } from '@prisma/client'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { getDescriptionsId, upsetDescriptionAnalisys } from '../actions'
 
 const formSchema = z.object({
   services: z.string(),
-  ok: z.boolean(),
-  na: z.boolean(),
-  type: z.enum(['ok', 'na'], { message: 'Selecione OK ou N/A' }),
+  status: z.enum(['ok', 'na']),
 })
 
 type FormValues = z.infer<typeof formSchema>
 
-export default function ServiceDescriptionForm() {
+export default function ServiceDescriptionForm({ id }: { id: number }) {
+  const [desc, setDesc] = useState<DescriptionAnalisys[]>([])
+
+  useEffect(() => {
+    const fetchDesc = async () => {
+      const descriptions = await getDescriptionsId(id)
+      setDesc(descriptions)
+    }
+    fetchDesc()
+  }, [id])
+
+  desc.map((item) => {
+    console.log(item.services, item.status)
+    return item
+  })
+
+  // console.log(desc)
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,7 +48,14 @@ export default function ServiceDescriptionForm() {
   })
 
   const onSubmit = form.handleSubmit((data) => {
-    console.log(data)
+    const status = data.status.toString()
+    const datas = {
+      idReport: id,
+      services: data.services,
+      status,
+    }
+
+    upsetDescriptionAnalisys(datas)
   })
 
   return (
@@ -49,7 +74,7 @@ export default function ServiceDescriptionForm() {
               </div>
             </div>
             <div className="w-full">
-              {[...Array(2)].map((_, index) => (
+              {[...Array(1)].map((_, index) => (
                 <div
                   key={index}
                   className="grid grid-cols-[1fr_100px] gap-2 justify-center items-center"
@@ -71,7 +96,7 @@ export default function ServiceDescriptionForm() {
                   <div className="pl-4">
                     <FormField
                       control={form.control}
-                      name="type"
+                      name="status"
                       render={({ field }) => (
                         <FormItem className="space-y-3  w-full">
                           <FormControl className=" w-full">

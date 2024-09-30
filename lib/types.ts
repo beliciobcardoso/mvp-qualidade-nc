@@ -33,3 +33,9 @@ export type PhotoAnalisys = {
   url: string
   name: string
 }
+
+export type DescriptionAnalisysType = {
+  idReport: number
+  services: string
+  status: string
+}

@@ -11,29 +11,38 @@ datasource db {
 }
 
 model Report {
-  id            Int            @id @default(autoincrement())
-  nomeCliente   String
-  idSite        String
-  altura        String?
-  endereco      String
-  bairro        String
-  numero        String
-  cidade        String
-  uf            String
-  tecnico       String
-  dataServico   DateTime
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime?
-  finishedAt    DateTime?
-  tipoSite      String
-  tipoEstrutura String
-  photoAnalisys PhotoAnalisys?
+  id                  Int                   @id @default(autoincrement())
+  nomeCliente         String
+  idSite              String
+  altura              String?
+  endereco            String
+  bairro              String
+  numero              String
+  cidade              String
+  uf                  String
+  tecnico             String
+  dataServico         DateTime
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime?
+  finishedAt          DateTime?
+  tipoSite            String
+  tipoEstrutura       String
+  photoAnalisys       PhotoAnalisys[]
+  DescriptionAnalisys DescriptionAnalisys[]
 }
 
 model PhotoAnalisys {
   id       Int    @id @default(autoincrement())
-  idReport Int    @unique
+  idReport Int
   report   Report @relation(fields: [idReport], references: [id])
   url      String
   name     String
+}
+
+model DescriptionAnalisys {
+  id       Int    @id @default(autoincrement())
+  idReport Int
+  report   Report @relation(fields: [idReport], references: [id])
+  services String
+  status   String
 }

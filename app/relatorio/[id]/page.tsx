@@ -118,7 +118,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               </tbody>
             </table>
           </div>
-          <ServiceDescriptionForm />
+          <ServiceDescriptionForm id={id} />
         </div>
       </header>
       <aside className="bg-blue-500 w-full flex flex-col items-center">
