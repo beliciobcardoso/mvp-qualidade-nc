@@ -33,12 +33,12 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
     fetchDesc()
   }, [id])
 
-  desc.map((item) => {
-    console.log(item.services, item.status)
-    return item
-  })
+  // desc.map((item) => {
+  //   console.log(item.services, item.status)
+  //   return item
+  // })
 
-  // console.log(desc)
+  console.log(desc[0])
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -49,7 +49,14 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
 
   const onSubmit = form.handleSubmit((data) => {
     const status = data.status.toString()
+
     const datas = {
+      idReport: id,
+      services: data.services,
+      status,
+    }
+
+    const datasUp = {
       idReport: id,
       services: data.services,
       status,
@@ -74,7 +81,56 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
               </div>
             </div>
             <div className="w-full">
-              {[...Array(1)].map((_, index) => (
+              {
+                <div className="grid grid-cols-[1fr_100px] gap-2 justify-center items-center">
+                  <div>
+                    <FormField
+                      control={form.control}
+                      name="services"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Input {...field} placeholder="" />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="pl-4">
+                    <FormField
+                      control={form.control}
+                      name="status"
+                      render={({ field }) => (
+                        <FormItem className="space-y-3  w-full">
+                          <FormControl className=" w-full">
+                            <RadioGroup
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                              className="flex items-center space-x-3 space-y-0"
+                            >
+                              <FormItem className="flex items-center space-x-3 space-y-0">
+                                <FormControl>
+                                  <RadioGroupItem value="ok" />
+                                </FormControl>
+                              </FormItem>
+                              <FormItem className="flex items-center space-x-3 space-y-0">
+                                <FormControl>
+                                  <RadioGroupItem value="na" />
+                                </FormControl>
+                              </FormItem>
+                            </RadioGroup>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+              }
+            </div>
+            <div className="w-full">
+              {desc.map((_, index) => (
                 <div
                   key={index}
                   className="grid grid-cols-[1fr_100px] gap-2 justify-center items-center"

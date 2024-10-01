@@ -39,3 +39,10 @@ export type DescriptionAnalisysType = {
   services: string
   status: string
 }
+
+export type DescriptionAnalisysFull = {
+  id: number
+  idReport: number
+  services: string
+  status: string
+}
