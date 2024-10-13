@@ -1,14 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `report` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-PRAGMA foreign_keys=off;
-DROP TABLE "report";
-PRAGMA foreign_keys=on;
-
 -- CreateTable
 CREATE TABLE "Report" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -38,5 +27,21 @@ CREATE TABLE "PhotoAnalisys" (
     CONSTRAINT "PhotoAnalisys_idReport_fkey" FOREIGN KEY ("idReport") REFERENCES "Report" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+-- CreateTable
+CREATE TABLE "DescriptionAnalisys" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "idReport" INTEGER NOT NULL,
+    "services" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    CONSTRAINT "DescriptionAnalisys_idReport_fkey" FOREIGN KEY ("idReport") REFERENCES "Report" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL
+);
+
 -- CreateIndex
-CREATE UNIQUE INDEX "PhotoAnalisys_idReport_key" ON "PhotoAnalisys"("idReport");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");

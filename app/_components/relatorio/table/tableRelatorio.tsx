@@ -1,18 +1,4 @@
 'use client'
-import {
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table'
-import { ChevronDown } from 'lucide-react'
-
-import { getRelatorios } from '@/app/_components/relatorio/actions'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -29,22 +15,35 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Relatorio } from '@/lib/types'
-import { useEffect, useState } from 'react'
-import { columns } from './columnDef'
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
+import { ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 
-export function TableRelatorio() {
+interface DataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+}
+
+export function TableRelatorio<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = useState('')
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
-
-  const [data, setData] = useState<Relatorio[]>([])
-
-  useEffect(() => {
-    getRelatorios().then((relatorios) => setData(relatorios))
-  }, [])
 
   const table = useReactTable({
     data,

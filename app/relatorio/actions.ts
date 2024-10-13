@@ -1,8 +1,8 @@
 'use server'
-import { prisma } from '@/lib/prisma'
-import { DescriptionAnalisysType, PhotoAnalisys } from '@/lib/types'
+import prisma from '@/lib/prisma'
+import { DescriptionAnalisysType, PhotoAnalisysType } from '@/lib/types'
 
-export async function savePhotoAnalisys(data: PhotoAnalisys) {
+export async function savePhotoAnalisys(data: PhotoAnalisysType) {
   // save relatorio to database asynchronously
   if (data.id) {
     return await prisma.photoAnalisys.update({
@@ -56,6 +56,14 @@ export async function getDescriptionsId(id: number) {
     },
     where: {
       idReport,
+    },
+  })
+}
+
+export async function deleteDescriptionService(id: number) {
+  return await prisma.descriptionAnalisys.delete({
+    where: {
+      id,
     },
   })
 }

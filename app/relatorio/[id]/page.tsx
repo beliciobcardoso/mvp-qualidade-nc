@@ -1,22 +1,26 @@
 import { getRelatorioById } from '@/app/_components/relatorio/actions'
-import { PhotoAnalisys } from '@/lib/types'
-import ServiceDescriptionForm from '../_components/service-description-form'
-import { getPhotoAnalisysById } from '../actions'
+import { PhotoAnalisysType } from '@/lib/types'
+import { DialogServiceDescription } from '../_components/dialogServiceDescription'
+import PhotoAnalisys from '../_components/photoAnalisys'
+import { RemoveServices } from '../_components/removerServices'
+import { UploadImage } from '../_components/UploadImage'
+import { getDescriptionsId, getPhotoAnalisysById } from '../actions'
 
 export default async function Page({ params }: { params: { id: string } }) {
   const id = parseInt(params.id)
-  const photoAnalisys: PhotoAnalisys[] = await getPhotoAnalisysById(id)
+  const photoAnalisys: PhotoAnalisysType[] = await getPhotoAnalisysById(id)
   const relatorioHeader = await getRelatorioById(id)
+  const descriptions = await getDescriptionsId(id)
 
   return (
     <main className="flex flex-col items-center bg-slate-300 w-full">
       <header className="flex flex-col bg-white">
         <div className="flex items-center justify-between">
-          <div className="w-44 h-44 bg-slate-400"></div>
+          <div className="w-44 h-20 bg-slate-400"></div>
           <h1 className="text-2xl font-bold px-4">
             RELATÓRIO DE MANUTENÇÃO CORRETIVA
           </h1>
-          <div className="w-44 h-44 bg-slate-400"></div>
+          <div className="w-44 h-20 bg-slate-400"></div>
         </div>
         <div className="flex flex-col">
           <h1 className="text-lg text-center font-bold bg-blue-500 text-white p-2">
@@ -44,7 +48,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                     {relatorioHeader.idSite}
                   </td>
                   <td className="border-x-2 px-2 text-right">
-                    {relatorioHeader.endereco}
+                    {relatorioHeader.endereco.toUpperCase()}
                   </td>
                   <td className="border-x-2 px-2 text-right">
                     {relatorioHeader.altura}
@@ -75,16 +79,16 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </tr>
                 <tr>
                   <td className="border-x-2 px-2 text-right">
-                    {relatorioHeader.cidade}
+                    {relatorioHeader.cidade.toUpperCase()}
                   </td>
                   <td className="border-x-2 px-2 text-right">
-                    {relatorioHeader.bairro}
+                    {relatorioHeader.bairro.toUpperCase()}
                   </td>
                   <td className="border-x-2 px-2 text-right">
                     {relatorioHeader.numero}
                   </td>
                   <td className="border-x-2 px-2 text-right">
-                    {relatorioHeader.uf}
+                    {relatorioHeader.uf.toUpperCase()}
                   </td>
                 </tr>
               </tbody>
@@ -106,35 +110,76 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </tr>
                 <tr>
                   <td className="border-x-2 px-2 text-right">
-                    {relatorioHeader.tipoSite}
+                    {relatorioHeader.tipoSite.toUpperCase()}
                   </td>
                   <td className="border-x-2 px-2 text-right">
-                    {relatorioHeader.tipoEstrutura}
+                    {relatorioHeader.tipoEstrutura.toUpperCase()}
                   </td>
                   <td className="border-x-2 px-2 text-right">
-                    {relatorioHeader.tecnico}
+                    {relatorioHeader.tecnico.toUpperCase()}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <ServiceDescriptionForm id={id} />
+        </div>
+        <div>
+          <table className="w-full text-left">
+            <thead>
+              <tr>
+                <th className="px-2 w-4/5">Serviços</th>
+                <th className="text-center">OK</th>
+                <th className="text-center">NA</th>
+              </tr>
+            </thead>
+            <tbody>
+              {descriptions.length > 0 ? (
+                descriptions.map((description, index) => (
+                  <tr key={index} className="border-2">
+                    <td className="border-2 px-2">{description.services}</td>
+                    <td className="border-2 text-center">
+                      {description.status === 'ok' ? 'X' : ''}
+                    </td>
+                    <td className="border-2 text-center">
+                      {description.status === 'na' ? 'X' : ''}
+                    </td>
+                    <td className="flex px-2 w-8">
+                      <RemoveServices idService={description.id} />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td className="border-2 px-2 h-8"> </td>
+                  <td className="border-2 px-2 text-center"></td>
+                  <td className="border-2 px-2 text-center"></td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          <div className="flex justify-end p-2">
+            <DialogServiceDescription
+              dialogButton={'Adicionar Serviço'}
+              dialogDescription={'Adicione um novo serviço'}
+              dialogTitle={'Adicionar Serviço'}
+              idReport={id}
+            />
+          </div>
         </div>
       </header>
-      <aside className="bg-blue-500 w-full flex flex-col items-center">
-        <div>
-          {photoAnalisys.length > 0 ? (
-            photoAnalisys.map((item) => (
-              <div key={item.id}>
-                <h2>{item.url}</h2>
-                <p>{item.name}</p>
-              </div>
-            ))
-          ) : (
-            <p>Não há dados para exibir</p>
-          )}
-        </div>
+      <aside className="flex flex-col items-center container py-4">
+        <PhotoAnalisys photoAnalisys={photoAnalisys} />
+        <UploadImage />
       </aside>
+      <footer className="flex flex-col bg-white">
+        <div className="flex items-center justify-between">
+          <div className="w-44 h-20 bg-slate-400"></div>
+          <h1 className="text-2xl font-bold px-4">
+            RELATÓRIO DE MANUTENÇÃO CORRETIVA
+          </h1>
+          <div className="w-44 h-20 bg-slate-400"></div>
+        </div>
+      </footer>
     </main>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-import { DialogFooter } from '@/components/ui/dialog'
+import { DialogClose, DialogFooter } from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -28,6 +28,7 @@ import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { saveRelatorio } from './actions'
@@ -57,6 +58,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>
 
 export default function FormRelatorio({ report }: { report?: Relatorio }) {
+  const router = useRouter()
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -82,11 +84,13 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
         id: report.id,
         createdAt: report.createdAt,
       })
+      router.refresh()
     } else {
       saveRelatorio({
         ...values,
         createdAt: new Date(),
       })
+      router.refresh()
     }
   }
   return (
@@ -238,7 +242,7 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
                             {field.value ? (
                               format(field.value, 'dd/MM/yyyy')
                             ) : (
-                              <span>Informa a data</span>
+                              <span>Informe a data</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -276,8 +280,8 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="green field">GREEN FIELD</SelectItem>
-                        <SelectItem value="roof top">ROOF TOP</SelectItem>
+                        <SelectItem value="GREEN FIELD">GREEN FIELD</SelectItem>
+                        <SelectItem value="ROOF TOP">ROOF TOP</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -300,18 +304,18 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="torre metalica">
+                        <SelectItem value="TORRE METALICA">
                           TORRE METÁLICA
                         </SelectItem>
-                        <SelectItem value="cavalete">CAVALETE</SelectItem>
-                        <SelectItem value="suporte">SUPORTE</SelectItem>
-                        <SelectItem value="poste concreto">
+                        <SelectItem value="CAVALETE">CAVALETE</SelectItem>
+                        <SelectItem value="SUPORTE">SUPORTE</SelectItem>
+                        <SelectItem value="POSTE CONCRETO">
                           POSTE CONCRETO
                         </SelectItem>
-                        <SelectItem value="poste metalico">
+                        <SelectItem value="POSTE METALICO">
                           POSTE METÁLICO
                         </SelectItem>
-                        <SelectItem value="outros">OUTROS</SelectItem>
+                        <SelectItem value="OUTROS">OUTROS</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -321,7 +325,9 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Salvar</Button>
+            <DialogClose asChild>
+              <Button type="submit">Salvar</Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </Form>

@@ -27,7 +27,7 @@ export type PersonProps = {
   person: string
 }
 
-export type PhotoAnalisys = {
+export type PhotoAnalisysType = {
   id?: number
   idReport: number
   url: string

@@ -25,6 +25,11 @@ export default function Header() {
               Report
             </li>
           </Link>
+          <Link href="/new">
+            <li className="hover:bg-white hover:text-slate-900 py-2 px-4 rounded-sm">
+              New
+            </li>
+          </Link>
         </ul>
       </div>
     </header>

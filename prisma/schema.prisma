@@ -46,3 +46,9 @@ model DescriptionAnalisys {
   services String
   status   String
 }
+
+model User {
+  id    String @id @default(cuid())
+  name  String
+  email String @unique
+}

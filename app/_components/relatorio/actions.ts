@@ -1,5 +1,5 @@
 'use server'
-import { prisma } from '@/lib/prisma'
+import prisma from '@/lib/prisma'
 import { Relatorio } from '@/lib/types'
 
 export async function saveRelatorio(data: Relatorio) {
