@@ -32,11 +32,12 @@ model Report {
 }
 
 model PhotoAnalisys {
-  id       Int    @id @default(autoincrement())
-  idReport Int
-  report   Report @relation(fields: [idReport], references: [id])
-  url      String
-  name     String
+  id          Int    @id @default(autoincrement())
+  idReport    Int
+  report      Report @relation(fields: [idReport], references: [id])
+  url         String
+  name        String
+  description String
 }
 
 model DescriptionAnalisys {

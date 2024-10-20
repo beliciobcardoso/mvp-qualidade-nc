@@ -4,11 +4,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Photo } from '@/lib/types'
+import { PhotoAnalisysType } from '@/lib/types'
 import Image from 'next/image'
 
 type PhotoCardProps = {
-  imagem: Photo
+  imagem: PhotoAnalisysType
 }
 
 export default function PhotoCard({ imagem }: PhotoCardProps) {
@@ -18,15 +18,15 @@ export default function PhotoCard({ imagem }: PhotoCardProps) {
         <div className="flex flex-col items-center truncate">
           <div className="truncate">
             <CardTitle className="text-lg font-bold truncate">
-              {imagem.title}
+              {imagem.name}
             </CardTitle>
           </div>
           <div className="flex">
             <Image
               src={imagem.url}
-              alt={imagem.title}
-              width={200}
-              height={200}
+              alt={imagem.name}
+              width={400}
+              height={400}
             />
           </div>
           <CardDescription className="text-sm text-gray-500 truncate">

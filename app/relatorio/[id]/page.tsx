@@ -1,9 +1,19 @@
 import { getRelatorioById } from '@/app/_components/relatorio/actions'
+import imagem from '@/assets/image.svg'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { PhotoAnalisysType } from '@/lib/types'
+import { PlusIcon } from 'lucide-react'
+import Image from 'next/image'
 import { DialogServiceDescription } from '../_components/dialogServiceDescription'
+import ModalAddCardPhoto from '../_components/modalAddCardPhoto'
 import PhotoAnalisys from '../_components/photoAnalisys'
 import { RemoveServices } from '../_components/removerServices'
-import { UploadImage } from '../_components/UploadImage'
 import { getDescriptionsId, getPhotoAnalisysById } from '../actions'
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -14,6 +24,11 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main className="flex flex-col items-center bg-slate-300 w-full">
+      <ModalAddCardPhoto
+        textButton={<PlusIcon className="w-6 h-6" />}
+        textDescription={'Adicione uma nova foto'}
+        textTitle={'Adicionar Foto'}
+      />
       <header className="flex flex-col bg-white">
         <div className="flex items-center justify-between">
           <div className="w-44 h-20 bg-slate-400"></div>
@@ -168,8 +183,30 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       </header>
       <aside className="flex flex-col items-center container py-4">
-        <PhotoAnalisys photoAnalisys={photoAnalisys} />
-        <UploadImage />
+        {photoAnalisys.length > 0 ? (
+          <PhotoAnalisys photoAnalisys={photoAnalisys} />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {Array.from({ length: 5 }, (_, index) => (
+              <Card key={index}>
+                <div className="flex flex-col items-center truncate">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-bold truncate">
+                      Imagem {index + 1}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="w-[430px]">
+                    <Image src={imagem} alt="Imagem" width={400} height={400} />
+                  </CardContent>
+                  <CardFooter className="flex justify-between w-full">
+                    <p>{index + 1}</p>
+                    <p>Card Footer {index + 1}</p>
+                  </CardFooter>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
       </aside>
       <footer className="flex flex-col bg-white">
         <div className="flex items-center justify-between">

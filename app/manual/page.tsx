@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import Component from './_components/component'
 
-const photos = Array.from({ length: 20 }, (_, index) => ({
+const photos = Array.from({ length: 10 }, (_, index) => ({
   id: index + 1,
   title: `Photo ${index + 1}`,
   url: `https://via.placeholder.com/${(index + 1) * 50}`,

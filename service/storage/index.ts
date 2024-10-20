@@ -1,9 +1,9 @@
-import { CONFIG } from '@/config'
-import { MinioStorageProvider } from './implementations/minio'
+// import { CONFIG } from '@/config'
+// import { MinioStorageProvider } from './implementations/minio'
 
-const providers = {
-  MINIO: new MinioStorageProvider(),
-}
+// const providers = {
+//   MINIO: new MinioStorageProvider(),
+// }
 
-export const storageProvider =
-  providers[CONFIG.providers.storage.provider as keyof typeof providers]
+// export const storageProvider =
+//   providers[CONFIG.providers.storage.provider as keyof typeof providers]

@@ -5,11 +5,8 @@ export async function convertFileToBuffer(file: File) {
   // Convert stream to buffer
   const chunks = []
 
-  const reader = stream.getReader()
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    chunks.push(value)
+  for await (const chunk of stream as any) {
+    chunks.push(chunk)
   }
 
   const buffer = Buffer.concat(chunks)

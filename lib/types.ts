@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export type Relatorio = {
   id?: number
   nomeCliente: string
@@ -32,6 +34,14 @@ export type PhotoAnalisysType = {
   idReport: number
   url: string
   name: string
+  description: string
+}
+
+export type Photo = {
+  id: number
+  title: string
+  url: string
+  description: string
 }
 
 export type DescriptionAnalisysType = {
@@ -45,4 +55,10 @@ export type DescriptionAnalisysFull = {
   idReport: number
   services: string
   status: string
+}
+
+export type ModalAddCardPhotoType = {
+  textButton: ReactNode | string
+  textTitle: string
+  textDescription: string
 }

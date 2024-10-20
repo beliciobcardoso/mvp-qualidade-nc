@@ -1,6 +1,68 @@
 'use server'
+import { CONFIG } from '@/config'
 import prisma from '@/lib/prisma'
 import { DescriptionAnalisysType, PhotoAnalisysType } from '@/lib/types'
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+
+const clientS3 = new S3Client({
+  region: CONFIG.providers.storage.region,
+  endpoint: CONFIG.providers.storage.endpoint,
+  credentials: {
+    accessKeyId: CONFIG.providers.storage.accessKeyId,
+    secretAccessKey: CONFIG.providers.storage.secretAccessKey,
+  },
+})
+
+// const exists = async (bucket: string) => {
+//   try {
+//     await clientS3.send(new HeadBucketCommand({ Bucket: bucket }))
+//     return true
+//   } catch (error) {
+//     return false
+//   }
+// }
+
+export async function upLoadPhotoAnalisys(
+  formData: FormData,
+  idReport: number,
+) {
+  // if (!(await exists(CONFIG.providers.storage.bucket))) {
+  //   console.log('Bucket does not exist')
+
+  //   const command = new CreateBucketCommand({
+  //     ACL: 'public-read',
+  //     Bucket: CONFIG.providers.storage.bucket,
+  //     CreateBucketConfiguration: {
+  //       LocationConstraint: 'EU',
+  //     },
+  //   })
+
+  //   const response = await clientS3.send(command)
+
+  //   console.log('Bucket created:', response)
+  // }
+
+  const file = formData.get('file') as File
+
+  const binaryFile = await file.arrayBuffer()
+  const fileBuffer = Buffer.from(binaryFile)
+
+  // upload file to storage asynchronously
+  const uploadParams = {
+    Bucket: CONFIG.providers.storage.bucket,
+    Key: `${idReport}/${file.name}`,
+    Body: fileBuffer,
+    ContentType: file.type,
+  }
+
+  try {
+    await clientS3.send(new PutObjectCommand(uploadParams))
+    const url = `${CONFIG.providers.storage.endpoint}/${CONFIG.providers.storage.bucket}/${idReport}/${file.name}`
+    return url
+  } catch (error) {
+    console.log('Error uploading file:', error)
+  }
+}
 
 export async function savePhotoAnalisys(data: PhotoAnalisysType) {
   // save relatorio to database asynchronously
