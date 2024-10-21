@@ -13,6 +13,12 @@ const clientS3 = new S3Client({
   },
 })
 
+function validateImageType(file: File) {
+  if (file.type.startsWith('image/')) return true
+  console.log('Please select a valid image')
+  return false
+}
+
 // const exists = async (bucket: string) => {
 //   try {
 //     await clientS3.send(new HeadBucketCommand({ Bucket: bucket }))
@@ -55,12 +61,12 @@ export async function upLoadPhotoAnalisys(
     ContentType: file.type,
   }
 
-  try {
+  if (validateImageType(file)) {
     await clientS3.send(new PutObjectCommand(uploadParams))
     const url = `${CONFIG.providers.storage.endpoint}/${CONFIG.providers.storage.bucket}/${idReport}/${file.name}`
     return url
-  } catch (error) {
-    console.log('Error uploading file:', error)
+  } else {
+    return null
   }
 }
 

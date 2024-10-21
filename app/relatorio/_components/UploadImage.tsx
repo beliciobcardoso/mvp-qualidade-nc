@@ -11,7 +11,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -26,22 +26,7 @@ export function UploadImage() {
   const [isDragging, setIsDragging] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
   const idReport = Number(pathname.split('/').pop())
-
-  async function submitForm(formData: FormData) {
-    console.log('Pathname:', pathname)
-    const url = await upLoadPhotoAnalisys(formData, idReport)
-
-    if (url) {
-      setImageUrl(url)
-      console.log('Image uploaded successfully:', url)
-    }
-  }
-
-  function validateImageType(file: File) {
-    if (file.type.startsWith('image/')) return true
-    console.log('Please select a valid image')
-    return false
-  }
+  const router = useRouter()
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault()
@@ -50,46 +35,25 @@ export function UploadImage() {
 
   async function handleDrop(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault()
-    const file = e.dataTransfer.files[0]
     setIsDragging(false)
-
-    file && (await handleUploadImage(file))
-  }
-
-  // async function handleFileInput(e: React.ChangeEvent<HTMLInputElement>) {
-  //   const file = e.target.files?.[0]
-  //   // console.log('File:', file)
-
-  //   file && (await handleUploadImage(file))
-  // }
-
-  async function handleUploadImage(file: File) {
-    try {
-      if (validateImageType(file)) {
-        const formData = new FormData()
-        formData.append('file', file)
-
-        const arquivo = formData.get('file') as File
-        console.log(arquivo)
-
-        // const response = await fetch('/api/upload', {
-        //   method: 'POST',
-        //   body: formData,
-        // })
-
-        // const { imageUrl, error } = await response.json()
-
-        // if (error) throw new Error(error)
-      }
-    } catch (error) {
-      console.error(error)
-      console.log('An error happened while uploading the image')
-    } finally {
-      console.log('Image uploaded successfully')
+    const file = e.dataTransfer.files[0]
+    if (file) {
+      const formData = new FormData()
+      formData.append('file', file)
+      await submitForm(formData)
     }
   }
 
-  // 1. Define your form.
+  async function submitForm(formData: FormData) {
+    const url = await upLoadPhotoAnalisys(formData, idReport)
+
+    if (url !== null) {
+      setImageUrl(url)
+    } else {
+      setImageUrl('')
+    }
+  }
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -97,10 +61,7 @@ export function UploadImage() {
     },
   })
 
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     const fileName = imageUrl.split('/').pop() as string
     const data = {
       idReport,
@@ -110,6 +71,9 @@ export function UploadImage() {
     }
 
     await savePhotoAnalisys(data)
+    router.refresh()
+    setImageUrl('')
+    form.reset()
   }
 
   return (
@@ -135,13 +99,13 @@ export function UploadImage() {
         } border-2 border-dashed rounded-xl p-2 flex items-center flex-col w-full justify-center gap-2`}
       >
         {imageUrl ? (
-          <Image src={imageUrl} alt="Uploaded image" width={200} height={200} />
+          <Image src={imageUrl} alt="Uploaded image" width={300} height={300} />
         ) : (
           <Image
             src={DefaultUploadImage}
             alt="Upload image"
-            width={100}
-            height={100}
+            width={300}
+            height={300}
           />
         )}
         <p className="text-sm dark:text-white">
@@ -152,20 +116,29 @@ export function UploadImage() {
       <div>
         <div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4 w-full"
+            >
               <FormField
                 control={form.control}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Descrição" {...field} />
+                      <Input
+                        className="w-[450px]"
+                        placeholder="Descrição"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={!imageUrl}>
+                Submit
+              </Button>
             </form>
           </Form>
         </div>
