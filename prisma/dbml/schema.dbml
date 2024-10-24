@@ -1,0 +1,117 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table PhotoAnalisys {
+  id Int [pk, increment]
+  idReport Int [not null]
+  report Report [not null]
+  url String [not null]
+  name String [not null]
+  description String [not null]
+}
+
+Table DescriptionAnalisys {
+  id Int [pk, increment]
+  idReport Int [not null]
+  report Report [not null]
+  service String [not null]
+  status String [not null]
+}
+
+Table Report {
+  id Int [pk, increment]
+  dateService DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime
+  finishedAt DateTime
+  typeSite String [not null]
+  structureType String [not null]
+  photoAnalisys PhotoAnalisys [not null]
+  descriptionAnalisys DescriptionAnalisys [not null]
+  client Client [not null]
+  clientId String [not null]
+  technician Technician [not null]
+  technicianId String [not null]
+  user User
+  userId String
+}
+
+Table Client {
+  id String [pk]
+  name String [not null]
+  img String
+  site Site [not null]
+  reports Report [not null]
+}
+
+Table Site {
+  id Int [pk, increment]
+  idSite String [not null]
+  altura String
+  endereco String [not null]
+  bairro String [not null]
+  numero String [not null]
+  cidade String [not null]
+  uf String [not null]
+  structureType StructureType [not null]
+  structureTypeId Int [not null]
+  client Client [not null]
+  idClient String [not null]
+  siteType SiteType [not null]
+  siteTypeId Int [not null]
+}
+
+Table SiteType {
+  id Int [pk, increment]
+  name String [not null]
+  sites Site [not null]
+}
+
+Table StructureType {
+  id Int [pk, increment]
+  name String [not null]
+  sites Site [not null]
+}
+
+Table Technician {
+  id String [pk]
+  name String [not null]
+  reports Report [not null]
+}
+
+Table User {
+  id String [pk]
+  name String [not null]
+  email String [unique, not null]
+  role Role [not null]
+  passwordHash String [not null]
+  lastLogin DateTime
+  failedLoginAttempts Int [not null, default: 0]
+  createdAt DateTime [default: `now()`, not null]
+  reports Report [not null]
+}
+
+Enum Role {
+  ADMIN
+  USER
+  ANALYST
+  TECHNICIAN
+  COORDINATOR
+}
+
+Ref: PhotoAnalisys.idReport > Report.id
+
+Ref: DescriptionAnalisys.idReport > Report.id
+
+Ref: Report.clientId > Client.id
+
+Ref: Report.technicianId > Technician.id
+
+Ref: Report.userId > User.id
+
+Ref: Site.structureTypeId > StructureType.id
+
+Ref: Site.idClient > Client.id
+
+Ref: Site.siteTypeId > SiteType.id

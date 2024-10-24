@@ -1,5 +1,5 @@
-import { DialogRelatorio } from './_components/relatorio/dialogRelatorio'
-import ListaRelatorio from './_components/relatorio/listaRelatorio'
+import { DialogRelatorio } from '@/app/_components/relatorio/dialogRelatorio'
+import ListaRelatorio from '@/app/_components/relatorio/listaRelatorio'
 
 export default function Home() {
   return (

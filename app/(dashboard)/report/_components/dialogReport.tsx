@@ -1,5 +1,5 @@
 'use client'
-import { DialogReportProps } from '@/app/(main)/report/_components/typeDialog'
+import { DialogReportProps } from '@/app/(dashboard)/report/_components/typeDialog'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,

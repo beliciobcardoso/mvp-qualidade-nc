@@ -1,34 +1,14 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model Report {
-  id                  Int                   @id @default(autoincrement())
-  nomeCliente         String
-  idSite              String
-  altura              String?
-  endereco            String
-  bairro              String
-  numero              String
-  cidade              String
-  uf                  String
-  tecnico             String
-  dataServico         DateTime
-  createdAt           DateTime              @default(now())
-  updatedAt           DateTime?
-  finishedAt          DateTime?
-  tipoSite            String
-  tipoEstrutura       String
-  photoAnalisys       PhotoAnalisys[]
-  DescriptionAnalisys DescriptionAnalisys[]
 }
 
 model PhotoAnalisys {
@@ -44,12 +24,87 @@ model DescriptionAnalisys {
   id       Int    @id @default(autoincrement())
   idReport Int
   report   Report @relation(fields: [idReport], references: [id])
-  services String
+  service  String
   status   String
 }
 
-model User {
-  id    String @id @default(cuid())
+model Report {
+  id                  Int                   @id @default(autoincrement())
+  dateService         DateTime
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime?
+  finishedAt          DateTime?
+  typeSite            String
+  structureType       String
+  photoAnalisys       PhotoAnalisys[]
+  descriptionAnalisys DescriptionAnalisys[]
+  client              Client                @relation(fields: [clientId], references: [id])
+  clientId            String
+  technician          Technician            @relation(fields: [technicianId], references: [id])
+  technicianId        String
+  user                User?                 @relation(fields: [userId], references: [id])
+  userId              String?
+}
+
+model Client {
+  id      String   @id @default(cuid())
+  name    String
+  img     String?
+  site    Site[]
+  reports Report[]
+}
+
+model Site {
+  id              Int           @id @default(autoincrement())
+  idSite          String
+  altura          String?
+  endereco        String
+  bairro          String
+  numero          String
+  cidade          String
+  uf              String
+  structureType   StructureType @relation(fields: [structureTypeId], references: [id])
+  structureTypeId Int
+  client          Client        @relation(fields: [idClient], references: [id])
+  idClient        String
+  siteType        SiteType      @relation(fields: [siteTypeId], references: [id])
+  siteTypeId      Int
+}
+
+model SiteType {
+  id    Int    @id @default(autoincrement())
   name  String
-  email String @unique
+  sites Site[]
+}
+
+model StructureType {
+  id    Int    @id @default(autoincrement())
+  name  String
+  sites Site[]
+}
+
+model Technician {
+  id      String   @id @default(cuid())
+  name    String
+  reports Report[]
+}
+
+model User {
+  id                  String    @id @default(cuid())
+  name                String
+  email               String    @unique
+  role                Role
+  passwordHash        String
+  lastLogin           DateTime?
+  failedLoginAttempts Int       @default(0)
+  createdAt           DateTime  @default(now())
+  reports             Report[]
+}
+
+enum Role {
+  ADMIN
+  USER
+  ANALYST
+  TECHNICIAN
+  COORDINATOR
 }
