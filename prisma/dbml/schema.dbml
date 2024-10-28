@@ -86,8 +86,6 @@ Table User {
   email String [unique, not null]
   role Role [not null]
   passwordHash String [not null]
-  lastLogin DateTime
-  failedLoginAttempts Int [not null, default: 0]
   createdAt DateTime [default: `now()`, not null]
   reports Report [not null]
 }

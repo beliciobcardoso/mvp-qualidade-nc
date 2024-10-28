@@ -11,9 +11,12 @@ import {
 import { cn } from '@/lib/utils'
 import {
   BriefcaseBusiness,
+  ChartSpline,
   ExpandIcon,
   IdCard,
-  Settings,
+  LandPlotIcon,
+  NotepadTextIcon,
+  RadioTower,
   UserRoundPlus,
   WrenchIcon,
 } from 'lucide-react'
@@ -23,32 +26,32 @@ const cadastros = [
   {
     icon: <BriefcaseBusiness className="size-4" />,
     label: 'Clientes',
-    href: '/admin',
+    href: '/admin/client',
   },
   {
     icon: <WrenchIcon className="size-4" />,
     label: 'Técnicos',
-    href: '/admin',
+    href: '/admin/technician',
   },
   {
-    icon: <BriefcaseBusiness className="size-4" />,
+    icon: <RadioTower className="size-4" />,
     label: 'Tipos de Estruturas',
-    href: '/admin',
+    href: '/admin/structureType',
   },
   {
     icon: <ExpandIcon className="size-4" />,
     label: 'Tipos de Sites',
-    href: '/admin',
+    href: '/admin/siteType',
   },
   {
-    icon: <BriefcaseBusiness className="size-4" />,
+    icon: <LandPlotIcon className="size-4" />,
     label: 'Sites',
-    href: '/admin',
+    href: '/admin/site',
   },
   {
     icon: <UserRoundPlus className="size-4" />,
     label: 'Usuários',
-    href: '/admin',
+    href: '/admin/user',
   },
 ]
 
@@ -56,14 +59,14 @@ const data = {
   menu: {
     items: [
       {
-        icon: <Settings className="size-4" />,
-        label: 'Relatórios',
+        icon: <ChartSpline className="size-4" />,
+        label: 'Dashboard',
         href: '/',
       },
       {
-        icon: <BriefcaseBusiness className="size-4" />,
-        label: 'TROCA',
-        href: '/admin',
+        icon: <NotepadTextIcon className="size-4" />,
+        label: 'Relatórios',
+        href: '/relatorio',
       },
     ],
   },

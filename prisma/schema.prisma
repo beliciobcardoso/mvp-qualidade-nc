@@ -90,15 +90,13 @@ model Technician {
 }
 
 model User {
-  id                  String    @id @default(cuid())
-  name                String
-  email               String    @unique
-  role                Role
-  passwordHash        String
-  lastLogin           DateTime?
-  failedLoginAttempts Int       @default(0)
-  createdAt           DateTime  @default(now())
-  reports             Report[]
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  role         Role
+  passwordHash String
+  createdAt    DateTime @default(now())
+  reports      Report[]
 }
 
 enum Role {
