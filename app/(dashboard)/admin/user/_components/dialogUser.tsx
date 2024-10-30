@@ -52,11 +52,15 @@ export function DialogUser({
     },
   })
 
+  async function handleEdit(values: UserSchema) {
+    console.log(values)
+  }
+
   // 2. Define a submit handler.
   async function onSubmit(values: UserSchema) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(dialogData)
+    // console.log(dialogData)
     // console.log(values)
 
     if (dialogData) {
@@ -100,7 +104,10 @@ export function DialogUser({
         </DialogHeader>
         {dialogData ? (
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+            <form
+              onSubmit={form.handleSubmit(handleEdit)}
+              className="space-y-2"
+            >
               <FormField
                 control={form.control}
                 name="name"
