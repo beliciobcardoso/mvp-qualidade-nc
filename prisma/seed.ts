@@ -53,7 +53,7 @@ async function main() {
     },
   })
 
-  // Tecnicos
+  // Técnicos
 
   await prisma.technician.create({
     data: {
@@ -89,11 +89,6 @@ async function main() {
     { name: 'POSTE METÁLICO' },
     { name: 'SUPORTE' },
     { name: 'OUTROS' },
-    { name: 'TORRE DE ALUMÍNIO' },
-    { name: 'TORRE DE FIBRA' },
-    { name: 'TORRE DE PLÁSTICO' },
-    { name: 'TORRE DE PEDRA' },
-    { name: 'TORRE DE CIMENTO' },
   ]
 
   for (const structureType of structureTypes) {
@@ -113,6 +108,204 @@ async function main() {
         name: siteType.name,
       },
     })
+  }
+
+  // Sites
+
+  const client = await prisma.client.findFirst({
+    where: {
+      name: 'Cliente 1',
+    },
+  })
+
+  const structureType = await prisma.structureType.findFirst({
+    where: {
+      name: 'TORRE METÁLICA',
+    },
+  })
+
+  const siteType = await prisma.siteType.findFirst({
+    where: {
+      name: 'GREEN FIELD',
+    },
+  })
+
+  if (client && structureType && siteType) {
+    await prisma.site.create({
+      data: {
+        idSite: '123456',
+        altura: '20 metros',
+        endereco: 'Rua das Flores',
+        numero: '123',
+        bairro: 'Jardim das Flores',
+        cidade: 'São Paulo',
+        uf: 'SP',
+        client: {
+          connect: {
+            id: client.id,
+          },
+        },
+        structureType: {
+          connect: {
+            id: structureType.id,
+          },
+        },
+        siteType: {
+          connect: {
+            id: siteType.id,
+          },
+        },
+      },
+    })
+  } else {
+    console.error('Client, Structure Type or Site Type not  found.')
+  }
+
+  const client2 = await prisma.client.findFirst({
+    where: {
+      name: 'Cliente 2',
+    },
+  })
+
+  const structureType2 = await prisma.structureType.findFirst({
+    where: {
+      name: 'SUPORTE',
+    },
+  })
+
+  const siteType2 = await prisma.siteType.findFirst({
+    where: {
+      name: 'ROOF TOP',
+    },
+  })
+
+  if (client2 && structureType2 && siteType2) {
+    await prisma.site.create({
+      data: {
+        idSite: '654321',
+        altura: '10 metros',
+        endereco: 'Rua das Rosas',
+        numero: '321',
+        bairro: 'Jardim das Rosas',
+        cidade: 'São Paulo',
+        uf: 'SP',
+        client: {
+          connect: {
+            id: client2.id,
+          },
+        },
+        structureType: {
+          connect: {
+            id: structureType2.id,
+          },
+        },
+        siteType: {
+          connect: {
+            id: siteType2.id,
+          },
+        },
+      },
+    })
+  } else {
+    console.error('Client, Structure Type or Site Type not  found.')
+  }
+
+  // Relatórios
+
+  const user1 = await prisma.user.findFirst({
+    where: {
+      name: 'Fulano Tal',
+    },
+  })
+
+  const user2 = await prisma.user.findFirst({
+    where: {
+      name: 'Jane Doe',
+    },
+  })
+
+  const site1 = await prisma.site.findFirst({
+    where: {
+      idSite: '123456',
+    },
+  })
+
+  const site2 = await prisma.site.findFirst({
+    where: {
+      idSite: '654321',
+    },
+  })
+
+  const technician1 = await prisma.technician.findFirst({
+    where: {
+      name: 'Técnico 1',
+    },
+  })
+
+  const technician2 = await prisma.technician.findFirst({
+    where: {
+      name: 'Técnico 2',
+    },
+  })
+
+  if (site1 && technician1 && user1) {
+    await prisma.report.create({
+      data: {
+        sites: {
+          connect: {
+            id: site1.id,
+          },
+        },
+        client: {
+          connect: {
+            id: site1.idClient,
+          },
+        },
+        technician: {
+          connect: {
+            id: technician1.id,
+          },
+        },
+        user: {
+          connect: {
+            id: user1.id,
+          },
+        },
+        dateService: new Date('2024-10-10'),
+      },
+    })
+  } else {
+    console.error('Site or Technician not found.')
+  }
+
+  if (site2 && technician2 && user2) {
+    await prisma.report.create({
+      data: {
+        sites: {
+          connect: {
+            id: site2.id,
+          },
+        },
+        client: {
+          connect: {
+            id: site2.idClient,
+          },
+        },
+        technician: {
+          connect: {
+            id: technician2.id,
+          },
+        },
+        user: {
+          connect: {
+            id: user2.id,
+          },
+        },
+        dateService: new Date('2024-10-11'),
+      },
+    })
+  } else {
+    console.error('Site or Technician not found.')
   }
 
   console.log('Seeding completed successfully.')

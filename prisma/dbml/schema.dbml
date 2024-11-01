@@ -21,12 +21,12 @@ Table DescriptionAnalisys {
 
 Table Report {
   id Int [pk, increment]
+  sites Site [not null]
+  siteId Int [not null]
   dateService DateTime [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
   finishedAt DateTime
-  typeSite String [not null]
-  structureType String [not null]
   photoAnalisys PhotoAnalisys [not null]
   descriptionAnalisys DescriptionAnalisys [not null]
   client Client [not null]
@@ -60,6 +60,7 @@ Table Site {
   idClient String [not null]
   siteType SiteType [not null]
   siteTypeId Int [not null]
+  Report Report [not null]
 }
 
 Table SiteType {
@@ -101,6 +102,8 @@ Enum Role {
 Ref: PhotoAnalisys.idReport > Report.id
 
 Ref: DescriptionAnalisys.idReport > Report.id
+
+Ref: Report.siteId > Site.id
 
 Ref: Report.clientId > Client.id
 

@@ -30,12 +30,12 @@ model DescriptionAnalisys {
 
 model Report {
   id                  Int                   @id @default(autoincrement())
+  sites               Site                  @relation(fields: [siteId], references: [id])
+  siteId              Int
   dateService         DateTime
   createdAt           DateTime              @default(now())
   updatedAt           DateTime?
   finishedAt          DateTime?
-  typeSite            String
-  structureType       String
   photoAnalisys       PhotoAnalisys[]
   descriptionAnalisys DescriptionAnalisys[]
   client              Client                @relation(fields: [clientId], references: [id])
@@ -69,6 +69,7 @@ model Site {
   idClient        String
   siteType        SiteType      @relation(fields: [siteTypeId], references: [id])
   siteTypeId      Int
+  Report          Report[]
 }
 
 model SiteType {
