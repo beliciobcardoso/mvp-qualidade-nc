@@ -49,6 +49,14 @@ export async function updatePassword(user: UserSchema) {
 }
 
 export async function getData() {
-  const data = await prisma.user.findMany()
+  const data = await prisma.user.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+    },
+  })
   return data
 }

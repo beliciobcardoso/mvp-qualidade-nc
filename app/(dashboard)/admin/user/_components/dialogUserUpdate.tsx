@@ -23,13 +23,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { userSchema, UserSchema } from '@/lib/formValidationSchemas'
+import { UserUpdateSchema, userUpdateSchema } from '@/lib/formValidationSchemas'
+import { DialogNewProps } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { createUser, updateUser } from '../actions'
-import { DialogNewProps } from '../type'
+import { updateUser } from '../actions'
 
 export function DialogUserUpdate({
   dialogButton,
@@ -39,10 +39,9 @@ export function DialogUserUpdate({
 }: DialogNewProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  // console.log(dialogData)
-  // 1. Define your form.
-  const form = useForm<UserSchema>({
-    resolver: zodResolver(userSchema),
+
+  const form = useForm<UserUpdateSchema>({
+    resolver: zodResolver(userUpdateSchema),
     defaultValues: {
       name: dialogData?.name ?? '',
       email: dialogData?.email ?? '',
@@ -50,29 +49,18 @@ export function DialogUserUpdate({
     },
   })
 
-  // 2. Define a submit handler.
-  async function onSubmit(values: UserSchema) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(dialogData)
-    // console.log(values)
-
+  async function onSubmit(values: UserUpdateSchema) {
     if (dialogData) {
       await updateUser({
-        id: dialogData.id,
+        id: dialogData.id ?? '',
         name: values.name,
         email: values.email,
         role: values.role ?? 'USER',
       })
       router.refresh()
       setOpen(false)
+      form.reset()
     } else {
-      await createUser({
-        name: values.name,
-        email: values.email,
-        role: values.role ?? 'USER',
-        password: values.password,
-      })
       router.refresh()
       setOpen(false)
       form.reset()
@@ -126,19 +114,6 @@ export function DialogUserUpdate({
             />
             <FormField
               control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Senha</FormLabel>
-                  <FormControl>
-                    <Input placeholder="********" type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="role"
               render={({ field }) => (
                 <FormItem>
@@ -164,7 +139,6 @@ export function DialogUserUpdate({
                 </FormItem>
               )}
             />
-
             <Button type="submit">Salvar</Button>
           </form>
         </Form>
