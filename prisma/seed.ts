@@ -133,7 +133,7 @@ async function main() {
   if (client && structureType && siteType) {
     await prisma.site.create({
       data: {
-        idSite: '123456',
+        idSite: 'BR251552-AQW',
         altura: '20 metros',
         endereco: 'Rua das Flores',
         numero: '123',
@@ -182,7 +182,7 @@ async function main() {
   if (client2 && structureType2 && siteType2) {
     await prisma.site.create({
       data: {
-        idSite: '654321',
+        idSite: 'BR252556-ADF',
         altura: '10 metros',
         endereco: 'Rua das Rosas',
         numero: '321',
@@ -226,13 +226,13 @@ async function main() {
 
   const site1 = await prisma.site.findFirst({
     where: {
-      idSite: '123456',
+      idSite: 'BR251552-AQW',
     },
   })
 
   const site2 = await prisma.site.findFirst({
     where: {
-      idSite: '654321',
+      idSite: 'BR252556-ADF',
     },
   })
 
