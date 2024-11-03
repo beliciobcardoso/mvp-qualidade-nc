@@ -21,3 +21,14 @@ export const userSchema = z
   })
 
 export type UserSchema = z.infer<typeof userSchema>
+
+export const userUpdateSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(3, {
+    message: 'Nome de usuário deve ter pelo menos 3 caracteres.',
+  }),
+  email: z.string().email(),
+  role: z.enum(['ADMIN', 'USER', 'ANALYST', 'TECHNICIAN', 'COORDINATOR']),
+})
+
+export type UserUpdateSchema = z.infer<typeof userUpdateSchema>

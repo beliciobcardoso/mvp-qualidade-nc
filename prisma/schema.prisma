@@ -3,7 +3,8 @@ generator dbml {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -94,6 +95,7 @@ model User {
   id           String   @id @default(cuid())
   name         String
   email        String   @unique
+  avatar       String?
   role         Role
   passwordHash String
   createdAt    DateTime @default(now())

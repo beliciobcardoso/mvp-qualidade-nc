@@ -1,12 +1,12 @@
 'use client'
-import { User } from '@prisma/client'
 import { ColumnDef } from '@tanstack/react-table'
-import { DialogUser } from './dialogUser'
 
+import { UserForm } from '@/lib/types'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { DialogUserUpdate } from './dialogUserUpdate'
 
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<UserForm>[] = [
   {
     accessorKey: 'name',
     header: 'Nome',
@@ -33,10 +33,10 @@ export const columns: ColumnDef<User>[] = [
     cell: ({ row }) => {
       const person = row.original
       return (
-        <DialogUser
+        <DialogUserUpdate
           dialogButton={'Editar'}
-          dialogDescription={'Editar Nome'}
-          dialogTitle={'Tela para Editar Nome'}
+          dialogTitle={'Tela para Editar um Usuário'}
+          dialogDescription={'Editar Usuário'}
           dialogData={person}
         />
       )

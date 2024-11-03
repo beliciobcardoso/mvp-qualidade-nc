@@ -2,21 +2,70 @@ import { ReactNode } from 'react'
 
 export type Relatorio = {
   id?: number
-  nomeCliente: string
-  idSite: string
-  altura?: string
-  endereco: string
-  bairro: string
-  numero: string
-  cidade: string
-  uf: string
-  tecnico: string
-  dataServico: Date
+  siteId: number
+  dateService: Date
   createdAt: Date
-  updatedAt?: Date
-  finishedAt?: Date
-  tipoSite: string
-  tipoEstrutura: string
+  updatedAt: Date | null
+  finishedAt: Date | null
+  clientId: string
+  technicianId: string
+  userId: string | null
+  technician: {
+    name: string
+  }
+  client: {
+    name: string
+  }
+  user: {
+    name: string
+  }
+  sites: {
+    id: number
+    idSite: string
+    altura: string
+    endereco: string
+    bairro: string
+    cidade: string
+    numero: string
+    uf: string
+    siteType: {
+      name: string
+    }
+    structureType: {
+      name: string
+    }
+  }
+}
+
+export type UserCreate = {
+  name: string
+  email: string
+  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  password: string
+}
+
+export type UserUpdate = {
+  id: string
+  name: string
+  email: string
+  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+}
+
+export type UserForm = {
+  id?: string
+  name: string
+  avatar?: string
+  email: string
+  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  createdAt: Date
+}
+
+export type DialogNewProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  dialogData?: UserForm
+  openDialog?: boolean
 }
 
 export type DialogReportProps = {
@@ -24,6 +73,13 @@ export type DialogReportProps = {
   dialogTitle: string
   dialogDescription: string
   relatorio?: Relatorio
+  dataUser: {
+    id: string
+    name: string
+    avatar: string
+    email: string
+    role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  }
 }
 export type PersonProps = {
   person: string
@@ -46,7 +102,7 @@ export type Photo = {
 
 export type DescriptionAnalisysType = {
   idReport: number
-  services: string
+  service: string
   status: string
 }
 
