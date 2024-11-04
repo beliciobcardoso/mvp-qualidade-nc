@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserUpdateSchema, userUpdateSchema } from '@/lib/formValidationSchemas'
-import { DialogNewProps } from '@/lib/types'
+import { DialogNewUserProps } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -36,7 +36,7 @@ export function DialogUserUpdate({
   dialogTitle,
   dialogDescription,
   dialogData,
-}: DialogNewProps) {
+}: DialogNewUserProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
