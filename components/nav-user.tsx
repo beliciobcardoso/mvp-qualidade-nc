@@ -11,16 +11,9 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { User } from '@/lib/types'
 
-export function UserNav({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
+export function UserNav(user: User) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

@@ -92,7 +92,7 @@ export function NavMenu() {
           </NavigationMenuItem>
         ))}
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
+          <NavigationMenuTrigger className="px-2">
             <IdCard className="size-4" />
             CADASTROS
           </NavigationMenuTrigger>

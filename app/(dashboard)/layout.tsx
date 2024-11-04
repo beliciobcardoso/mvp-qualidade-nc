@@ -1,14 +1,17 @@
 import { NavMenu } from '@/components/nav-menu'
 import { UserNav } from '@/components/nav-user'
 import { Separator } from '@/components/ui/separator'
+import { User } from '@/lib/types'
 import { Command } from 'lucide-react'
 
-const data = {
+export const dataUser = {
   user: {
+    id: 'cd1b1b1b-1b1b-1b1b-1b1b-1b1b1b1b1b1b',
     name: 'Fulano de Tal',
     email: 'fulano.tal@email.com',
     avatar: '/avatars/shadcn.jpg',
-  },
+    role: 'ADMIN',
+  } as User,
 }
 
 export default function DashboardLayout({
@@ -36,7 +39,7 @@ export default function DashboardLayout({
         </nav>
         <Separator className="my-1" />
         <footer className="bg-slate-300 flex items-center pl-2 py-2 flex-grow-0">
-          <UserNav user={data.user} />
+          <UserNav {...dataUser.user} />
         </footer>
       </aside>
       <main className="w-[86%] md:w-[92%] lg:w-[84%] xl:w-[86%] bg-[#F7F8FA] overflow-scroll flex flex-col">

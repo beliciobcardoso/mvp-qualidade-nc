@@ -31,7 +31,6 @@ import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { saveRelatorio } from './actions'
 
 const formSchema = z.object({
   nomeCliente: z
@@ -62,8 +61,8 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      nomeCliente: report ? report.nomeCliente : '',
-      idSite: report ? report.idSite : '',
+      // nomeCliente: report ? report.nomeCliente : '',
+      // idSite: report ? report.idSite : '',
       altura: report ? report.altura : '',
       endereco: report ? report.endereco : '',
       bairro: report ? report.bairro : '',
@@ -71,25 +70,26 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
       cidade: report ? report.cidade : '',
       uf: report ? report.uf : '',
       tecnico: report ? report.tecnico : '',
-      dataServico: report ? new Date(report.dataServico) : new Date(),
-      tipoSite: report ? report.tipoSite : '',
-      tipoEstrutura: report ? report.tipoEstrutura : '',
+      // dataServico: report ? new Date(report.dataServico) : new Date(),
+      // tipoSite: report ? report.tipoSite : '',
+      // tipoEstrutura: report ? report.tipoEstrutura : '',
     },
   })
 
   function onSubmit(values: FormValues) {
     if (report) {
-      saveRelatorio({
-        ...values,
-        id: report.id,
-        createdAt: report.createdAt,
-      })
+      console.log(values)
+      // saveRelatorio({
+      //   ...values,
+      //   id: report.id,
+      //   createdAt: report.createdAt,
+      // })
       router.refresh()
     } else {
-      saveRelatorio({
-        ...values,
-        createdAt: new Date(),
-      })
+      // saveRelatorio({
+      //   ...values,
+      //   createdAt: new Date(),
+      // })
       router.refresh()
     }
   }
@@ -110,7 +110,7 @@ export default function FormRelatorio({ report }: { report?: Relatorio }) {
                       <Input
                         placeholder="Nome do Cliente"
                         {...field}
-                        defaultValue={report?.nomeCliente}
+                        defaultValue={report?.clientId}
                       />
                     </FormControl>
                     <FormMessage />

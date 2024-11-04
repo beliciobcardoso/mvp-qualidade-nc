@@ -1,42 +1,5 @@
 import { ReactNode } from 'react'
 
-export type Relatorio = {
-  id?: number
-  siteId: number
-  dateService: Date
-  createdAt: Date
-  updatedAt: Date | null
-  finishedAt: Date | null
-  clientId: string
-  technicianId: string
-  userId: string | null
-  technician: {
-    name: string
-  }
-  client: {
-    name: string
-  }
-  user: {
-    name: string
-  }
-  sites: {
-    id: number
-    idSite: string
-    altura: string
-    endereco: string
-    bairro: string
-    cidade: string
-    numero: string
-    uf: string
-    siteType: {
-      name: string
-    }
-    structureType: {
-      name: string
-    }
-  }
-}
-
 export type UserCreate = {
   name: string
   email: string
@@ -60,12 +23,95 @@ export type UserForm = {
   createdAt: Date
 }
 
+export type ClientType = {
+  id: string
+  name: string
+  img: string | null
+}
+
+export type TipoSiteType = {
+  id: number
+  name: string
+}
+
+export type StructureType = {
+  id: number
+  name: string
+}
+
+export type SiteType = {
+  id: number
+  idSite: string
+  altura: string
+  endereco: string
+  bairro: string
+  cidade: string
+  numero: string
+  uf: string
+  idClient: string
+  siteTypeId: number
+  structureTypeId: number
+}
+
+export type SiteTypeRel = {
+  id: number
+  idSite: string
+  altura: string
+  endereco: string
+  bairro: string
+  cidade: string
+  numero: string
+  uf: string
+  client: {
+    name: string
+  }
+  siteType: {
+    name: string
+  }
+  structureType: {
+    name: string
+  }
+}
+
+export type Relatorio = {
+  id?: number
+  siteId: number
+  dateService: Date
+  createdAt: Date
+  updatedAt: Date | null
+  finishedAt: Date | null
+  clientId: string
+  technicianId: string
+  userId: string | null
+  technician: {
+    name: string
+  }
+  client: {
+    name: string
+  }
+  user: {
+    name: string
+  }
+  sites: SiteType
+}
+
 export type DialogNewProps = {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
-  dialogData?: UserForm
+  relatedData?: UserForm
   openDialog?: boolean
+}
+
+export type DialogNewSiteProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  openDialog?: boolean
+  structureData?: StructureType[]
+  siteTypeData?: TipoSiteType[]
+  clientData?: ClientType[]
+  dialogData?: SiteTypeRel
 }
 
 export type DialogReportProps = {
