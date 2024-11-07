@@ -78,3 +78,10 @@ export const structureTypeSchema = z.object({
 })
 
 export type StructureTypeSchema = z.infer<typeof structureTypeSchema>
+
+export const siteTypeSchema = z.object({
+  id: z.number().optional(),
+  name: z.string().min(3, { message: 'Nome do Tipo de Site é obrigatório.' }),
+})
+
+export type SiteTypeSchema = z.infer<typeof siteTypeSchema>

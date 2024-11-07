@@ -31,7 +31,7 @@ export type ClientType = {
 }
 
 export type TipoSiteType = {
-  id: number
+  id?: number
   name: string
 }
 
@@ -200,5 +200,13 @@ export type dialogNewStructureTypeProps = {
   dialogTitle: string
   dialogDescription: string
   dialogData?: StructureTypeType
+  openDialog?: boolean
+}
+
+export type dialogNewSiteTypeProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  dialogData?: TipoSiteType
   openDialog?: boolean
 }
