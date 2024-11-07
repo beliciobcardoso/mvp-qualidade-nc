@@ -180,3 +180,16 @@ export type ModalAddCardPhotoType = {
   textTitle: string
   textDescription: string
 }
+
+export type TechnicianType = {
+  id?: string
+  name: string
+}
+
+export type dialogNewTechnicianProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  dialogData?: TechnicianType
+  openDialog?: boolean
+}
