@@ -1,3 +1,4 @@
+import { StructureType } from '@prisma/client'
 import { ReactNode } from 'react'
 
 export type UserCreate = {
@@ -34,8 +35,13 @@ export type TipoSiteType = {
   name: string
 }
 
-export type StructureType = {
-  id: number
+export type StructureTypeType = {
+  id?: number
+  name: string
+}
+
+export type TechnicianType = {
+  id?: string
   name: string
 }
 
@@ -181,15 +187,18 @@ export type ModalAddCardPhotoType = {
   textDescription: string
 }
 
-export type TechnicianType = {
-  id?: string
-  name: string
-}
-
 export type dialogNewTechnicianProps = {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
   dialogData?: TechnicianType
+  openDialog?: boolean
+}
+
+export type dialogNewStructureTypeProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  dialogData?: StructureTypeType
   openDialog?: boolean
 }

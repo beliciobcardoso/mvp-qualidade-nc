@@ -67,4 +67,14 @@ export const technicianSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(3, { message: 'Nome do Técnico é obrigatório.' }),
 })
+
 export type TechnicianSchema = z.infer<typeof clientSchema>
+
+export const structureTypeSchema = z.object({
+  id: z.number().optional(),
+  name: z
+    .string()
+    .min(3, { message: 'Nome do Tipo de Estrutura é obrigatório.' }),
+})
+
+export type StructureTypeSchema = z.infer<typeof structureTypeSchema>
