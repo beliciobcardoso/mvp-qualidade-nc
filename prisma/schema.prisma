@@ -47,14 +47,6 @@ model Report {
   userId              String?
 }
 
-model Client {
-  id      String   @id @default(cuid())
-  name    String
-  img     String?
-  site    Site[]
-  reports Report[]
-}
-
 model Site {
   id              Int           @id @default(autoincrement())
   idSite          String
@@ -100,6 +92,14 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
   reports      Report[]
+}
+
+model Client {
+  id      String   @id @default(cuid())
+  name    String
+  img     String?
+  site    Site[]
+  reports Report[]
 }
 
 enum Role {

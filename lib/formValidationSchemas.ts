@@ -54,3 +54,11 @@ export const siteSchema = z.object({
 })
 
 export type SiteSchema = z.infer<typeof siteSchema>
+
+export const clientSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(3, { message: 'Nome do Cliente é obrigatório.' }),
+  img: z.string().optional().nullable(),
+})
+
+export type ClientSchema = z.infer<typeof clientSchema>

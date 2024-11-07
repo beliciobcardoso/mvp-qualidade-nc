@@ -24,9 +24,9 @@ export type UserForm = {
 }
 
 export type ClientType = {
-  id: string
+  id?: string
   name: string
-  img: string | null
+  img?: string | null
 }
 
 export type TipoSiteType = {
@@ -99,7 +99,15 @@ export type DialogNewProps = {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
-  relatedData?: UserForm
+  dialogData?: UserForm
+  openDialog?: boolean
+}
+
+export type DialogNewUserProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  dialogData?: UserForm
   openDialog?: boolean
 }
 
@@ -112,6 +120,14 @@ export type DialogNewSiteProps = {
   siteTypeData?: TipoSiteType[]
   clientData?: ClientType[]
   dialogData?: SiteTypeRel
+}
+
+export type dialogNewClientProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  openDialog?: boolean
+  dialogData?: ClientType
 }
 
 export type DialogReportProps = {
