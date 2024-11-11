@@ -127,7 +127,7 @@ export const columns: ColumnDef<Relatorio>[] = [
       const relatorio = row.original
       return (
         <Link
-          className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground p-2 rounded-md font-medium"
+          className="rounded-md border border-input bg-background p-2 font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
           href={`/relatorio/${relatorio.id}`}
         >
           Analisar

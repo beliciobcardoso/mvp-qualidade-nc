@@ -4,7 +4,11 @@ import { StructureTypeType } from '@/lib/types'
 
 export async function getAllStructuresType() {
   try {
-    const data = await prisma.structureType.findMany()
+    const data = await prisma.structureType.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+    })
     return data
   } catch (error) {
     console.log(error)

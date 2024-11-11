@@ -75,14 +75,14 @@ const data = {
 export function NavMenu() {
   return (
     <NavigationMenu>
-      <NavigationMenuList className="flex flex-col items-start space-x-0 gap-2">
+      <NavigationMenuList className="flex flex-col items-start gap-2 space-x-0">
         {data.menu.items.map((item, index) => (
           <NavigationMenuItem key={index}>
             <Link href={item.href} legacyBehavior passHref>
               <NavigationMenuLink
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  `flex text-xs p-2 font-semibold uppercase gap-2`,
+                  `flex gap-2 p-2 text-xs font-semibold uppercase`,
                 )}
               >
                 {item.icon}
@@ -97,11 +97,11 @@ export function NavMenu() {
             CADASTROS
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="gap-2 p-2 flex flex-col w-[190px]">
+            <ul className="flex w-[190px] flex-col gap-2 p-2">
               {cadastros.map((cadastro) => (
                 <li key={cadastro.label}>
                   <Link href={cadastro.href} passHref>
-                    <NavigationMenuLink className="flex items-center gap-2 p-2 font-semibold uppercase text-xs">
+                    <NavigationMenuLink className="flex items-center gap-2 p-2 text-xs font-semibold uppercase">
                       {cadastro.icon}
                       {cadastro.label}
                     </NavigationMenuLink>

@@ -71,16 +71,9 @@ export function DialogSite({
     }
   }
 
-  const dialogStart = (sim: boolean) => {
-    setOpen(sim)
-    if (sim) {
-      form.reset()
-    }
-  }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => dialogStart(true)} variant="outline">
+      <Button onClick={() => setOpen(true)} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">
@@ -110,7 +103,7 @@ export function DialogSite({
                           </FormControl>
                           <SelectContent>
                             {clientData?.map((item) => (
-                              <SelectItem key={item.id} value={item.id}>
+                              <SelectItem key={item.id} value={String(item.id)}>
                                 {item.name}
                               </SelectItem>
                             ))}

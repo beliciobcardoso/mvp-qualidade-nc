@@ -48,16 +48,9 @@ export function DialogSiteType({
     form.reset()
   }
 
-  const dialogStart = (sim: boolean) => {
-    setOpen(sim)
-    if (sim) {
-      form.reset()
-    }
-  }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => dialogStart(true)} variant="outline">
+      <Button onClick={() => setOpen(true)} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">

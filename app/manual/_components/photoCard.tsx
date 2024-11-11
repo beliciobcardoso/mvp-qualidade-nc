@@ -13,11 +13,11 @@ type PhotoCardProps = {
 
 export default function PhotoCard({ imagem }: PhotoCardProps) {
   return (
-    <Card className="w-full group">
-      <CardHeader className="flex items-start justify-between p-4 flex-row overflow-hidden gap-2">
+    <Card className="group w-full">
+      <CardHeader className="flex flex-row items-start justify-between gap-2 overflow-hidden p-4">
         <div className="flex flex-col items-center truncate">
           <div className="truncate">
-            <CardTitle className="text-lg font-bold truncate">
+            <CardTitle className="truncate text-lg font-bold">
               {imagem.title}
             </CardTitle>
           </div>
@@ -29,7 +29,7 @@ export default function PhotoCard({ imagem }: PhotoCardProps) {
               height={200}
             />
           </div>
-          <CardDescription className="text-sm text-gray-500 truncate">
+          <CardDescription className="truncate text-sm text-gray-500">
             {imagem.description}
           </CardDescription>
         </div>

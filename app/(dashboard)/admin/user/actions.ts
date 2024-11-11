@@ -57,6 +57,9 @@ export async function getData() {
       role: true,
       createdAt: true,
     },
+    orderBy: {
+      name: 'asc',
+    },
   })
   return data
 }

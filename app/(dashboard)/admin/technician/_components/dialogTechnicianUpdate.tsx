@@ -35,7 +35,7 @@ export function DialogTechnicianUpdate({
 
   const form = useForm<TechnicianSchema>({
     resolver: zodResolver(clientSchema),
-    defaultValues: {
+    values: {
       name: dialogData?.name ?? '',
     },
   })

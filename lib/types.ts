@@ -1,6 +1,14 @@
 import { StructureType } from '@prisma/client'
 import { ReactNode } from 'react'
 
+export type User = {
+  id: string
+  name: string
+  email: string
+  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  avatar: string
+}
+
 export type UserCreate = {
   name: string
   email: string
@@ -46,7 +54,7 @@ export type TechnicianType = {
 }
 
 export type SiteType = {
-  id: number
+  id?: number
   idSite: string
   altura: string
   endereco: string
@@ -69,12 +77,15 @@ export type SiteTypeRel = {
   numero: string
   uf: string
   client: {
+    id: string
     name: string
   }
   siteType: {
+    id: number
     name: string
   }
   structureType: {
+    id: number
     name: string
   }
 }
@@ -141,13 +152,7 @@ export type DialogReportProps = {
   dialogTitle: string
   dialogDescription: string
   relatorio?: Relatorio
-  dataUser: {
-    id: string
-    name: string
-    avatar: string
-    email: string
-    role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
-  }
+  dataUser?: User
 }
 export type PersonProps = {
   person: string
@@ -203,10 +208,13 @@ export type dialogNewStructureTypeProps = {
   openDialog?: boolean
 }
 
-export type dialogNewSiteTypeProps = {
+export type DialogNewSiteTypeProps = {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
-  dialogData?: TipoSiteType
+  structureData?: StructureType[]
+  siteTypeData?: TipoSiteType[]
+  clientData?: ClientType[]
+  dialogData?: SiteTypeRel
   openDialog?: boolean
 }

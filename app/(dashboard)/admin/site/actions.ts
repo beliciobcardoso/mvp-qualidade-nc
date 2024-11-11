@@ -1,6 +1,7 @@
 'use server'
 import prisma from '@/lib/prisma'
 import { Site } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 
 export async function createSite(site: Site) {
   try {
@@ -25,6 +26,7 @@ export async function updateSite(site: Site) {
         ...site,
       },
     })
+    revalidatePath('/admin/site')
     return data
   } catch (error) {
     console.log(error)
@@ -63,19 +65,25 @@ export async function getAllSites() {
       include: {
         client: {
           select: {
+            id: true,
             name: true,
           },
         },
         structureType: {
           select: {
+            id: true,
             name: true,
           },
         },
         siteType: {
           select: {
+            id: true,
             name: true,
           },
         },
+      },
+      orderBy: {
+        idSite: 'asc',
       },
     })
     return data

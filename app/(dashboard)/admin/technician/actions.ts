@@ -60,7 +60,11 @@ export async function getTechnicianById(id: string) {
 
 export async function getAllTechnician() {
   try {
-    const data = await prisma.technician.findMany()
+    const data = await prisma.technician.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+    })
     return data
   } catch (error) {
     console.log(error)

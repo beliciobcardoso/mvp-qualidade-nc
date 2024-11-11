@@ -115,7 +115,7 @@ export function DialogRelatorio({
       <DialogTrigger asChild>
         <Button variant="outline">{dialogButton}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] sm:max-h-[600px]">
+      <DialogContent className="sm:max-h-[600px] sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
@@ -295,7 +295,6 @@ export function DialogRelatorio({
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
-                            mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
                             disabled={(date) =>

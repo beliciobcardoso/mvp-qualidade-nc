@@ -123,7 +123,7 @@ export function Dashboard() {
           </CardContent>
         </Card>
         <Card dir="ltr">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 ">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Relatórios Finalizados
             </CardTitle>
@@ -173,7 +173,7 @@ export function Dashboard() {
           </CardContent>
         </Card>
         <Card dir="ltr">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 ">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Relatórios Criados
             </CardTitle>

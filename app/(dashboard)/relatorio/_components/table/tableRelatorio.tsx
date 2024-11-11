@@ -69,18 +69,18 @@ export function TableRelatorio<TData, TValue>({
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Global Filter..."
+          placeholder="Filtro Global..."
           value={globalFilter}
           onChange={(event) => setGlobalFilter(event.target.value)}
           className="max-w-[200px]"
         />
         <Input
-          placeholder="Filter nome do Cliente..."
+          placeholder="Filtrar nome do Cliente..."
           value={(table.getColumn('Cliente')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
             table.getColumn('Cliente')?.setFilterValue(event.target.value)
           }
-          className="max-w-[200px] ml-4"
+          className="ml-4 max-w-[200px]"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -170,7 +170,7 @@ export function TableRelatorio<TData, TValue>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Anterior
           </Button>
           <Button
             variant="outline"
@@ -178,7 +178,7 @@ export function TableRelatorio<TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Próximo
           </Button>
         </div>
       </div>

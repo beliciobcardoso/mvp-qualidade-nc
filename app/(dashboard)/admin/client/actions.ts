@@ -60,7 +60,11 @@ export async function getClientById(id: string) {
 
 export async function getAllClient() {
   try {
-    const data = await prisma.client.findMany()
+    const data = await prisma.client.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+    })
     return data
   } catch (error) {
     console.log(error)

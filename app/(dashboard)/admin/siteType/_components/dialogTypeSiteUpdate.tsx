@@ -20,7 +20,7 @@ import {
   SiteTypeSchema,
   structureTypeSchema,
 } from '@/lib/formValidationSchemas'
-import { dialogNewSiteTypeProps } from '@/lib/types'
+import { DialogNewSiteTypeProps } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -32,13 +32,13 @@ export function DialogTipoSiteTypeUpdate({
   dialogTitle,
   dialogDescription,
   dialogData,
-}: dialogNewSiteTypeProps) {
+}: DialogNewSiteTypeProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
   const form = useForm<SiteTypeSchema>({
     resolver: zodResolver(structureTypeSchema),
-    defaultValues: {
+    values: {
       name: dialogData?.name ?? '',
     },
   })
@@ -55,16 +55,9 @@ export function DialogTipoSiteTypeUpdate({
     }
   }
 
-  const dialogStart = (sim: boolean) => {
-    setOpen(sim)
-    if (sim) {
-      form.reset()
-    }
-  }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => dialogStart(true)} variant="outline">
+      <Button onClick={() => setOpen(true)} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">

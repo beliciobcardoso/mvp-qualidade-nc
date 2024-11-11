@@ -42,7 +42,7 @@ export function DialogUserUpdate({
 
   const form = useForm<UserUpdateSchema>({
     resolver: zodResolver(userUpdateSchema),
-    defaultValues: {
+    values: {
       name: dialogData?.name ?? '',
       email: dialogData?.email ?? '',
       role: dialogData?.role ?? 'USER',
@@ -67,16 +67,9 @@ export function DialogUserUpdate({
     }
   }
 
-  const dialogStart = (sim: boolean) => {
-    setOpen(sim)
-    if (sim) {
-      form.reset()
-    }
-  }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => dialogStart(true)} variant="outline">
+      <Button onClick={() => setOpen(true)} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">

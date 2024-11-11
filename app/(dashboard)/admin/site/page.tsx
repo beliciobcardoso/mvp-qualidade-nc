@@ -1,5 +1,5 @@
 import { getAllClient } from '../client/actions'
-import { getAllSiteType } from '../siteType/actions'
+import { getAllSitesType } from '../siteType/actions'
 import { getAllStructuresType } from '../structureType/actions'
 import { columns } from './_components/columns'
 import { DataTable } from './_components/data-table'
@@ -12,7 +12,7 @@ export default async function Site() {
     altura: site.altura || '',
   }))
   const structureData = (await getAllStructuresType()) || []
-  const siteTypeData = (await getAllSiteType()) || []
+  const siteTypeData = (await getAllSitesType()) || []
   const clientData = (await getAllClient()) || []
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">

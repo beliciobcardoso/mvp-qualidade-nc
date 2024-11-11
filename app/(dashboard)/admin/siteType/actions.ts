@@ -4,7 +4,11 @@ import { TipoSiteType } from '@/lib/types'
 
 export async function getAllSitesType() {
   try {
-    const data = await prisma.siteType.findMany()
+    const data = await prisma.siteType.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+    })
     return data
   } catch (error) {
     console.log(error)

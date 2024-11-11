@@ -14,3 +14,14 @@ npm i
 npm run dev
 
 ```
+
+### Dependências instaladas
+```bash
+npm install -D prettier prettier-plugin-tailwindcss
+```
+    
+```bash
+npm i -D eslint @rocketseat/eslint-config
+```
+    
+    
