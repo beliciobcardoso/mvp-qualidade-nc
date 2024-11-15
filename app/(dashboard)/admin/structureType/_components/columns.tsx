@@ -17,8 +17,8 @@ export const columns: ColumnDef<StructureTypeType>[] = [
       return (
         <DialogStructureTypeUpdate
           dialogButton={'Editar'}
-          dialogTitle={'Tela para Editar um Usuário'}
-          dialogDescription={'Editar Usuário'}
+          dialogTitle={'Tipo de Estrutura'}
+          dialogDescription={'Tela para Editar Tipo de Estrutura'}
           dialogData={data}
         />
       )

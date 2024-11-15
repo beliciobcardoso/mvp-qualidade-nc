@@ -51,16 +51,14 @@ export function DialogStructureType({
     form.reset()
   }
 
-  const dialogStart = (sim: boolean) => {
-    setOpen(sim)
-    if (sim) {
-      form.reset()
-    }
+  const dialogStart = () => {
+    setOpen(true)
+    form.reset()
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => dialogStart(true)} variant="outline">
+      <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">
@@ -76,9 +74,9 @@ export function DialogStructureType({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Tipo de Estrutura</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nome Sobrenome" {...field} />
+                      <Input placeholder="Tipo de Estrutura" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

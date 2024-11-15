@@ -13,7 +13,7 @@ export default async function StructureTypePage() {
         </h2>
         <DialogStructureType
           dialogButton={'Novo Tipo de Estrutura'}
-          dialogTitle={'Salvar Tipo de Estrutura'}
+          dialogTitle={'Tipo de Estrutura'}
           dialogDescription={'Tela para salvar um novo Tipo de Estrutura'}
         />
       </div>
