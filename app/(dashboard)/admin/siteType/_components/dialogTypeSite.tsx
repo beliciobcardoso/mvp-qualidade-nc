@@ -48,9 +48,14 @@ export function DialogSiteType({
     form.reset()
   }
 
+  const dialogStart = () => {
+    setOpen(true)
+    form.reset()
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => setOpen(true)} variant="outline">
+      <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">
@@ -66,9 +71,9 @@ export function DialogSiteType({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Tipo Site</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nome Sobrenome" {...field} />
+                      <Input placeholder="Tipo de Site" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -17,8 +17,8 @@ export const columns: ColumnDef<TipoSiteType>[] = [
       return (
         <DialogTipoSiteTypeUpdate
           dialogButton={'Editar'}
-          dialogTitle={'Tela para Editar um Usuário'}
-          dialogDescription={'Editar Usuário'}
+          dialogTitle={'Tipo de Site'}
+          dialogDescription={'Tela para Editar tipo de site'}
           dialogData={data}
         />
       )

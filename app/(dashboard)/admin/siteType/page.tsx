@@ -11,7 +11,7 @@ export default async function TypeSitePage() {
         <h2 className="text-3xl font-bold tracking-tight">Tipos de Sites</h2>
         <DialogSiteType
           dialogButton={'Novo Tipo de Site'}
-          dialogTitle={'Salvar Tipo de Site'}
+          dialogTitle={'Tipo de Site'}
           dialogDescription={'Tela para salvar um novo Tipo de Site'}
         />
       </div>
