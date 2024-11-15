@@ -17,8 +17,8 @@ export const columns: ColumnDef<TechnicianType>[] = [
       return (
         <DialogTechnicianUpdate
           dialogButton={'Editar'}
-          dialogTitle={'Tela para Editar um Usuário'}
-          dialogDescription={'Editar Usuário'}
+          dialogTitle={'Técnico'}
+          dialogDescription={'Tela para Editar um Técnico'}
           dialogData={data}
         />
       )

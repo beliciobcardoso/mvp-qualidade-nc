@@ -11,7 +11,7 @@ export default async function TechnicianPage() {
         <h2 className="text-3xl font-bold tracking-tight">Técnicos</h2>
         <DialogTechnician
           dialogButton={'Novo Técnico'}
-          dialogTitle={'Salvar Técnico'}
+          dialogTitle={'Técnico'}
           dialogDescription={'Tela para salvar um novo Técnico'}
         />
       </div>
