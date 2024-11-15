@@ -70,7 +70,7 @@ export type SiteType = {
 export type SiteTypeRel = {
   id: number
   idSite: string
-  altura: string
+  altura: string | null
   endereco: string
   bairro: string
   cidade: string
@@ -88,6 +88,33 @@ export type SiteTypeRel = {
     id: number
     name: string
   }
+}
+
+export type ReportRelType = {
+  id?: number
+  siteId: number
+  dateService: Date
+  createdAt: Date
+  updatedAt: Date | null
+  finishedAt: Date | null
+  clientId: string
+  technicianId: string
+  userId: string | null
+}
+
+export type ReportType = {
+  siteId: number
+  dateService: Date
+  clientId: string
+  technicianId: string
+}
+
+export type ReportCreateType = {
+  clientId: string
+  siteId: number
+  technicianId: string
+  dateService: Date
+  userId: string | null
 }
 
 export type Relatorio = {
@@ -153,7 +180,12 @@ export type DialogReportProps = {
   dialogDescription: string
   relatorio?: Relatorio
   dataUser?: User
+  clientData?: ClientType[]
+  technicianData?: TechnicianType[]
+  siteData?: SiteTypeRel[]
+  onInputChange?: (value: number) => void
 }
+
 export type PersonProps = {
   person: string
 }
@@ -209,6 +241,17 @@ export type dialogNewStructureTypeProps = {
 }
 
 export type DialogNewSiteTypeProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  structureData?: StructureType[]
+  siteTypeData?: TipoSiteType[]
+  clientData?: ClientType[]
+  dialogData?: TipoSiteType
+  openDialog?: boolean
+}
+
+export type DialogUpdateSiteTypeProps = {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string

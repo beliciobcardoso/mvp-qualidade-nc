@@ -33,28 +33,6 @@ export const userUpdateSchema = z.object({
 
 export type UserUpdateSchema = z.infer<typeof userUpdateSchema>
 
-export const siteSchema = z.object({
-  id: z.number().optional(),
-  idSite: z.string().min(5, { message: 'ID do Site é obrigatório.' }),
-  altura: z.string().optional(),
-  endereco: z.string().min(3, { message: 'Endereço é obrigatório.' }),
-  bairro: z.string().min(3, { message: 'Bairro é obrigatório.' }),
-  numero: z.string().min(1, { message: 'Número é obrigatório.' }),
-  cidade: z.string().min(3, { message: 'Cidade é obrigatório.' }),
-  uf: z.string().min(2, { message: 'UF é obrigatório.' }),
-  idClient: z.string().min(1, { message: 'Cliente é obrigatório.' }),
-  structureTypeId: z.preprocess(
-    (val) => (val ? Number(val) : undefined),
-    z.number(),
-  ),
-  siteTypeId: z.preprocess(
-    (val) => (val ? Number(val) : undefined),
-    z.number(),
-  ),
-})
-
-export type SiteSchema = z.infer<typeof siteSchema>
-
 export const clientSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(3, { message: 'Nome do Cliente é obrigatório.' }),
@@ -85,3 +63,37 @@ export const siteTypeSchema = z.object({
 })
 
 export type SiteTypeSchema = z.infer<typeof siteTypeSchema>
+
+export const siteSchema = z.object({
+  id: z.number().optional(),
+  idSite: z.string().min(5, { message: 'ID do Site é obrigatório.' }),
+  altura: z.string().optional(),
+  endereco: z.string().min(3, { message: 'Endereço é obrigatório.' }),
+  bairro: z.string().min(3, { message: 'Bairro é obrigatório.' }),
+  numero: z.string().min(1, { message: 'Número é obrigatório.' }),
+  cidade: z.string().min(3, { message: 'Cidade é obrigatório.' }),
+  uf: z.string().min(2, { message: 'UF é obrigatório.' }),
+  idClient: z.string().min(1, { message: 'Cliente é obrigatório.' }),
+  structureTypeId: z.preprocess(
+    (val) => (val ? Number(val) : undefined),
+    z.number(),
+  ),
+  siteTypeId: z.preprocess(
+    (val) => (val ? Number(val) : undefined),
+    z.number(),
+  ),
+})
+
+export type SiteSchema = z.infer<typeof siteSchema>
+
+export const reportSchema = z.object({
+  id: z.number().optional(),
+  clientId: z.string(),
+  siteId: z.number().min(1, { message: 'Site é obrigatório.' }),
+  technicianId: z.string().min(1, { message: 'Técnico é obrigatório.' }),
+  dateService: z.date({
+    required_error: 'Uma data de serviço é obrigatória.',
+  }),
+})
+
+export type ReportSchema = z.infer<typeof reportSchema>
