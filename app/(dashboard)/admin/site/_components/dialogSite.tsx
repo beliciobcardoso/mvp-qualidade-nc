@@ -56,7 +56,6 @@ export function DialogSite({
       uf: '',
       idClient: '',
       siteTypeId: 0,
-      structureTypeId: 0,
     },
   })
 
@@ -71,9 +70,14 @@ export function DialogSite({
     }
   }
 
+  const dialogStart = () => {
+    setOpen(true)
+    form.reset()
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => setOpen(true)} variant="outline">
+      <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">
@@ -257,9 +261,45 @@ export function DialogSite({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>UF</FormLabel>
-                        <FormControl>
-                          <Input placeholder="UF" {...field} />
-                        </FormControl>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="UF" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="AC">AC</SelectItem>
+                            <SelectItem value="AL">AL</SelectItem>
+                            <SelectItem value="AP">AP</SelectItem>
+                            <SelectItem value="AM">AM</SelectItem>
+                            <SelectItem value="BA">BA</SelectItem>
+                            <SelectItem value="CE">CE</SelectItem>
+                            <SelectItem value="DF">DF</SelectItem>
+                            <SelectItem value="ES">ES</SelectItem>
+                            <SelectItem value="GO">GO</SelectItem>
+                            <SelectItem value="MA">MA</SelectItem>
+                            <SelectItem value="MT">MT</SelectItem>
+                            <SelectItem value="MS">MS</SelectItem>
+                            <SelectItem value="MG">MG</SelectItem>
+                            <SelectItem value="PA">PA</SelectItem>
+                            <SelectItem value="PB">PB</SelectItem>
+                            <SelectItem value="PR">PR</SelectItem>
+                            <SelectItem value="PE">PE</SelectItem>
+                            <SelectItem value="PI">PI</SelectItem>
+                            <SelectItem value="RJ">RJ</SelectItem>
+                            <SelectItem value="RN">RN</SelectItem>
+                            <SelectItem value="RS">RS</SelectItem>
+                            <SelectItem value="RO">RO</SelectItem>
+                            <SelectItem value="RR">RR</SelectItem>
+                            <SelectItem value="SC">SC</SelectItem>
+                            <SelectItem value="SP">SP</SelectItem>
+                            <SelectItem value="SE">SE</SelectItem>
+                            <SelectItem value="TO">TO</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}

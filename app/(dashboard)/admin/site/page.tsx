@@ -20,8 +20,8 @@ export default async function Site() {
         <h2 className="text-3xl font-bold tracking-tight">Sites</h2>
         <DialogSite
           dialogButton={'Novo Site'}
-          dialogTitle={'Salvar Site'}
-          dialogDescription={'Tela para Salvar um novo Site'}
+          dialogTitle={'Site'}
+          dialogDescription={'Tela para Criar um novo Site'}
           structureData={structureData}
           siteTypeData={siteTypeData}
           clientData={clientData}

@@ -91,3 +91,16 @@ export async function getAllSites() {
     console.log(error)
   }
 }
+
+export async function getSiteByClientName(clientId: string) {
+  try {
+    const data = await prisma.site.findMany({
+      where: {
+        idClient: clientId,
+      },
+    })
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}

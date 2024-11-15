@@ -103,8 +103,8 @@ const EditReportCell: React.FC<{ row: { original: SiteTypeRel } }> = ({
   return (
     <DialogUserUpdate
       dialogButton={'Editar'}
-      dialogTitle={'Tela para Editar um Usuário'}
-      dialogDescription={'Editar Usuário'}
+      dialogTitle={'Site'}
+      dialogDescription={'Tela para Editar Site'}
       dialogData={data}
       clientData={clientData}
       siteTypeData={siteTypeData}
