@@ -11,7 +11,7 @@ export default async function UserPage() {
         <h2 className="text-3xl font-bold tracking-tight">Usuários</h2>
         <DialogUser
           dialogButton={'Novo usuario'}
-          dialogTitle={'Salvar usuário'}
+          dialogTitle={'Usuário'}
           dialogDescription={'Tela para Salvar um novo Usuário'}
         />
       </div>

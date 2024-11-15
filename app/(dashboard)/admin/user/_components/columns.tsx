@@ -54,8 +54,8 @@ export const columns: ColumnDef<UserForm>[] = [
       return (
         <DialogUserUpdate
           dialogButton={'Editar'}
-          dialogTitle={'Tela para Editar um Usuário'}
-          dialogDescription={'Editar Usuário'}
+          dialogTitle={'Usuário'}
+          dialogDescription={'Tela para Editar um Usuário'}
           dialogData={person}
         />
       )

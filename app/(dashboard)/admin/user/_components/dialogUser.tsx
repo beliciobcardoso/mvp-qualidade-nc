@@ -62,16 +62,14 @@ export function DialogUser({
     form.reset()
   }
 
-  const dialogStart = (sim: boolean) => {
-    setOpen(sim)
-    if (sim) {
-      form.reset()
-    }
+  const dialogStart = () => {
+    setOpen(true)
+    form.reset()
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => dialogStart(true)} variant="outline">
+      <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">
