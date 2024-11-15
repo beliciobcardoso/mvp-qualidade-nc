@@ -36,23 +36,24 @@ export function DialogClient({
     resolver: zodResolver(clientSchema),
     defaultValues: {
       name: '',
-      img: '',
     },
   })
 
   async function onSubmit(values: ClientType) {
-    await createClient({
-      name: values.name,
-      img: values.img,
-    })
+    await createClient(values)
     router.refresh()
     setOpen(false)
     form.reset()
   }
 
+  const dialogStart = () => {
+    setOpen(true)
+    form.reset()
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => setOpen(true)} variant="outline">
+      <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">
@@ -68,32 +69,14 @@ export function DialogClient({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Cliente</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nome Sobrenome" {...field} />
+                      <Input placeholder="Cliente" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="img"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Foto</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder=""
-                        {...field}
-                        value={field.value ?? ''}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <FormMessage />
               <Button type="submit">Salvar</Button>
             </form>

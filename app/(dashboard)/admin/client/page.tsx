@@ -11,7 +11,7 @@ export default async function ClientPage() {
         <h2 className="text-3xl font-bold tracking-tight">Clientes</h2>
         <DialogClient
           dialogButton={'Novo Cliente'}
-          dialogTitle={'Salvar Cliente'}
+          dialogTitle={'Cliente'}
           dialogDescription={'Tela para salvar um novo Cliente'}
         />
       </div>

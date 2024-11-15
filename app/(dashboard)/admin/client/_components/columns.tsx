@@ -39,8 +39,8 @@ export const columns: ColumnDef<ClientType>[] = [
       return (
         <DialogClientUpdate
           dialogButton={'Editar'}
-          dialogTitle={'Tela para Editar um Usuário'}
-          dialogDescription={'Editar Usuário'}
+          dialogTitle={'Cliente'}
+          dialogDescription={'Tela para Editar um Cliente'}
           dialogData={data}
         />
       )

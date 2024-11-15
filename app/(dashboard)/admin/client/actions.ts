@@ -1,7 +1,48 @@
 'use server'
+import { CONFIG } from '@/config'
 import prisma from '@/lib/prisma'
 import { ClientType } from '@/lib/types'
+import validateImageType from '@/lib/validateImageType'
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { Client } from '@prisma/client'
+
+const clientS3 = new S3Client({
+  region: CONFIG.providers.storage.region,
+  endpoint: CONFIG.providers.storage.endpoint,
+  credentials: {
+    accessKeyId: CONFIG.providers.storage.accessKeyId,
+    secretAccessKey: CONFIG.providers.storage.secretAccessKey,
+  },
+})
+
+export async function uploadClientLogo(formData: FormData, idClient: string) {
+  const file = formData.get('file') as File
+
+  const binaryFile = await file.arrayBuffer()
+  const fileBuffer = Buffer.from(binaryFile)
+
+  const keyName = `clients/${idClient}/logo/${file.name}`
+
+  const command = new PutObjectCommand({
+    Bucket: CONFIG.providers.storage.bucket,
+    Key: keyName,
+    Body: fileBuffer,
+    ContentType: file.type,
+  })
+
+  if (validateImageType(file)) {
+    try {
+      await clientS3.send(command)
+      const url = `${CONFIG.providers.storage.bucket}.${CONFIG.providers.storage.endpoint}/${keyName}`
+      return url
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  } else {
+    return null
+  }
+}
 
 export async function createClient(data: ClientType) {
   try {
