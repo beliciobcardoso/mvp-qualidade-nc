@@ -36,7 +36,7 @@ export type UserUpdateSchema = z.infer<typeof userUpdateSchema>
 export const clientSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(3, { message: 'Nome do Cliente é obrigatório.' }),
-  img: z.string().optional().nullable(),
+  img: z.string().optional(),
 })
 
 export type ClientSchema = z.infer<typeof clientSchema>
@@ -46,7 +46,7 @@ export const technicianSchema = z.object({
   name: z.string().min(3, { message: 'Nome do Técnico é obrigatório.' }),
 })
 
-export type TechnicianSchema = z.infer<typeof clientSchema>
+export type TechnicianSchema = z.infer<typeof technicianSchema>
 
 export const structureTypeSchema = z.object({
   id: z.number().optional(),
