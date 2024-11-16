@@ -40,10 +40,14 @@ export function DialogClient({
   })
 
   async function onSubmit(values: ClientType) {
-    await createClient(values)
-    router.refresh()
-    setOpen(false)
-    form.reset()
+    try {
+      await createClient(values)
+      router.refresh()
+      setOpen(false)
+      form.reset()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const dialogStart = () => {

@@ -26,6 +26,12 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { updateClient, uploadClientLogo } from '../actions'
 
+type clientUpdateType = {
+  id?: string
+  name: string
+  img: string
+}
+
 export function DialogClientUpdate({
   dialogButton,
   dialogTitle,
@@ -40,8 +46,6 @@ export function DialogClientUpdate({
     const clientId = dialogData?.id ?? ''
     const url = await uploadClientLogo(formData, clientId)
 
-    console.log(url)
-
     if (url !== null) {
       setImageUrl(url)
     } else {
@@ -53,16 +57,27 @@ export function DialogClientUpdate({
     resolver: zodResolver(clientSchema),
     values: {
       name: dialogData?.name ?? '',
-      img: dialogData?.img ?? imageUrl,
+      img: dialogData?.img ?? '',
     },
   })
 
   async function onSubmit(values: ClientSchema) {
+
+    let img = DefaultUploadImage
+
+    if (values.img === '' && imageUrl !== '') {
+      img = imageUrl
+    } else if (imageUrl === '' && values.img !== '') {
+      img = values.img
+    } else if (imageUrl !== '' && values.img !== '') {
+      img = imageUrl
+    }
+
     if (dialogData) {
       await updateClient({
         id: dialogData.id ?? '',
         name: values.name,
-        img: values.img ?? '',
+        img: img,
       })
       router.refresh()
       setOpen(false)
@@ -70,9 +85,14 @@ export function DialogClientUpdate({
     }
   }
 
+  const dialogStart = () => {
+    setOpen(true)
+    form.reset()
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => setOpen(true)} variant="outline">
+      <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
       <DialogContent className="sm:max-w-[425px]">
@@ -80,7 +100,7 @@ export function DialogClientUpdate({
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
-        {imageUrl ? (
+        {dialogData?.img ? (
           <div className="flex justify-center">
             <Image
               src={dialogData?.img}
@@ -89,11 +109,20 @@ export function DialogClientUpdate({
               height={100}
             />
           </div>
+        ) : imageUrl ? (
+          <div className="flex justify-center">
+            <Image
+              src={imageUrl}
+              alt="Imagem do cliente"
+              width={100}
+              height={100}
+            />
+          </div>
         ) : (
-          <div>
+          <div className="flex justify-center">
             <Image
               src={DefaultUploadImage}
-              alt="logo"
+              alt="Imagem do cliente"
               width={100}
               height={100}
             />
@@ -101,9 +130,14 @@ export function DialogClientUpdate({
         )}
 
         <div>
-          <form action={submitForm}>
+          <form action={submitForm} className="flex gap-2">
             <label htmlFor="file" className="dark:text-white"></label>
-            <input type="file" name="file" className="dark:text-white" />
+            <Input
+              type="file"
+              name="file"
+              className="dark:text-white"
+              placeholder="test"
+            />
             <button
               type="submit"
               className="border-color-gray-700 rounded-md border-2 p-1 dark:bg-gray-700 dark:text-white"
@@ -127,7 +161,19 @@ export function DialogClientUpdate({
                 </FormItem>
               )}
             />
-
+            <FormField
+              control={form.control}
+              name="img"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="hidden">Imagem</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Imagem" {...field} className="hidden" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button type="submit">Salvar</Button>
           </form>
         </Form>

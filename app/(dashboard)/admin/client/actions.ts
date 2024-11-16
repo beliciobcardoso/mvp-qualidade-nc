@@ -33,7 +33,7 @@ export async function uploadClientLogo(formData: FormData, idClient: string) {
   if (validateImageType(file)) {
     try {
       await clientS3.send(command)
-      const url = `${CONFIG.providers.storage.bucket}.${CONFIG.providers.storage.endpoint}/${keyName}`
+      const url = `${CONFIG.providers.storage.endpoint}/${CONFIG.providers.storage.bucket}/${keyName}`
       return url
     } catch (error) {
       console.log(error)
