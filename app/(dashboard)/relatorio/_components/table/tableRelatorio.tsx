@@ -67,25 +67,26 @@ export function TableRelatorio<TData, TValue>({
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center gap-4 py-4">
+        <Input
+          placeholder="Filtrar Cliente..."
+          value={(table.getColumn('Cliente')?.getFilterValue() as string) ?? ''}
+          onChange={(event) =>
+            table.getColumn('Cliente')?.setFilterValue(event.target.value)
+          }
+          className="max-w-[200px]"
+        />
         <Input
           placeholder="Filtro Global..."
           value={globalFilter}
           onChange={(event) => setGlobalFilter(event.target.value)}
           className="max-w-[200px]"
         />
-        <Input
-          placeholder="Filtrar nome do Cliente..."
-          value={(table.getColumn('Cliente')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('Cliente')?.setFilterValue(event.target.value)
-          }
-          className="ml-4 max-w-[200px]"
-        />
+
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
+              Colunas <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

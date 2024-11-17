@@ -11,18 +11,18 @@ export default function PhotoAnalisys({
   return (
     <>
       {photoAnalisys.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {photoAnalisys.map((item, index) => (
             <Card key={item.id}>
               <div className="flex flex-col items-center truncate">
                 <CardContent className="w-[430px] pt-2">
                   <Image src={item.url} alt="Imagem" width={400} height={400} />
                 </CardContent>
-                <CardFooter className="grid grid-flow-col w-full mb-2 p-0">
-                  <div className="col-span-1 text-center font-bold py-1 ml-2 border-2 ">
+                <CardFooter className="mb-2 grid w-full grid-flow-col p-0">
+                  <div className="col-span-1 ml-2 border-2 py-1 text-center font-bold">
                     <p>{index + 1}</p>
                   </div>
-                  <div className="col-span-6 flex justify-center font-bold border-y-2 border-r-2 mr-2 h-9 items-center">
+                  <div className="col-span-6 mr-2 flex h-9 items-center justify-center border-y-2 border-r-2 font-bold">
                     <p>{item.description}</p>
                   </div>
                 </CardFooter>
@@ -31,18 +31,18 @@ export default function PhotoAnalisys({
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {Array.from({ length: 3 }, (_, index) => (
             <Card key={index}>
               <div className="flex flex-col items-center truncate">
                 <CardContent className="w-[430px] pt-2">
                   <Image src={imagem} alt="Imagem" width={400} height={400} />
                 </CardContent>
-                <CardFooter className="grid grid-flow-col w-full mb-2 p-0">
-                  <div className="col-span-1 text-center font-bold py-1 ml-2 border-2 ">
+                <CardFooter className="mb-2 grid w-full grid-flow-col p-0">
+                  <div className="col-span-1 ml-2 border-2 py-1 text-center font-bold">
                     <p>{index + 1}</p>
                   </div>
-                  <div className="col-span-6 flex justify-center font-bold border-y-2 border-r-2 mr-2 h-9 items-center">
+                  <div className="col-span-6 mr-2 flex h-9 items-center justify-center border-y-2 border-r-2 font-bold">
                     <p>Descrição da foto {index + 1}</p>
                   </div>
                 </CardFooter>

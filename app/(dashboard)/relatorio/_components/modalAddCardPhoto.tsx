@@ -22,7 +22,7 @@ export default function ModalAddCardPhoto({
       <Dialog open={open} onOpenChange={setOpen}>
         <Button
           onClick={() => setOpen(true)}
-          className="fixed bottom-4 right-4 md:right-4 lg:right-10 xl:right-48 2xl:right-60 bg-blue-500 text-white w-12 h-12 rounded-full p-3 shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="fixed bottom-4 right-4 h-12 w-12 rounded-full bg-blue-500 p-3 text-white shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 md:right-4 lg:right-10 xl:right-48 2xl:right-60"
         >
           {textButton}
         </Button>

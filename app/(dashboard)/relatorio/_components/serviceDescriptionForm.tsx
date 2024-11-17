@@ -15,7 +15,7 @@ import { z } from 'zod'
 import { upsetDescriptionAnalisys } from '../actions'
 
 const formSchema = z.object({
-  services: z.string(),
+  service: z.string(),
   status: z.enum(['ok', 'na']),
 })
 
@@ -27,7 +27,7 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      services: '',
+      service: '',
       status: 'ok',
     },
   })
@@ -38,7 +38,7 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
 
     const datas = {
       idReport: id,
-      services: data.services,
+      service: data.service,
       status,
     }
 
@@ -48,7 +48,7 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
   })
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="mx-auto w-full max-w-4xl">
       <Form {...form}>
         <form onSubmit={onSubmit}>
           <div className="">
@@ -61,11 +61,11 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
             </div>
             <div className="w-full">
               {
-                <div className="grid grid-cols-[1fr_100px] gap-2 justify-center items-center">
+                <div className="grid grid-cols-[1fr_100px] items-center justify-center gap-2">
                   <div>
                     <FormField
                       control={form.control}
-                      name="services"
+                      name="service"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
@@ -81,8 +81,8 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
                       control={form.control}
                       name="status"
                       render={({ field }) => (
-                        <FormItem className="space-y-3  w-full">
-                          <FormControl className=" w-full">
+                        <FormItem className="w-full space-y-3">
+                          <FormControl className="w-full">
                             <RadioGroup
                               onValueChange={field.onChange}
                               defaultValue={field.value}
@@ -109,10 +109,10 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
               }
             </div>
           </div>
-          <div className="w-full flex justify-end p-4">
+          <div className="flex w-full justify-end p-4">
             <button
               type="submit"
-              className="text-white bg-blue-500 px-4 py-1 rounded-lg"
+              className="rounded-lg bg-blue-500 px-4 py-1 text-white"
             >
               Salvar
             </button>

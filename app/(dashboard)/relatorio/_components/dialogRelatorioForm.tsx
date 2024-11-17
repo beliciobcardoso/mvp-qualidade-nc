@@ -3,13 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 import {
   Form,
@@ -25,118 +22,173 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { DialogReportProps } from '@/lib/types'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { reportSchema } from '@/lib/formValidationSchemas'
+import { DialogReportProps, ReportType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CalendarIcon } from '@radix-ui/react-icons'
+
 import { format } from 'date-fns'
+import { PlusCircleIcon } from 'lucide-react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import * as React from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { getClientByPartialName } from '../actions'
+import { createReport } from '../actions'
 
-const formSchema = z.object({
-  cliente: z
-    .string()
-    .min(2, {
-      message: 'Nome deve ter pelo menos 2 caracteres.',
-    })
-    .max(50),
-  idSite: z.string(),
-  tecnico: z.string(),
-  dateService: z.date({
-    required_error: 'Uma data de serviço é obrigatória.',
-  }),
-})
-
-type FormValues = z.infer<typeof formSchema>
+type ReportCustomType = {
+  clientId: string
+  siteId: number
+  technicianId: string
+  dateService: Date
+}
 
 export function DialogRelatorioForm({
   dialogButton,
   dialogTitle,
-  dialogDescription,
   dataUser,
+  technicianData,
+  siteData,
 }: DialogReportProps) {
   const router = useRouter()
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const [open, setOpen] = React.useState(false)
+
+  const form = useForm<ReportCustomType>({
+    resolver: zodResolver(reportSchema),
     defaultValues: {
-      cliente: '',
-      idSite: '',
-      tecnico: '',
-      dateService: new Date(),
-      // tipoSite: relatorio ? relatorio.siteId : '',
-      // tipoEstrutura: relatorio ? relatorio.tipoEstrutura : '',
+      clientId: '',
+      siteId: 0,
+      technicianId: '',
     },
   })
 
-  const getClientPartialName = async (partialName: string) => {
-    const result = await getClientByPartialName(partialName)
-    return result
+  async function onSubmit(values: ReportType) {
+    const idUser = dataUser?.id
+
+    const clientId = siteData?.find((site) => site.id === values.siteId)?.client
+      .id
+
+    if (!clientId) {
+      console.error('Client not found')
+      return
+    }
+
+    if (!idUser) {
+      console.error('User not found')
+      return
+    }
+
+    try {
+      await createReport({
+        clientId,
+        siteId: values.siteId,
+        technicianId: values.technicianId,
+        dateService: values.dateService,
+        userId: idUser,
+      })
+      router.refresh()
+      setOpen(false)
+      form.reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  const client = getClientPartialName('2').then((res) => console.log(res))
-
-  console.log(client)
-
-  function onSubmit(values: FormValues) {
-    const nameUser = dataUser.name
-    console.log(nameUser)
-    console.log(values)
-    router.refresh()
+  const dialogStart = () => {
+    setOpen(true)
+    form.reset()
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">{dialogButton}</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] sm:max-h-[600px]">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <Button onClick={() => dialogStart()} variant="outline">
+        {dialogButton}
+      </Button>
+      <DialogContent className="sm:max-h-[400px] sm:max-w-[350px]">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
-          <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <div className="space-y-2">
                 <FormField
                   control={form.control}
-                  name="cliente"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Cliente</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nome do Cliente" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="idSite"
+                  name="siteId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>ID Site</FormLabel>
-                      <FormControl>
-                        <Input placeholder="BR50462-A" {...field} />
-                      </FormControl>
+                      <Select
+                        onValueChange={(value) => field.onChange(Number(value))}
+                        defaultValue={String(field.value)}
+                      >
+                        <div className="flex items-center gap-2">
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Escolha um Cliente" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <Link href="/admin/site">
+                            <PlusCircleIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Link>
+                        </div>
+                        <SelectContent>
+                          {siteData?.map((item) => (
+                            <SelectItem key={item.id} value={String(item.id)}>
+                              {item.idSite}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
-              <div className="space-y-2">
                 <FormField
                   control={form.control}
-                  name="tecnico"
+                  name="clientId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <Input {...field} className="hidden" />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="technicianId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Técnico</FormLabel>
-                      <FormControl>
-                        <Input placeholder="João" {...field} />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <div className="flex items-center gap-2">
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Escolha um Técnico" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <Link href="/admin/technician">
+                            <PlusCircleIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Link>
+                        </div>
+                        <SelectContent>
+                          {technicianData?.map((item) => (
+                            <SelectItem key={item.id} value={String(item.id)}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -153,7 +205,7 @@ export function DialogRelatorioForm({
                             <Button
                               variant={'outline'}
                               className={cn(
-                                'pl-3 text-left font-normal',
+                                'w-[240px] pl-3 text-left font-normal',
                                 !field.value && 'text-muted-foreground',
                               )}
                             >
@@ -185,9 +237,7 @@ export function DialogRelatorioForm({
               </div>
             </div>
             <DialogFooter>
-              <DialogClose asChild>
-                <Button type="submit">Salvar</Button>
-              </DialogClose>
+              <Button type="submit">Salvar</Button>
             </DialogFooter>
           </form>
         </Form>

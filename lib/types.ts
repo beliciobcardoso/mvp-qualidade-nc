@@ -93,13 +93,25 @@ export type SiteTypeRel = {
 export type ReportRelType = {
   id?: number
   siteId: number
+  clientId: string
+  technicianId: string
   dateService: Date
   createdAt: Date
   updatedAt: Date | null
   finishedAt: Date | null
-  clientId: string
-  technicianId: string
-  userId: string | null
+  sites: SiteType
+  client: {
+    id: string
+    name: string
+  }
+  technician: {
+    id: string
+    name: string
+  }
+  user: {
+    id: string
+    name: string
+  }
 }
 
 export type ReportType = {
@@ -136,7 +148,7 @@ export type Relatorio = {
   user: {
     name: string
   }
-  sites: SiteType
+  sites: SiteTypeRel
 }
 
 export type DialogNewProps = {
@@ -178,7 +190,7 @@ export type DialogReportProps = {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
-  relatorio?: Relatorio
+  report?: ReportRelType
   dataUser?: User
   clientData?: ClientType[]
   technicianData?: TechnicianType[]

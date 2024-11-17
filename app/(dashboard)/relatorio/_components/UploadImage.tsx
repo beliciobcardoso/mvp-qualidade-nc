@@ -63,6 +63,7 @@ export function UploadImage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const fileName = imageUrl.split('/').pop() as string
+    console.log(imageUrl)
     const data = {
       idReport,
       url: imageUrl,
@@ -77,14 +78,14 @@ export function UploadImage() {
   }
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-start">
+    <div className="flex flex-col items-center justify-start gap-2">
       <div>
         <form action={submitForm}>
           <label htmlFor="file" className="dark:text-white"></label>
           <input type="file" name="file" className="dark:text-white" />
           <button
             type="submit"
-            className="dark:bg-gray-700 dark:text-white border-color-gray-700 border-2 rounded-md p-1"
+            className="border-color-gray-700 rounded-md border-2 p-1 dark:bg-gray-700 dark:text-white"
           >
             upload
           </button>
@@ -96,7 +97,7 @@ export function UploadImage() {
         onDrop={handleDrop}
         className={`bg-gray-50 dark:bg-gray-800 ${
           isDragging ? 'border-green' : 'border-light-blue'
-        } border-2 border-dashed rounded-xl p-2 flex items-center flex-col w-full justify-center gap-2`}
+        } flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-2`}
       >
         {imageUrl ? (
           <Image src={imageUrl} alt="Uploaded image" width={300} height={300} />
@@ -118,7 +119,7 @@ export function UploadImage() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4 w-full"
+              className="w-full space-y-4"
             >
               <FormField
                 control={form.control}

@@ -19,31 +19,31 @@ export default async function Page({ params }: { params: { id: string } }) {
   const descriptions = await getDescriptionsId(id)
 
   return (
-    <main className="flex flex-col items-center bg-slate-300 w-full">
+    <main className="flex w-full flex-col items-center bg-slate-300">
       <ModalAddCardPhoto
-        textButton={<PlusIcon className="w-6 h-6" />}
+        textButton={<PlusIcon className="h-6 w-6" />}
         textDescription={'Adicione uma nova foto'}
         textTitle={'Adicionar Foto'}
       />
       <header className="flex flex-col bg-white">
         <div className="flex items-center justify-between">
-          <div className="w-44 h-20 bg-slate-400">
+          <div className="h-20 w-44 bg-slate-400">
             <Image src={ncLogo} alt="Logo" width={200} height={200} />
           </div>
-          <h1 className="text-2xl font-bold px-4">
+          <h1 className="px-4 text-2xl font-bold">
             RELATÓRIO DE MANUTENÇÃO CORRETIVA
           </h1>
-          <div className="w-44 h-20 bg-slate-400">
+          <div className="h-20 w-44 bg-slate-400">
             <Image src={ncLogo} alt="LogoClient" width={200} height={200} />
           </div>
         </div>
         <div className="flex flex-col">
-          <h1 className="text-lg text-center font-bold bg-blue-500 text-white p-2">
+          <h1 className="bg-blue-500 p-2 text-center text-lg font-bold text-white">
             DADOS DO SITE
           </h1>
           <div className="text-sm">
             <div>
-              <table className="w-full border-1 text-left">
+              <table className="border-1 w-full text-left">
                 <tbody>
                   <tr>
                     <td className="border-x-2 px-2">
@@ -67,7 +67,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                       {relatorioHeader.sites.endereco.toUpperCase()}
                     </td>
                     <td className="border-x-2 px-2 text-right">
-                      {relatorioHeader.sites.altura.toUpperCase()}
+                      {relatorioHeader.sites.altura?.toUpperCase() ?? ''}
                     </td>
                     <td className="border-x-2 px-2 text-right">
                       {relatorioHeader.dateService.toLocaleDateString()}
@@ -144,7 +144,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <table className="w-full text-left">
             <thead>
               <tr>
-                <th className="px-2 w-4/5">Serviços</th>
+                <th className="w-4/5 px-2">Serviços</th>
                 <th className="text-center">OK</th>
                 <th className="text-center">NA</th>
               </tr>
@@ -160,14 +160,14 @@ export default async function Page({ params }: { params: { id: string } }) {
                     <td className="border-2 text-center">
                       {description.status === 'na' ? 'X' : ''}
                     </td>
-                    <td className="flex px-2 w-8">
+                    <td className="flex w-8 px-2">
                       <RemoveServices idService={description.id} />
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td className="border-2 px-2 h-8"> </td>
+                  <td className="h-8 border-2 px-2"> </td>
                   <td className="border-2 px-2 text-center"></td>
                   <td className="border-2 px-2 text-center"></td>
                 </tr>
@@ -184,16 +184,16 @@ export default async function Page({ params }: { params: { id: string } }) {
           </div>
         </div>
       </header>
-      <aside className="flex flex-col items-center container py-4">
+      <aside className="container flex flex-col items-center py-4">
         {<PhotoAnalisys photoAnalisys={photoAnalisys} />}
       </aside>
       <footer className="flex flex-col bg-white">
         <div className="flex items-center justify-between">
-          <div className="w-44 h-20 bg-slate-400"></div>
-          <h1 className="text-2xl font-bold px-4">
+          <div className="h-20 w-44 bg-slate-400"></div>
+          <h1 className="px-4 text-2xl font-bold">
             RELATÓRIO DE MANUTENÇÃO CORRETIVA
           </h1>
-          <div className="w-44 h-20 bg-slate-400"></div>
+          <div className="h-20 w-44 bg-slate-400"></div>
         </div>
       </footer>
     </main>
