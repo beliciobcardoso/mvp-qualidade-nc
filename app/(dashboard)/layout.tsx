@@ -6,7 +6,7 @@ import { Command } from 'lucide-react'
 
 export const dataUser = {
   user: {
-    id: 'cd1b1b1b-1b1b-1b1b-1b1b-1b1b1b1b1b1b',
+    id: 'cm312lmmj0000v07gj2uo2un9',
     name: 'Fulano de Tal',
     email: 'fulano.tal@email.com',
     avatar: '/avatars/shadcn.jpg',
