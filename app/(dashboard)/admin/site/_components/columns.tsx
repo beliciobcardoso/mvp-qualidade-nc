@@ -57,16 +57,16 @@ export const columns: ColumnDef<SiteTypeRel>[] = [
     },
   },
   {
-    accessorKey: 'editReport',
+    accessorKey: 'editSite',
     header: '',
     enableHiding: false,
     cell: ({ row }) => {
-      return <EditReportCell row={row} />
+      return <EditSiteCell row={row} />
     },
   },
 ]
 
-const EditReportCell: React.FC<{ row: { original: SiteTypeRel } }> = ({
+const EditSiteCell: React.FC<{ row: { original: SiteTypeRel } }> = ({
   row,
 }) => {
   const data = row.original
