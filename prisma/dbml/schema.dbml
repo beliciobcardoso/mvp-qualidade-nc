@@ -27,27 +27,19 @@ Table Report {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
   finishedAt DateTime
-  photoAnalisys PhotoAnalisys [not null]
-  descriptionAnalisys DescriptionAnalisys [not null]
   client Client [not null]
   clientId String [not null]
   technician Technician [not null]
   technicianId String [not null]
   user User
   userId String
-}
-
-Table Client {
-  id String [pk]
-  name String [not null]
-  img String
-  site Site [not null]
-  reports Report [not null]
+  photoAnalisys PhotoAnalisys [not null]
+  descriptionAnalisys DescriptionAnalisys [not null]
 }
 
 Table Site {
   id Int [pk, increment]
-  idSite String [not null]
+  idSite String [unique, not null]
   altura String
   endereco String [not null]
   bairro String [not null]
@@ -85,9 +77,18 @@ Table User {
   id String [pk]
   name String [not null]
   email String [unique, not null]
+  avatar String
   role Role [not null]
   passwordHash String [not null]
   createdAt DateTime [default: `now()`, not null]
+  reports Report [not null]
+}
+
+Table Client {
+  id String [pk]
+  name String [not null]
+  img String
+  site Site [not null]
   reports Report [not null]
 }
 
