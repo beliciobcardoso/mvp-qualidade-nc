@@ -6,7 +6,7 @@ export type User = {
   name: string
   email: string
   role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
-  avatar: string
+  avatar?: string | null
 }
 
 export type UserCreate = {
@@ -126,7 +126,7 @@ export type ReportCreateType = {
   siteId: number
   technicianId: string
   dateService: Date
-  userId: string | null
+  userId: string
 }
 
 export type Relatorio = {
@@ -271,5 +271,13 @@ export type DialogUpdateSiteTypeProps = {
   siteTypeData?: TipoSiteType[]
   clientData?: ClientType[]
   dialogData?: SiteTypeRel
+  openDialog?: boolean
+}
+
+export type DialogServiceDescriptionProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  idReport: number
   openDialog?: boolean
 }

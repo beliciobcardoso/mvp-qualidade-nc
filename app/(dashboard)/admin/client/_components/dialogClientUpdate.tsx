@@ -26,12 +26,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { updateClient, uploadClientLogo } from '../actions'
 
-type clientUpdateType = {
-  id?: string
-  name: string
-  img: string
-}
-
 export function DialogClientUpdate({
   dialogButton,
   dialogTitle,
@@ -62,7 +56,6 @@ export function DialogClientUpdate({
   })
 
   async function onSubmit(values: ClientSchema) {
-
     let img = DefaultUploadImage
 
     if (values.img === '' && imageUrl !== '') {
@@ -77,8 +70,9 @@ export function DialogClientUpdate({
       await updateClient({
         id: dialogData.id ?? '',
         name: values.name,
-        img: img,
+        img,
       })
+      setImageUrl('')
       router.refresh()
       setOpen(false)
       form.reset()
