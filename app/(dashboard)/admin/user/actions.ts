@@ -63,3 +63,20 @@ export async function getData() {
   })
   return data
 }
+
+export async function getUserByEmail(email: string) {
+  const data = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      avatar: true,
+      createdAt: true,
+    },
+  })
+  return data
+}

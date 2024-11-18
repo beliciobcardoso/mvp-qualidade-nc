@@ -1,24 +1,20 @@
 import { NavMenu } from '@/components/nav-menu'
 import { UserNav } from '@/components/nav-user'
 import { Separator } from '@/components/ui/separator'
-import { User } from '@/lib/types'
 import { Command } from 'lucide-react'
+import { getUserByEmail } from './admin/user/actions'
 
-export const dataUser = {
-  user: {
-    id: 'cm312lmmj0000v07gj2uo2un9',
-    name: 'Fulano de Tal',
-    email: 'fulano.tal@email.com',
-    avatar: '/avatars/shadcn.jpg',
-    role: 'ADMIN',
-  } as User,
-}
-
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const dataUser = (await getUserByEmail('pedro.doe@email.com')) || undefined
+
+  if (!dataUser) {
+    return <div>Loading...</div>
+  }
+
   return (
     <section className="flex h-screen">
       <aside className="flex h-screen w-[14%] flex-col p-2 md:w-[8%] lg:w-[16%] xl:w-[14%]">
@@ -39,7 +35,7 @@ export default function DashboardLayout({
         </nav>
         <Separator className="my-1" />
         <footer className="flex flex-grow-0 items-center bg-slate-300 py-2 pl-2">
-          <UserNav {...dataUser.user} />
+          <UserNav {...dataUser} />
         </footer>
       </aside>
       <main className="flex w-[86%] flex-col overflow-scroll bg-[#F7F8FA] md:w-[92%] lg:w-[84%] xl:w-[86%]">

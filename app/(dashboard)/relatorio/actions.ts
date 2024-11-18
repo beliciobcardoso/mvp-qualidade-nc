@@ -147,6 +147,20 @@ export async function deleteDescriptionService(id: number) {
 }
 
 export async function createReport(report: ReportCreateType) {
+  const userId = await prisma.user.findUnique({
+    where: {
+      id: report.userId,
+    },
+    select: {
+      id: true,
+    },
+  })
+
+  if (!userId) {
+    console.error('User not found')
+    return
+  }
+
   try {
     const data = await prisma.report.create({
       data: {
@@ -154,7 +168,7 @@ export async function createReport(report: ReportCreateType) {
         siteId: report.siteId,
         technicianId: report.technicianId,
         dateService: report.dateService,
-        userId: report.userId,
+        userId: userId?.id,
       },
     })
     return data

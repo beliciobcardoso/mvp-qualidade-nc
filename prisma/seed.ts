@@ -1,13 +1,17 @@
 import { PrismaClient, Role } from '@prisma/client'
+import { hash } from 'bcrypt'
 const prisma = new PrismaClient()
 
 async function main() {
+  const passwordHash = await hash('12345678', 10)
+
   // USERS
   await prisma.user.create({
     data: {
       email: 'fulano.tal@gemail.com',
       name: 'Fulano Tal',
-      passwordHash: '123456',
+      avatar: '',
+      passwordHash,
       role: Role.ADMIN,
       createdAt: new Date(),
     },
@@ -17,7 +21,8 @@ async function main() {
     data: {
       email: 'jane.doe@email.com',
       name: 'Jane Doe',
-      passwordHash: '123456',
+      avatar: '',
+      passwordHash,
       role: Role.COORDINATOR,
       createdAt: new Date(),
     },
@@ -27,7 +32,8 @@ async function main() {
     data: {
       email: 'maria.doe@email.com',
       name: 'Maria Doe',
-      passwordHash: '123456',
+      avatar: '',
+      passwordHash,
       role: Role.ANALYST,
       createdAt: new Date(),
     },
@@ -37,7 +43,8 @@ async function main() {
     data: {
       email: 'jose.doe@email.com',
       name: 'José Doe',
-      passwordHash: '123456',
+      avatar: '',
+      passwordHash,
       role: Role.USER,
       createdAt: new Date(),
     },
@@ -47,7 +54,8 @@ async function main() {
     data: {
       email: 'pedro.doe@email.com',
       name: 'Pedro Doe',
-      passwordHash: '123456',
+      avatar: '',
+      passwordHash,
       role: Role.TECHNICIAN,
       createdAt: new Date(),
     },

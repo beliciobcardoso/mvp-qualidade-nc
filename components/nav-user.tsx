@@ -19,7 +19,7 @@ export function UserNav(user: User) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="rounded-full p-0">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user.avatar} alt="@avatar" />
+            <AvatarImage src={user.avatar ?? ''} alt="@avatar" />
             <AvatarFallback>
               {user.name
                 .split(' ')
