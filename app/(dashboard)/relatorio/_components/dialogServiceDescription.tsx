@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
+import { DialogServiceDescriptionProps } from '@/lib/types'
 import { useState } from 'react'
-import { DialogServiceDescriptionProps } from '../type'
 import ServiceDescriptionForm from './serviceDescriptionForm'
 
 export function DialogServiceDescription({
