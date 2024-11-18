@@ -28,13 +28,25 @@ export default async function Page({ params }: { params: { id: string } }) {
       <header className="flex flex-col bg-white">
         <div className="flex items-center justify-between">
           <div className="h-20 w-44 bg-slate-400">
-            <Image src={ncLogo} alt="Logo" width={200} height={200} />
+            <Image
+              src={ncLogo}
+              alt="Logo"
+              width={400}
+              height={400}
+              className="h-full w-full object-cover"
+            />
           </div>
           <h1 className="px-4 text-2xl font-bold">
             RELATÓRIO DE MANUTENÇÃO CORRETIVA
           </h1>
           <div className="h-20 w-44 bg-slate-400">
-            <Image src={ncLogo} alt="LogoClient" width={200} height={200} />
+            <Image
+              src={relatorioHeader.client.img ?? ncLogo}
+              alt="LogoClient"
+              width={400}
+              height={400}
+              className="h-full w-full object-cover"
+            />
           </div>
         </div>
         <div className="flex flex-col">

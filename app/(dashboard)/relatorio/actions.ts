@@ -264,6 +264,7 @@ export async function getRelatorioById(id: number) {
       client: {
         select: {
           name: true,
+          img: true,
         },
       },
       user: {

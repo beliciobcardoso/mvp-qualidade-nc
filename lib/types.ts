@@ -144,6 +144,7 @@ export type Relatorio = {
   }
   client: {
     name: string
+    img: string | null
   }
   user: {
     name: string
