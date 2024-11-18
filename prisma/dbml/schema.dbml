@@ -31,8 +31,8 @@ Table Report {
   clientId String [not null]
   technician Technician [not null]
   technicianId String [not null]
-  user User
-  userId String
+  user User [not null]
+  userId String [not null]
   photoAnalisys PhotoAnalisys [not null]
   descriptionAnalisys DescriptionAnalisys [not null]
 }

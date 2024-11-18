@@ -41,8 +41,8 @@ model Report {
   clientId     String
   technician   Technician @relation(fields: [technicianId], references: [id])
   technicianId String
-  user         User?      @relation(fields: [userId], references: [id])
-  userId       String?
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
 
   photoAnalisys       PhotoAnalisys[]
   descriptionAnalisys DescriptionAnalisys[]
