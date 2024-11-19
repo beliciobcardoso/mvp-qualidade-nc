@@ -34,7 +34,7 @@ export default async function DashboardLayout({
           <NavMenu />
         </nav>
         <Separator className="my-1" />
-        <footer className="flex flex-grow-0 items-center bg-slate-300 py-2 pl-2">
+        <footer className="flex flex-grow-0 items-center rounded-sm bg-slate-300 py-2 pl-2">
           <UserNav {...dataUser} />
         </footer>
       </aside>
