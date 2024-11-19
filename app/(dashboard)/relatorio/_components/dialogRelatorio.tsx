@@ -97,7 +97,10 @@ export function DialogRelatorio({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => dialogStart()} variant="outline">
+      <Button
+        className="w-full justify-start rounded-sm border-0 bg-inherit pl-2 font-normal text-black shadow-none transition-colors hover:bg-accent hover:shadow-none"
+        onClick={() => dialogStart()}
+      >
         {dialogButton}
       </Button>
 

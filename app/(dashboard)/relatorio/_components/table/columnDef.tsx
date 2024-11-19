@@ -1,11 +1,19 @@
 'use client'
 import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown } from 'lucide-react'
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 
 import { getAllSites } from '@/app/(dashboard)/admin/site/actions'
 import { getAllTechnician } from '@/app/(dashboard)/admin/technician/actions'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { ReportRelType, SiteTypeRel, TechnicianType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
@@ -13,6 +21,46 @@ import { ptBR } from 'date-fns/locale'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { DialogRelatorio } from '../dialogRelatorio'
+
+// const EditReportCell = ({
+//   row,
+// }: {
+//   row: {
+//     original: ReportRelType
+//   }
+// }) => {
+//   const reports = row.original
+//   const [technicianData, setTechnicianData] = useState<TechnicianType[]>([])
+//   const [siteData, setSiteData] = useState<SiteTypeRel[]>([])
+
+//   useEffect(() => {
+//     const fetchTechnicianData = async () => {
+//       const data = await getAllTechnician()
+//       if (data) {
+//         setTechnicianData(data)
+//       }
+//     }
+//     const fetchSiteData = async () => {
+//       const data = await getAllSites()
+//       if (data) {
+//         setSiteData(data)
+//       }
+//     }
+//     fetchTechnicianData()
+//     fetchSiteData()
+//   }, [])
+
+//   return (
+//     <DialogRelatorio
+//       dialogButton={'Editar'}
+//       dialogTitle={'Relatório'}
+//       dialogDescription={'Tela para Editar Relatório'}
+//       report={reports}
+//       siteData={siteData}
+//       technicianData={technicianData}
+//     />
+//   )
+// }
 
 export const columns: ColumnDef<ReportRelType>[] = [
   {
@@ -33,7 +81,14 @@ export const columns: ColumnDef<ReportRelType>[] = [
         statusVariant = 'bg-yellow-500'
       }
 
-      return <Badge className={cn(statusVariant, 'text-left')}>{status}</Badge>
+      return (
+        <Badge
+          variant="outline"
+          className={cn(statusVariant, 'text-left text-white')}
+        >
+          {status}
+        </Badge>
+      )
     },
   },
   {
@@ -115,27 +170,29 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'EditReport',
-    id: 'EditReport',
-    header: '',
-    enableHiding: false,
-    cell: ({ row }) => {
-      return <EditReportCell row={row} />
-    },
-  },
-  {
-    accessorKey: 'AnalisarReport',
-    header: '',
+    id: 'Ações',
     enableHiding: false,
     cell: ({ row }) => {
       const relatorio = row.original
       return (
-        <Link
-          className="rounded-md border border-input bg-background p-2 font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
-          href={`/relatorio/${relatorio.id}`}
-        >
-          Analisar
-        </Link>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Ações</DropdownMenuLabel>
+            <EditReportCell row={row} />
+            <DropdownMenuSeparator />
+            <Link href={`/relatorio/${relatorio.id}`}>
+              <DropdownMenuItem className="cursor-pointer">
+                Analisar
+              </DropdownMenuItem>
+            </Link>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )
     },
   },

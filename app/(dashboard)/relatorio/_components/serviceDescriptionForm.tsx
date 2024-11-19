@@ -12,10 +12,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { upsetDescriptionAnalisys } from '../actions'
+import { createDescriptionAnalisys } from '../actions'
 
 const formSchema = z.object({
-  service: z.string(),
+  service: z.string().min(1, { message: 'Nome do serviço é obrigatório.' }),
   status: z.enum(['ok', 'na']),
 })
 
@@ -42,7 +42,7 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
       status,
     }
 
-    upsetDescriptionAnalisys(datas)
+    createDescriptionAnalisys(datas)
     router.refresh()
     form.reset()
   })

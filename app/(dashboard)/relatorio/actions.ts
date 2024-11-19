@@ -114,12 +114,31 @@ export async function getPhotoAnalisysById(id: number) {
   return photoAnalisys
 }
 
-export async function upsetDescriptionAnalisys(data: DescriptionAnalisysType) {
-  return await prisma.descriptionAnalisys.create({
-    data: {
-      ...data,
+export async function createDescriptionAnalisys(data: DescriptionAnalisysType) {
+  const existingDescription = await prisma.descriptionAnalisys.findFirst({
+    where: {
+      idReport: data.idReport,
     },
   })
+
+  if (!existingDescription) {
+    await prisma.report.update({
+      where: {
+        id: data.idReport,
+      },
+      data: {
+        updatedAt: new Date(),
+      },
+    })
+  }
+
+  try {
+    return await prisma.descriptionAnalisys.create({
+      data,
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export async function getDescriptionsId(id: number) {
