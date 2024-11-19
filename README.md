@@ -12,7 +12,6 @@ npm i
 
 ```bash	
 npm run dev
-
 ```
 
 ### Dependências instaladas
@@ -24,4 +23,9 @@ npm install -D prettier prettier-plugin-tailwindcss
 npm i -D eslint @rocketseat/eslint-config
 ```
     
+```bash
+npm i react-simple-wysiwyg
+```
+
+
     
