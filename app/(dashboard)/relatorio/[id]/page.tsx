@@ -6,7 +6,7 @@ import {
 import HeaderPage from '@/components/header-page'
 import { PhotoAnalisysType, Relatorio } from '@/lib/types'
 import { PlusIcon } from 'lucide-react'
-import HeaderReport from '../_components/header-report'
+import HeaderReport from '../_components/headerReport'
 import ModalAddCardPhoto from '../_components/modalAddCardPhoto'
 import PhotoAnalisys from '../_components/photoAnalisys'
 
