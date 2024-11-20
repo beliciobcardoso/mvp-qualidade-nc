@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { User } from '@/lib/types'
 
-export function UserNav(user: User) {
+export function NavUser(user: User) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
