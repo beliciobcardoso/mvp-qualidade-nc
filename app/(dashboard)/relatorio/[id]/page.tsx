@@ -5,9 +5,7 @@ import {
 } from '@/app/(dashboard)/relatorio/actions'
 import HeaderPage from '@/components/header-page'
 import { PhotoAnalisysType, Relatorio } from '@/lib/types'
-import { PlusIcon } from 'lucide-react'
 import HeaderReport from '../_components/headerReport'
-import ModalAddCardPhoto from '../_components/modalAddCardPhoto'
 import PhotoAnalisys from '../_components/photoAnalisys'
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -20,11 +18,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <HeaderPage pageName={'Analisando Relatório'} />
       <div className="flex w-full flex-col items-center bg-slate-300">
-        <ModalAddCardPhoto
-          textButton={<PlusIcon className="h-6 w-6" />}
-          textDescription={'Adicione uma nova foto'}
-          textTitle={'Adicionar Foto'}
-        />
         <HeaderReport
           relatorioHeader={relatorioHeader}
           descriptions={descriptions}

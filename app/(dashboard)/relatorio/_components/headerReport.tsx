@@ -1,8 +1,10 @@
 import ncLogo from '@/assets/ncLogo.png'
 import { Relatorio } from '@/lib/types'
+import { PlusIcon } from 'lucide-react'
 import Image from 'next/image'
 import AproveReport from './aproveReport'
 import { DialogServiceDescription } from './dialogServiceDescription'
+import ModalAddCardPhoto from './modalAddCardPhoto'
 import { RemoveServices } from './removerServices'
 
 interface RelatorioHeaderProps {
@@ -169,8 +171,14 @@ export default function HeaderReport({
                   <td className="border-2 text-center">
                     {description.status === 'na' ? 'X' : ''}
                   </td>
-                  <td className="flex w-8 px-2">
-                    <RemoveServices idService={description.id} />
+                  <td className="flex items-center justify-center">
+                    {descriptions.length === 1 ? (
+                      <p className="cursor-pointer rounded-sm bg-destructive bg-red-300 p-2 text-destructive-foreground text-white shadow-sm hover:bg-destructive/90">
+                        Del
+                      </p>
+                    ) : (
+                      <RemoveServices idService={description.id} />
+                    )}
                   </td>
                 </tr>
               ))
@@ -191,6 +199,15 @@ export default function HeaderReport({
             dialogTitle={'Adicionar Serviço'}
             idReport={id}
           />
+          {descriptions.length > 0 ? (
+            <ModalAddCardPhoto
+              textButton={<PlusIcon className="h-6 w-6" />}
+              textDescription={'Adicione uma nova foto'}
+              textTitle={'Adicionar Foto'}
+            />
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </header>

@@ -3,7 +3,12 @@ import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { deleteDescriptionService } from '../actions'
 
-export function RemoveServices({ idService }: { idService: number }) {
+interface RemoveServicesProps {
+  idService: number
+  className?: string
+}
+
+export function RemoveServices({ idService, className }: RemoveServicesProps) {
   const router = useRouter()
 
   function handleDelete(idService: number) {
@@ -12,7 +17,11 @@ export function RemoveServices({ idService }: { idService: number }) {
   }
   return (
     <>
-      <Button onClick={() => handleDelete(idService)} variant={'destructive'}>
+      <Button
+        onClick={() => handleDelete(idService)}
+        className={className}
+        variant={'destructive'}
+      >
         Del
       </Button>
     </>
