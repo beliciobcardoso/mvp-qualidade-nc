@@ -1,3 +1,4 @@
+import HeaderPage from '@/components/header-page'
 import { getAllClient } from '../client/actions'
 import { getAllSitesType } from '../siteType/actions'
 import { getAllStructuresType } from '../structureType/actions'
@@ -15,9 +16,9 @@ export default async function Site() {
   const siteTypeData = (await getAllSitesType()) || []
   const clientData = (await getAllClient()) || []
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Sites</h2>
+    <main>
+      <HeaderPage pageName={'Sites'} />
+      <div className="flex items-center justify-end space-y-2 pt-2">
         <DialogSite
           dialogButton={'Novo Site'}
           dialogTitle={'Site'}
@@ -30,6 +31,6 @@ export default async function Site() {
       <div>
         <DataTable data={siteData} columns={columns} />
       </div>
-    </div>
+    </main>
   )
 }

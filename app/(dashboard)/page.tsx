@@ -1,4 +1,5 @@
 import { Dashboard } from '@/components/dashboard'
+import HeaderPage from '@/components/header-page'
 import { getUserRoleCount } from './admin/user/actions'
 import {
   getTotalReportsCreated,
@@ -16,6 +17,7 @@ export default async function Home() {
 
   return (
     <main>
+      <HeaderPage pageName={'Dashboard'} />
       <Dashboard DataReports={totalReports} />
     </main>
   )

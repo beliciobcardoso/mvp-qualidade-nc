@@ -1,3 +1,4 @@
+import HeaderPage from '@/components/header-page'
 import { columns } from './_components/columns'
 import { DataTable } from './_components/data-table'
 import { DialogSiteType } from './_components/dialogTypeSite'
@@ -6,9 +7,9 @@ import { getAllSitesType } from './actions'
 export default async function TypeSitePage() {
   const dataSiteType = (await getAllSitesType()) || []
   return (
-    <div className="flex-1 space-y-4 p-8 pt-6">
-      <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Tipos de Sites</h2>
+    <main>
+      <HeaderPage pageName={'Tipos de Sites'} />
+      <div className="flex items-center justify-end space-y-2 pt-2">
         <DialogSiteType
           dialogButton={'Novo Tipo de Site'}
           dialogTitle={'Tipo de Site'}
@@ -18,6 +19,6 @@ export default async function TypeSitePage() {
       <div>
         <DataTable columns={columns} data={dataSiteType} />
       </div>
-    </div>
+    </main>
   )
 }
