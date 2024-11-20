@@ -1,7 +1,7 @@
 'use server'
 import { UserSchema } from '@/lib/formValidationSchemas'
 import prisma from '@/lib/prisma'
-import { UserCreate, UserUpdate } from '@/lib/types'
+import { Role, UserCreate, UserUpdate } from '@/lib/types'
 import { hash } from 'bcrypt'
 
 export async function createUser(user: UserCreate) {
@@ -59,6 +59,28 @@ export async function getData() {
     },
     orderBy: {
       name: 'asc',
+    },
+  })
+  return data
+}
+
+export async function getUserAnalysts(role: Role) {
+  const data = await prisma.user.findMany({
+    where: {
+      role,
+    },
+    select: {
+      id: true,
+      name: true,
+    },
+  })
+  return data
+}
+
+export async function getUserRoleCount(role: Role) {
+  const data = await prisma.user.count({
+    where: {
+      role,
     },
   })
   return data

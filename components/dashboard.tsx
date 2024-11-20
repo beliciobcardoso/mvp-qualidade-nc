@@ -1,9 +1,4 @@
 'use client'
-
-import { useMemo, useState } from 'react'
-import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
-
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -19,6 +14,8 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 import { TrendingUp } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 
 export const description = 'An interactive line chart'
 
@@ -78,7 +75,16 @@ const reportConfig = {
   },
 } satisfies ChartConfig
 
-export function Dashboard() {
+export interface HomeProps {
+  DataReports: {
+    created: number
+    inProgress: number
+    finished: number
+    analyst: number
+  }
+}
+
+export function Dashboard({ DataReports }: HomeProps) {
   const [activeChart, setActiveChart] =
     useState<keyof typeof chartConfig>('andamento')
 
@@ -94,9 +100,6 @@ export function Dashboard() {
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-        <div className="flex items-center space-x-2">
-          <Button>Download</Button>
-        </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4" dir="rtl">
         <Card dir="ltr">
@@ -119,7 +122,7 @@ export function Dashboard() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">8</div>
+            <div className="text-2xl font-bold">{DataReports.analyst}</div>
           </CardContent>
         </Card>
         <Card dir="ltr">
@@ -141,10 +144,7 @@ export function Dashboard() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">80</div>
-            <p className="text-xs text-muted-foreground">
-              +50 desde a última hora
-            </p>
+            <div className="text-2xl font-bold">{DataReports.finished}</div>
           </CardContent>
         </Card>
         <Card dir="ltr">
@@ -166,10 +166,7 @@ export function Dashboard() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">10</div>
-            <p className="text-xs text-muted-foreground">
-              +10 desde a última hora
-            </p>
+            <div className="text-2xl font-bold">{DataReports.inProgress}</div>
           </CardContent>
         </Card>
         <Card dir="ltr">
@@ -191,10 +188,7 @@ export function Dashboard() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">573</div>
-            <p className="text-xs text-muted-foreground">
-              +201 desde a última hora
-            </p>
+            <div className="text-2xl font-bold">{DataReports.created}</div>
           </CardContent>
         </Card>
       </div>

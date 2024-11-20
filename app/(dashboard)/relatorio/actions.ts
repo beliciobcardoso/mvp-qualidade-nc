@@ -356,3 +356,39 @@ export async function getClientByPartialName(partialName: string) {
     },
   })
 }
+
+export async function getTotalReportsCreated() {
+  const reportsCreated = await prisma.report.count()
+  return reportsCreated
+}
+
+export async function getTotalReportsInProgress() {
+  const reportsFinished = await prisma.report.count({
+    where: {
+      finishedAt: {
+        not: null,
+      },
+    },
+  })
+
+  const reportsInProgress = await prisma.report.count({
+    where: {
+      updatedAt: {
+        not: null,
+      },
+    },
+  })
+
+  return reportsInProgress - reportsFinished
+}
+
+export async function getTotalReportsFinished() {
+  const reportsFinished = await prisma.report.count({
+    where: {
+      finishedAt: {
+        not: null,
+      },
+    },
+  })
+  return reportsFinished
+}

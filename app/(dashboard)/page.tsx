@@ -1,9 +1,22 @@
 import { Dashboard } from '@/components/dashboard'
+import { getUserRoleCount } from './admin/user/actions'
+import {
+  getTotalReportsCreated,
+  getTotalReportsFinished,
+  getTotalReportsInProgress,
+} from './relatorio/actions'
 
-export default function Home() {
+export default async function Home() {
+  const totalReports = {
+    created: await getTotalReportsCreated(),
+    inProgress: await getTotalReportsInProgress(),
+    finished: await getTotalReportsFinished(),
+    analyst: await getUserRoleCount('ANALYST'),
+  }
+
   return (
     <main>
-      <Dashboard />
+      <Dashboard DataReports={totalReports} />
     </main>
   )
 }
