@@ -12,19 +12,18 @@ export default async function RelatorioPage() {
   const dataUser = (await getUserByEmail('pedro.doe@email.com')) || undefined
 
   return (
-    <main className="flex flex-col justify-center gap-8 px-12 py-2">
-      <div className="flex justify-end">
-        <div className="flex justify-around">
-          <DialogRelatorioForm
-            dialogButton={'Criar Relatório'}
-            dialogTitle={'Criar Relatório'}
-            dialogDescription={'Tela para criar um novo relatório'}
-            dataUser={dataUser}
-            clientData={clientData}
-            technicianData={technicianData}
-            siteData={siteData}
-          />
-        </div>
+    <main className="flex-1 space-y-4 p-8 pt-6">
+      <div className="flex items-center justify-between space-y-2">
+        <h2 className="text-3xl font-bold tracking-tight">Relatórios</h2>
+        <DialogRelatorioForm
+          dialogButton={'Criar Relatório'}
+          dialogTitle={'Criar Relatório'}
+          dialogDescription={'Tela para criar um novo relatório'}
+          dataUser={dataUser}
+          clientData={clientData}
+          technicianData={technicianData}
+          siteData={siteData}
+        />
       </div>
       <ListaRelatorio />
     </main>
