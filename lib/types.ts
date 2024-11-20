@@ -1,18 +1,20 @@
 import { StructureType } from '@prisma/client'
 import { ReactNode } from 'react'
 
+export type Role = 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+
 export type User = {
   id: string
   name: string
   email: string
-  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  role: Role
   avatar?: string | null
 }
 
 export type UserCreate = {
   name: string
   email: string
-  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  role: Role
   password: string
 }
 
@@ -20,7 +22,7 @@ export type UserUpdate = {
   id: string
   name: string
   email: string
-  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  role: Role
 }
 
 export type UserForm = {
@@ -28,7 +30,7 @@ export type UserForm = {
   name: string
   avatar?: string
   email: string
-  role: 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
+  role: Role
   createdAt: Date
 }
 
