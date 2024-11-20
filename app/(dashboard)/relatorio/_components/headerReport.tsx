@@ -1,5 +1,5 @@
 import ncLogo from '@/assets/ncLogo.png'
-import { Relatorio } from '@/lib/types'
+import { PhotoAnalisysType, Relatorio } from '@/lib/types'
 import { PlusIcon } from 'lucide-react'
 import Image from 'next/image'
 import AproveReport from './aproveReport'
@@ -15,12 +15,14 @@ interface RelatorioHeaderProps {
     service: string
     status: string
   }[]
+  photoAnalisys: PhotoAnalisysType[]
   id: number
 }
 
 export default function HeaderReport({
   relatorioHeader,
   descriptions,
+  photoAnalisys,
   id,
 }: RelatorioHeaderProps) {
   return (
@@ -192,7 +194,16 @@ export default function HeaderReport({
           </tbody>
         </table>
         <div className="flex justify-end gap-2 p-2">
-          <AproveReport />
+          {photoAnalisys.length > 4 ? (
+            <AproveReport
+              dialogButton={'Aprovar Relatório'}
+              dialogTitle={'Aprovar Relatório'}
+              dialogDescription={'Tela para aprovar um relatório'}
+              idReport={id}
+            />
+          ) : (
+            ''
+          )}
           <DialogServiceDescription
             dialogButton={'Adicionar Serviço'}
             dialogDescription={'Adicione um novo serviço'}

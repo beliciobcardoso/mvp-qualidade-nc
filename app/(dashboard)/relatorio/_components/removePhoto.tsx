@@ -9,21 +9,22 @@ import {
 } from '@/components/ui/dialog'
 import { useState } from 'react'
 
-interface AproveReportProps {
+interface RemovePhotoProps {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
-  idReport: number
+  idPhoto: number
 }
 
-export default function AproveReport({
+export default function RemovePhoto({
   dialogButton,
   dialogTitle,
   dialogDescription,
-  idReport,
-}: AproveReportProps) {
+  idPhoto,
+}: RemovePhotoProps) {
   const [open, setOpen] = useState(false)
-  console.log(idReport)
+  console.log(idPhoto)
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <Button onClick={() => setOpen(true)}>{dialogButton}</Button>
@@ -32,7 +33,7 @@ export default function AproveReport({
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
-        <p>{idReport}</p>
+        <p>{idPhoto}</p>
         <div className="flex justify-around">
           <Button variant={'destructive'}>Excluir</Button>
           <Button onClick={() => setOpen(false)}>Cancelar</Button>

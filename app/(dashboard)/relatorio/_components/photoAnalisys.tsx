@@ -2,6 +2,7 @@ import imagem from '@/assets/image.svg'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { PhotoAnalisysType } from '@/lib/types'
 import Image from 'next/image'
+import RemovePhoto from './removePhoto'
 
 export default function PhotoAnalisys({
   photoAnalisys,
@@ -14,6 +15,14 @@ export default function PhotoAnalisys({
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {photoAnalisys.map((item, index) => (
             <Card key={item.id}>
+              <div className="flex justify-end pr-2 pt-2">
+                <RemovePhoto
+                  idPhoto={item.id ?? 0}
+                  dialogButton={'X'}
+                  dialogTitle={'Excluir Foto'}
+                  dialogDescription={'Tela para excluir uma foto'}
+                />
+              </div>
               <div className="flex flex-col items-center truncate">
                 <CardContent className="w-[430px] pt-2">
                   <Image src={item.url} alt="Imagem" width={400} height={400} />

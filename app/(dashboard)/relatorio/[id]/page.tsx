@@ -21,6 +21,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <HeaderReport
           relatorioHeader={relatorioHeader}
           descriptions={descriptions}
+          photoAnalisys={photoAnalisys}
           id={id}
         />
         <aside className="container flex flex-col items-center py-4">
