@@ -91,7 +91,11 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props} className="mr-0 w-[17%]">
+    <Sidebar
+      collapsible="icon"
+      {...props}
+      className="mr-0 bg-sidebar-primary lg:w-[20%] xl:w-[17%] 2xl:w-[13%]"
+    >
       <SidebarHeader>
         <SidebarMenuButton size="lg" asChild>
           <a href="/" className="flex h-12 gap-2 p-0">
