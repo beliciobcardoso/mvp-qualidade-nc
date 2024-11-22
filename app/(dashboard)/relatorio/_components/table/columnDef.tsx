@@ -22,46 +22,6 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { DialogRelatorio } from '../dialogRelatorio'
 
-// const EditReportCell = ({
-//   row,
-// }: {
-//   row: {
-//     original: ReportRelType
-//   }
-// }) => {
-//   const reports = row.original
-//   const [technicianData, setTechnicianData] = useState<TechnicianType[]>([])
-//   const [siteData, setSiteData] = useState<SiteTypeRel[]>([])
-
-//   useEffect(() => {
-//     const fetchTechnicianData = async () => {
-//       const data = await getAllTechnician()
-//       if (data) {
-//         setTechnicianData(data)
-//       }
-//     }
-//     const fetchSiteData = async () => {
-//       const data = await getAllSites()
-//       if (data) {
-//         setSiteData(data)
-//       }
-//     }
-//     fetchTechnicianData()
-//     fetchSiteData()
-//   }, [])
-
-//   return (
-//     <DialogRelatorio
-//       dialogButton={'Editar'}
-//       dialogTitle={'Relatório'}
-//       dialogDescription={'Tela para Editar Relatório'}
-//       report={reports}
-//       siteData={siteData}
-//       technicianData={technicianData}
-//     />
-//   )
-// }
-
 export const columns: ColumnDef<ReportRelType>[] = [
   {
     accessorKey: 'status',
@@ -165,6 +125,56 @@ export const columns: ColumnDef<ReportRelType>[] = [
       return (
         <div className="pl-4">
           {format(date, 'dd/MM/yyyy', { locale: ptBR })}
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'dataAnalise',
+    id: 'Inicio da Análise',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Inicio da Análise
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const date = row.original.updatedAt
+        ? new Date(row.original.updatedAt)
+        : null
+      return (
+        <div className="pl-4">
+          {date ? format(date, 'dd/MM/yyyy', { locale: ptBR }) : 'N/A'}
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'dataFinalização',
+    id: 'Data da Finalização',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Análise Finalizada
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const date = row.original.finishedAt
+        ? new Date(row.original.finishedAt)
+        : null
+      return (
+        <div className="pl-4">
+          {date ? format(date, 'dd/MM/yyyy', { locale: ptBR }) : 'N/A'}
         </div>
       )
     },

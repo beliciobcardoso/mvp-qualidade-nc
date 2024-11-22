@@ -95,9 +95,9 @@ export default function HeaderReport({
         <div className="flex justify-end gap-2 p-2">
           {photoAnalisys.length > 4 ? (
             <AproveReport
-              dialogButton={'Aprovar Relatório'}
-              dialogTitle={'Aprovar Relatório'}
-              dialogDescription={'Tela para aprovar um relatório'}
+              dialogButton={'Finalizar Relatório'}
+              dialogTitle={'Finalizar Relatório'}
+              dialogDescription={'Tela para finalizar um relatório'}
               idReport={id}
             />
           ) : (

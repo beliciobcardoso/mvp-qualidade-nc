@@ -210,6 +210,17 @@ export async function updateReport(data: Report) {
   })
 }
 
+export async function updateReportFinished(id: number) {
+  return await prisma.report.update({
+    where: {
+      id,
+    },
+    data: {
+      finishedAt: new Date(),
+    },
+  })
+}
+
 export async function getRelatorios() {
   const relatorios = await prisma.report.findMany({
     select: {
