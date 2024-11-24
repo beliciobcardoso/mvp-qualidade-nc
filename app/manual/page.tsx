@@ -11,7 +11,7 @@ const photos = Array.from({ length: 10 }, (_, index) => ({
 
 export default function Manual() {
   return (
-    <main className="flex gap-8 justify-center">
+    <main className="flex justify-center gap-8">
       <Link href="/">
         <p>Voltar</p>
       </Link>
