@@ -25,7 +25,12 @@ export default async function Page({ params }: { params: { id: string } }) {
           id={id}
         />
         <aside className="container flex flex-col items-center py-4">
-          {<PhotoAnalisys photoAnalisys={photoAnalisys} />}
+          {
+            <PhotoAnalisys
+              photoAnalisys={photoAnalisys}
+              relatorioHeader={relatorioHeader}
+            />
+          }
         </aside>
         <footer className="flex flex-col bg-white"></footer>
       </div>

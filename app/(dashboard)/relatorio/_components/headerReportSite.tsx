@@ -19,28 +19,15 @@ export default function HeaderReportSite({
               <tr>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">ORIGINAL ID: </span>
+                  {relatorioHeader.sites.idSite.toUpperCase()}
                 </td>
-                <td className="border-x-2 px-2">
-                  <span className="font-bold">ENDEREÇO: </span>
-                </td>
+
                 <td className="border-x-2 px-2">
                   <span className="font-bold">ALTURA: </span>
+                  {relatorioHeader.sites.altura?.toUpperCase() ?? ''}
                 </td>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">DATA DO SERVIÇO: </span>
-                </td>
-              </tr>
-              <tr>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.idSite.toUpperCase()}
-                </td>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.endereco.toUpperCase()}
-                </td>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.altura?.toUpperCase() ?? ''}
-                </td>
-                <td className="border-x-2 px-2 text-right">
                   {relatorioHeader.dateService.toLocaleDateString()}
                 </td>
               </tr>
@@ -52,29 +39,23 @@ export default function HeaderReportSite({
             <tbody>
               <tr>
                 <td className="border-x-2 px-2">
-                  <span className="font-bold">CIDADE: </span>
+                  <span className="font-bold">ENDEREÇO: </span>
+                  {relatorioHeader.sites.endereco.toUpperCase()}
                 </td>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">BAIRRO: </span>
+                  {relatorioHeader.sites.bairro.toUpperCase()}
                 </td>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">NÚMERO: </span>
+                  {relatorioHeader.sites.numero.toUpperCase()}
+                </td>
+                <td className="border-x-2 px-2">
+                  <span className="font-bold">CIDADE: </span>
+                  {relatorioHeader.sites.cidade.toUpperCase()}
                 </td>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">UF: </span>
-                </td>
-              </tr>
-              <tr>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.cidade.toUpperCase()}
-                </td>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.bairro.toUpperCase()}
-                </td>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.numero.toUpperCase()}
-                </td>
-                <td className="border-x-2 px-2 text-right">
                   {relatorioHeader.sites.uf.toUpperCase()}
                 </td>
               </tr>
@@ -87,22 +68,14 @@ export default function HeaderReportSite({
               <tr>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">TIPO DE SITE: </span>
+                  {relatorioHeader.sites.siteType.name.toUpperCase()}
                 </td>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">TIPO DE ESTRUTURA: </span>
+                  {relatorioHeader.sites.structureType.name.toUpperCase()}
                 </td>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">TÉCNICO: </span>
-                </td>
-              </tr>
-              <tr>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.siteType.name.toUpperCase()}
-                </td>
-                <td className="border-x-2 px-2 text-right">
-                  {relatorioHeader.sites.structureType.name.toUpperCase()}
-                </td>
-                <td className="border-x-2 px-2 text-right">
                   {relatorioHeader.technician.name.toUpperCase()}
                 </td>
               </tr>
