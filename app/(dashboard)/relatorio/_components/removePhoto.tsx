@@ -23,7 +23,6 @@ export default function RemovePhoto({
   idPhoto,
 }: RemovePhotoProps) {
   const [open, setOpen] = useState(false)
-  console.log(idPhoto)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
