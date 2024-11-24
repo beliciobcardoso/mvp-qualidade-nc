@@ -26,7 +26,8 @@ export default function PhotoAnalisys({
                       <></>
                     ) : (
                       <RemovePhoto
-                        idPhoto={item.id ?? 0}
+                        PhotoAnalisys={item}
+                        index={index + 1}
                         dialogButton={'X'}
                         dialogTitle={'Excluir Foto'}
                         dialogDescription={'Tela para excluir uma foto'}

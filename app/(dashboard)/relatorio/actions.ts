@@ -114,6 +114,14 @@ export async function getPhotoAnalisysById(id: number) {
   return photoAnalisys
 }
 
+export async function deletePhotoAnalisys(id: number) {
+  return await prisma.photoAnalisys.delete({
+    where: {
+      id,
+    },
+  })
+}
+
 export async function createDescriptionAnalisys(data: DescriptionAnalisysType) {
   const existingDescription = await prisma.descriptionAnalisys.findFirst({
     where: {
