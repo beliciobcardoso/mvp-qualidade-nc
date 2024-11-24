@@ -5,6 +5,7 @@
 
 https://github.com/dudestein/react-beautiful-dnd-pt
 
+### Instalação
 
 ```bash
 npm i
@@ -31,5 +32,10 @@ npm i react-simple-wysiwyg
 npm i puppeteer
 ```
 
+### Endpoints
+
+/api/reportpdf/4
+
+/reportviewer/4
 
     
