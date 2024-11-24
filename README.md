@@ -27,5 +27,9 @@ npm i -D eslint @rocketseat/eslint-config
 npm i react-simple-wysiwyg
 ```
 
+```bash
+npm i puppeteer
+```
+
 
     
