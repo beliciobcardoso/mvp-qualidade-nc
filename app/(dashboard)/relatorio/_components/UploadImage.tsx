@@ -8,7 +8,6 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
@@ -17,8 +16,16 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 
+import Tiptap from './Tiptap'
+
+// import Editor from 'react-simple-wysiwyg'
+
 const formSchema = z.object({
-  description: z.string().min(2).max(200),
+  description: z
+    .string()
+    .min(10, { message: 'A Descrição deve ter no mínimo 10 caracteres' })
+    .max(50, { message: 'A Descrição deve ter no máximo 50 caracteres' })
+    .trim(),
 })
 
 export function UploadImage() {
@@ -56,6 +63,7 @@ export function UploadImage() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: 'onChange',
     defaultValues: {
       description: '',
     },
@@ -63,7 +71,6 @@ export function UploadImage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const fileName = imageUrl.split('/').pop() as string
-    console.log(imageUrl)
     const data = {
       idReport,
       url: imageUrl,
@@ -127,10 +134,9 @@ export function UploadImage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        className="w-[450px]"
-                        placeholder="Descrição"
-                        {...field}
+                      <Tiptap
+                        description={field.name}
+                        onChange={field.onChange}
                       />
                     </FormControl>
                     <FormMessage />
@@ -138,7 +144,7 @@ export function UploadImage() {
                 )}
               />
               <Button type="submit" disabled={!imageUrl}>
-                Submit
+                Salvar
               </Button>
             </form>
           </Form>
