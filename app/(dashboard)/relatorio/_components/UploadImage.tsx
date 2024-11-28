@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 
-import Tiptap from './Tiptap'
+import RichTextEditor from './textEditor/rich-text-editor'
 
 // import Editor from 'react-simple-wysiwyg'
 
@@ -24,7 +24,6 @@ const formSchema = z.object({
   description: z
     .string()
     .min(10, { message: 'A Descrição deve ter no mínimo 10 caracteres' })
-    .max(50, { message: 'A Descrição deve ter no máximo 50 caracteres' })
     .trim(),
 })
 
@@ -32,6 +31,7 @@ export function UploadImage() {
   const pathname = usePathname()
   const [isDragging, setIsDragging] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
+  const [description, setDescription] = useState('')
   const idReport = Number(pathname.split('/').pop())
   const router = useRouter()
 
@@ -63,8 +63,7 @@ export function UploadImage() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    mode: 'onChange',
-    defaultValues: {
+    values: {
       description: '',
     },
   })
@@ -79,6 +78,7 @@ export function UploadImage() {
     }
 
     await savePhotoAnalisys(data)
+    setDescription('')
     router.refresh()
     setImageUrl('')
     form.reset()
@@ -134,16 +134,19 @@ export function UploadImage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Tiptap
-                        description={field.name}
-                        onChange={field.onChange}
+                      <RichTextEditor
+                        content={field.value}
+                        onChange={(value) => {
+                          field.onChange(value)
+                          setDescription(value)
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={!imageUrl}>
+              <Button type="submit" disabled={!imageUrl || !description}>
                 Salvar
               </Button>
             </form>
