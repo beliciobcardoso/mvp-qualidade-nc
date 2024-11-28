@@ -1,7 +1,11 @@
+'use client'
 import imagem from '@/assets/image.svg'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { PhotoAnalisysType, Relatorio } from '@/lib/types'
+import { EditorContent, useEditor } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 import Image from 'next/image'
+import { useState } from 'react'
 import RemovePhoto from './removePhoto'
 
 interface PhotoAnalisysProps {
@@ -13,6 +17,17 @@ export default function PhotoAnalisys({
   photoAnalisys,
   relatorioHeader,
 }: PhotoAnalisysProps) {
+  const [contentHTML, setContentHTML] = useState('')
+
+  const editor = useEditor({
+    extensions: [StarterKit],
+    content: contentHTML,
+    onUpdate: ({ editor }) => {
+      console.log(editor.getText())
+      setContentHTML(editor.getText())
+    },
+  })
+
   return (
     <>
       {photoAnalisys.length > 0 ? (
@@ -41,7 +56,9 @@ export default function PhotoAnalisys({
                     <p>{index + 1}</p>
                   </div>
                   <div className="col-span-6 mr-2 flex h-9 items-center justify-center border-y-2 border-r-2 font-bold">
-                    <p>{item.description}</p>
+                    <EditorContent
+                      editor={editor}
+                    >{`<p>teste</p>`}</EditorContent>
                   </div>
                 </CardFooter>
               </div>

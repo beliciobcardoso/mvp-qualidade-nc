@@ -52,7 +52,7 @@ export default function RichTextEditor({
     content,
     editorProps: {
       attributes: {
-        class: 'border rounded-md bg-slate-50 py-2 px-3',
+        class: 'border rounded-md bg-slate-50 py-2 my-2 px-3',
       },
     },
     onUpdate: ({ editor }) => {
