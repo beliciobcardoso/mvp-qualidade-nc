@@ -15,7 +15,7 @@ export default async function NewPage() {
           dialogDescription={'Tela para Salvar um novo Nome'}
         />
       </div>
-      <div className="container mx-auto py-4 w-fit">
+      <div className="container mx-auto w-fit py-4">
         <DataTable columns={columns} data={data} />
       </div>
       <div>

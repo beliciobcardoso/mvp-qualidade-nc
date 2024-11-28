@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import * as React from 'react'
@@ -356,9 +357,11 @@ function getPayloadConfigFromPayload(
 }
 
 export {
-  ChartContainer, ChartLegend,
+  ChartContainer,
+  ChartLegend,
   ChartLegendContent,
-  ChartStyle, ChartTooltip,
+  ChartStyle,
+  ChartTooltip,
   ChartTooltipContent
 }
 

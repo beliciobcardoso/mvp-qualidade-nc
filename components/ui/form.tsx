@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import * as LabelPrimitive from '@radix-ui/react-label'
@@ -167,8 +168,13 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = 'FormMessage'
 
 export {
-  Form, FormControl,
-  FormDescription, FormField, FormItem,
-  FormLabel, FormMessage, useFormField
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  useFormField
 }
 

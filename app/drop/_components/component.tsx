@@ -5,10 +5,10 @@ import { GripVertical } from 'lucide-react'
 import { useState } from 'react'
 // import { DragDropContext, Draggable, Droppable, DropResult } from "react-beautiful-dnd"
 import {
-    DragDropContext,
-    Draggable,
-    Droppable,
-    DropResult,
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
 } from '@hello-pangea/dnd'
 
 // Define the type for our card items
@@ -53,7 +53,7 @@ export default function Component() {
 
   return (
     <div className="flex flex-col p-4">
-      <h1 className="text-2xl font-bold mb-4">Sortable Card List</h1>
+      <h1 className="mb-4 text-2xl font-bold">Sortable Card List</h1>
       <div className="container flex flex-wrap gap-3">
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="card01">

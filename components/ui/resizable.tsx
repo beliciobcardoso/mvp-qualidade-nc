@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import { DragHandleDots2Icon } from '@radix-ui/react-icons'
