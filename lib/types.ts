@@ -102,18 +102,12 @@ export type ReportRelType = {
   updatedAt: Date | null
   finishedAt: Date | null
   sites: SiteType
-  client: {
-    id: string
-    name: string
-  }
   technician: {
     id: string
     name: string
   }
-  user: {
-    id: string
-    name: string
-  }
+  user: User
+  analyst: User
 }
 
 export type ReportType = {
@@ -138,17 +132,15 @@ export type Relatorio = {
   createdAt: Date
   updatedAt: Date | null
   finishedAt: Date | null
-  clientId: string
   technicianId: string
   userId: string | null
   technician: {
     name: string
   }
-  client: {
-    name: string
-    img: string | null
-  }
   user: {
+    name: string
+  }
+  analyst: {
     name: string
   }
   sites: SiteTypeRel

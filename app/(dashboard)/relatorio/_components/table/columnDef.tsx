@@ -90,6 +90,22 @@ export const columns: ColumnDef<ReportRelType>[] = [
     ),
   },
   {
+    accessorKey: 'user.name',
+    id: 'Usuário',
+    header: 'Usuario criador',
+    cell: ({ row }) => (
+      <div className="text-left">{row.original.user.name}</div>
+    ),
+  },
+  {
+    accessorKey: 'analyst.name',
+    id: 'Analista',
+    header: 'Analista',
+    cell: ({ row }) => (
+      <div className="text-left">{row.original.analyst.name}</div>
+    ),
+  },
+  {
     accessorKey: 'dateService',
     id: 'Data do Serviço',
     header: ({ column }) => {

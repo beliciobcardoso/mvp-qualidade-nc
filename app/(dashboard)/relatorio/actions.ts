@@ -265,12 +265,6 @@ export async function getRelatorios() {
           },
         },
       },
-      client: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
       technician: {
         select: {
           id: true,
@@ -281,6 +275,16 @@ export async function getRelatorios() {
         select: {
           id: true,
           name: true,
+          email: true,
+          role: true,
+        },
+      },
+      analyst: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          role: true,
         },
       },
     },
@@ -299,15 +303,18 @@ export async function getRelatorioById(id: number) {
           name: true,
         },
       },
-      client: {
-        select: {
-          name: true,
-          img: true,
-        },
-      },
       user: {
         select: {
           name: true,
+          email: true,
+          role: true,
+        },
+      },
+      analyst: {
+        select: {
+          name: true,
+          email: true,
+          role: true,
         },
       },
       sites: {
@@ -325,6 +332,7 @@ export async function getRelatorioById(id: number) {
               name: true,
             },
           },
+          client: {},
           siteType: {
             select: {
               name: true,

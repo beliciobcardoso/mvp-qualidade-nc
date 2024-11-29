@@ -37,8 +37,6 @@ model Report {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime?
   finishedAt   DateTime?
-  client       Client     @relation(fields: [clientId], references: [id])
-  clientId     String
   technician   Technician @relation(fields: [technicianId], references: [id])
   technicianId String
   user         User       @relation(fields: [userId], references: [id])
@@ -100,11 +98,10 @@ model User {
 }
 
 model Client {
-  id      String   @id @default(cuid())
-  name    String
-  img     String?
-  site    Site[]
-  reports Report[]
+  id   String  @id @default(cuid())
+  name String
+  img  String?
+  site Site[]
 }
 
 enum Role {
