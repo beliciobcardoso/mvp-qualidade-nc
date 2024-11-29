@@ -31,7 +31,7 @@ export default function AproveReport({
       try {
         await updateReportFinished(id)
         setOpen(false)
-        router.push('/relatorio')
+        router.refresh()
       } catch (error) {
         console.error(error)
       }
