@@ -33,6 +33,8 @@ Table Report {
   technicianId String [not null]
   user User [not null]
   userId String [not null]
+  analyst User
+  analystId String
   photoAnalisys PhotoAnalisys [not null]
   descriptionAnalisys DescriptionAnalisys [not null]
 }
@@ -81,7 +83,8 @@ Table User {
   role Role [not null]
   passwordHash String [not null]
   createdAt DateTime [default: `now()`, not null]
-  reports Report [not null]
+  analyst Report [not null]
+  Report Report [not null]
 }
 
 Table Client {
@@ -111,6 +114,8 @@ Ref: Report.clientId > Client.id
 Ref: Report.technicianId > Technician.id
 
 Ref: Report.userId > User.id
+
+Ref: Report.analystId > User.id
 
 Ref: Site.structureTypeId > StructureType.id
 

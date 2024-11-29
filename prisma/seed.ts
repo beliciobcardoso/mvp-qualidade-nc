@@ -6,88 +6,49 @@ async function main() {
   const passwordHash = await hash('12345678', 10)
 
   // USERS
-  await prisma.user.create({
-    data: {
-      email: 'fulano.tal@gemail.com',
-      name: 'Fulano Tal',
-      avatar: '',
-      passwordHash,
-      role: Role.ADMIN,
-      createdAt: new Date(),
-    },
-  })
+  const users = [
+    { email: 'fulano.tal@gemail.com', name: 'Fulano Tal', role: Role.ADMIN },
+    { email: 'jane.doe@email.com', name: 'Jane Doe', role: Role.COORDINATOR },
+    { email: 'maria.doe@email.com', name: 'Maria Doe', role: Role.ANALYST },
+    { email: 'antonia.doe@email.com', name: 'Antonia Doe', role: Role.ANALYST },
+    { email: 'jose.doe@email.com', name: 'José Doe', role: Role.USER },
+    { email: 'pedro.doe@email.com', name: 'Pedro Doe', role: Role.TECHNICIAN },
+  ]
 
-  await prisma.user.create({
-    data: {
-      email: 'jane.doe@email.com',
-      name: 'Jane Doe',
-      avatar: '',
-      passwordHash,
-      role: Role.COORDINATOR,
-      createdAt: new Date(),
-    },
-  })
-
-  await prisma.user.create({
-    data: {
-      email: 'maria.doe@email.com',
-      name: 'Maria Doe',
-      avatar: '',
-      passwordHash,
-      role: Role.ANALYST,
-      createdAt: new Date(),
-    },
-  })
-
-  await prisma.user.create({
-    data: {
-      email: 'jose.doe@email.com',
-      name: 'José Doe',
-      avatar: '',
-      passwordHash,
-      role: Role.USER,
-      createdAt: new Date(),
-    },
-  })
-
-  await prisma.user.create({
-    data: {
-      email: 'pedro.doe@email.com',
-      name: 'Pedro Doe',
-      avatar: '',
-      passwordHash,
-      role: Role.TECHNICIAN,
-      createdAt: new Date(),
-    },
-  })
+  for (const user of users) {
+    await prisma.user.create({
+      data: {
+        email: user.email,
+        name: user.name,
+        avatar: '',
+        passwordHash,
+        role: user.role,
+        createdAt: new Date(),
+      },
+    })
+  }
 
   // Técnicos
 
-  await prisma.technician.create({
-    data: {
-      name: 'Técnico 1',
-    },
-  })
+  const technicians = [{ name: 'Técnico 1' }, { name: 'Técnico 2' }]
 
-  await prisma.technician.create({
-    data: {
-      name: 'Técnico 2',
-    },
-  })
+  for (const technician of technicians) {
+    await prisma.technician.create({
+      data: technician,
+    })
+  }
 
   // Clientes
-  await prisma.client.create({
-    data: {
-      name: 'Cliente 1',
-      img: 'https://via.placeholder.com/150',
-    },
-  })
+  const clients = [
+    { name: 'Cliente 1', img: 'https://via.placeholder.com/150' },
+    { name: 'Cliente 2' },
+  ]
 
-  await prisma.client.create({
-    data: {
-      name: 'Cliente 2',
-    },
-  })
+  for (const client of clients) {
+    await prisma.client.create({
+      data: client,
+    })
+  }
 
   // Tipo de Estrutura
   const structureTypes = [
