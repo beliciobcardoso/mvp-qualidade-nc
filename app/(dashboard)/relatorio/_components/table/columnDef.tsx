@@ -24,6 +24,12 @@ import { DialogRelatorio } from '../dialogRelatorio'
 
 export const columns: ColumnDef<ReportRelType>[] = [
   {
+    accessorKey: 'id',
+    id: 'ID',
+    header: 'ID Relatório',
+    cell: ({ row }) => <div className="text-left">{row.original.id}</div>,
+  },
+  {
     accessorKey: 'status',
     id: 'Status',
     header: 'Status',
@@ -184,6 +190,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const relatorio = row.original
+      const { finishedAt } = row.original
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -201,6 +208,13 @@ export const columns: ColumnDef<ReportRelType>[] = [
                 Analisar
               </DropdownMenuItem>
             </Link>
+            {finishedAt && (
+              <Link href={`api/reportpdf/${relatorio.id}`} target="_blank">
+                <DropdownMenuItem className="cursor-pointer">
+                  Gerar PDF
+                </DropdownMenuItem>
+              </Link>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       )
