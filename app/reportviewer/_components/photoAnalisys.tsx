@@ -1,3 +1,4 @@
+'use client'
 import imagem from '@/assets/image.svg'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { PhotoAnalisysType } from '@/lib/types'
@@ -18,12 +19,15 @@ export default function PhotoAnalisys({
                 <CardContent className="w-[430px] pt-2">
                   <Image src={item.url} alt="Imagem" width={400} height={400} />
                 </CardContent>
-                <CardFooter className="mb-2 grid w-full grid-flow-col p-0">
-                  <div className="col-span-1 ml-2 border-2 py-1 text-center font-bold">
+                <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
+                  <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
                     <p>{index + 1}</p>
                   </div>
-                  <div className="col-span-6 mr-2 flex h-9 items-center justify-center border-y-2 border-r-2 font-bold">
-                    <p>{item.description}</p>
+                  <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
+                    {/* <p>{item.description}</p> */}
                   </div>
                 </CardFooter>
               </div>

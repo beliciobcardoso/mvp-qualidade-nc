@@ -61,12 +61,16 @@ export default function RemovePhoto({
                 height={400}
               />
             </CardContent>
-            <CardFooter className="mb-2 grid w-full grid-flow-col p-0 pb-2 pt-2">
-              <div className="col-span-1 ml-2 border-2 py-1 text-center font-bold">
-                <p>{index}</p>
+            <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
+              <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
+                <p>{index + 1}</p>
               </div>
-              <div className="col-span-6 mr-2 flex h-9 items-center justify-center border-y-2 border-r-2 font-bold">
-                <p>{PhotoAnalisys.description}</p>
+              <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: PhotoAnalisys.description,
+                  }}
+                />
               </div>
             </CardFooter>
           </div>

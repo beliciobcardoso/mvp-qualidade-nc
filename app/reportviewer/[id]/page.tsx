@@ -27,7 +27,7 @@ export default async function reportViewer({
           id={id}
         />
         <aside className="container flex w-[780px] flex-col items-center py-4">
-          {<PhotoAnalisys photoAnalisys={photoAnalisys} />}
+          <PhotoAnalisys photoAnalisys={photoAnalisys} />
         </aside>
         <footer className="flex flex-col bg-white"></footer>
       </div>

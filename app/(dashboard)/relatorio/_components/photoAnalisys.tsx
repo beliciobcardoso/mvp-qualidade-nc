@@ -2,10 +2,7 @@
 import imagem from '@/assets/image.svg'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { PhotoAnalisysType, Relatorio } from '@/lib/types'
-import { EditorContent, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
 import Image from 'next/image'
-import { useState } from 'react'
 import RemovePhoto from './removePhoto'
 
 interface PhotoAnalisysProps {
@@ -17,17 +14,6 @@ export default function PhotoAnalisys({
   photoAnalisys,
   relatorioHeader,
 }: PhotoAnalisysProps) {
-  const [contentHTML, setContentHTML] = useState('')
-
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: contentHTML,
-    onUpdate: ({ editor }) => {
-      console.log(editor.getText())
-      setContentHTML(editor.getText())
-    },
-  })
-
   return (
     <>
       {photoAnalisys.length > 0 ? (
@@ -51,14 +37,14 @@ export default function PhotoAnalisys({
                   </div>
                   <Image src={item.url} alt="Imagem" width={400} height={800} />
                 </CardContent>
-                <CardFooter className="mb-2 grid w-full grid-flow-col p-0 pb-2 pt-2">
-                  <div className="col-span-1 ml-2 border-2 py-1 text-center font-bold">
+                <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
+                  <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
                     <p>{index + 1}</p>
                   </div>
-                  <div className="col-span-6 mr-2 flex h-9 items-center justify-center border-y-2 border-r-2 font-bold">
-                    <EditorContent
-                      editor={editor}
-                    >{`<p>teste</p>`}</EditorContent>
+                  <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
+                    <div
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
                   </div>
                 </CardFooter>
               </div>

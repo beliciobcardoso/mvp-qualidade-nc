@@ -42,7 +42,7 @@ export default function RichTextEditor({
       Highlight.configure({
         multicolor: true,
         HTMLAttributes: {
-          class: 'font-bold p-2 rounded-md',
+          class: 'font-bold py-1 px-2 my-2 rounded-md',
         },
       }),
       Color.configure(),
