@@ -26,7 +26,10 @@ export function DialogServiceDescription({
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
-        <ServiceDescriptionForm id={idReport} />
+        <ServiceDescriptionForm
+          id={idReport}
+          handleModal={() => setOpen(false)}
+        />
       </DialogContent>
     </Dialog>
   )

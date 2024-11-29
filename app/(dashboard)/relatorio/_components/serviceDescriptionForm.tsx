@@ -21,7 +21,15 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
-export default function ServiceDescriptionForm({ id }: { id: number }) {
+interface ServiceDescriptionFormProps {
+  id: number
+  handleModal: () => void
+}
+
+export default function ServiceDescriptionForm({
+  id,
+  handleModal,
+}: ServiceDescriptionFormProps) {
   const router = useRouter()
 
   const form = useForm<FormValues>({
@@ -44,6 +52,7 @@ export default function ServiceDescriptionForm({ id }: { id: number }) {
 
     createDescriptionAnalisys(datas)
     router.refresh()
+    handleModal()
     form.reset()
   })
 
