@@ -63,24 +63,9 @@ export async function getAllSites() {
   try {
     const data = await prisma.site.findMany({
       include: {
-        client: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        structureType: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        siteType: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
+        client: true,
+        structureType: true,
+        siteType: true,
       },
       orderBy: {
         idSite: 'asc',

@@ -136,7 +136,7 @@ export async function createDescriptionAnalisys(data: DescriptionAnalisysType) {
       },
       data: {
         updatedAt: new Date(),
-        analystId: '1',
+        analystId: 'cm44fft7c0000efdthyqgzz3s',
       },
     })
   }
@@ -192,7 +192,6 @@ export async function createReport(report: ReportCreateType) {
   try {
     const data = await prisma.report.create({
       data: {
-        clientId: report.clientId,
         siteId: report.siteId,
         technicianId: report.technicianId,
         dateService: report.dateService,
@@ -212,7 +211,6 @@ export async function updateReport(data: Report) {
     },
     data: {
       siteId: data.siteId,
-      clientId: data.clientId,
       technicianId: data.technicianId,
       dateService: data.dateService,
     },
@@ -235,7 +233,6 @@ export async function getRelatorios() {
     select: {
       id: true,
       siteId: true,
-      clientId: true,
       technicianId: true,
       dateService: true,
       createdAt: true,
@@ -254,40 +251,17 @@ export async function getRelatorios() {
           idClient: true,
           siteTypeId: true,
           structureTypeId: true,
-          structureType: {
-            select: {
-              name: true,
-            },
-          },
-          siteType: {
-            select: {
-              name: true,
-            },
-          },
+          client: true,
+          structureType: true,
+          siteType: true,
         },
       },
-      technician: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-      user: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
-        },
-      },
-      analyst: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
-        },
-      },
+      technician: true,
+      analyst: true,
+      user: true,
+    },
+    orderBy: {
+      id: 'desc',
     },
   })
   return relatorios as ReportRelType[]
@@ -299,11 +273,7 @@ export async function getRelatorioById(id: number) {
       id,
     },
     include: {
-      technician: {
-        select: {
-          name: true,
-        },
-      },
+      technician: true,
       user: {
         select: {
           name: true,
@@ -316,11 +286,6 @@ export async function getRelatorioById(id: number) {
           name: true,
           email: true,
           role: true,
-        },
-      },
-      analyst: {
-        select: {
-          name: true,
         },
       },
       sites: {
@@ -333,24 +298,9 @@ export async function getRelatorioById(id: number) {
           cidade: true,
           numero: true,
           uf: true,
-          client: {
-            select: {
-              id: true,
-              name: true,
-              img: true,
-            },
-          },
-          structureType: {
-            select: {
-              name: true,
-            },
-          },
-          client: {},
-          siteType: {
-            select: {
-              name: true,
-            },
-          },
+          client: true,
+          structureType: true,
+          siteType: true,
         },
       },
     },

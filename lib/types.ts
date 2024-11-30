@@ -65,6 +65,11 @@ export type SiteType = {
   numero: string
   uf: string
   idClient: string
+  client: {
+    id: string
+    name: string
+    img: string | null
+  }
   siteTypeId: number
   structureTypeId: number
 }
@@ -96,7 +101,6 @@ export type SiteTypeRel = {
 export type ReportRelType = {
   id?: number
   siteId: number
-  clientId: string
   technicianId: string
   dateService: Date
   createdAt: Date
