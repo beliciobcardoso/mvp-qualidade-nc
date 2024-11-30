@@ -55,6 +55,13 @@ Table Site {
   Report Report [not null]
 }
 
+Table Client {
+  id String [pk]
+  name String [not null]
+  img String
+  site Site [not null]
+}
+
 Table SiteType {
   id Int [pk, increment]
   name String [not null]
@@ -83,13 +90,6 @@ Table User {
   createdAt DateTime [default: `now()`, not null]
   analyst Report [not null]
   Report Report [not null]
-}
-
-Table Client {
-  id String [pk]
-  name String [not null]
-  img String
-  site Site [not null]
 }
 
 Enum Role {
