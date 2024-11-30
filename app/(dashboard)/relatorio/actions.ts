@@ -136,6 +136,7 @@ export async function createDescriptionAnalisys(data: DescriptionAnalisysType) {
       },
       data: {
         updatedAt: new Date(),
+        analystId: '1',
       },
     })
   }
@@ -310,6 +311,11 @@ export async function getRelatorioById(id: number) {
           name: true,
         },
       },
+      analyst: {
+        select: {
+          name: true,
+        },
+      },
       sites: {
         select: {
           id: true,
@@ -320,6 +326,13 @@ export async function getRelatorioById(id: number) {
           cidade: true,
           numero: true,
           uf: true,
+          client: {
+            select: {
+              id: true,
+              name: true,
+              img: true,
+            },
+          },
           structureType: {
             select: {
               name: true,

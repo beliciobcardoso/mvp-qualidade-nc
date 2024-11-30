@@ -81,6 +81,7 @@ export type SiteTypeRel = {
   client: {
     id: string
     name: string
+    img: string | null
   }
   siteType: {
     id: number
@@ -149,6 +150,9 @@ export type Relatorio = {
     img: string | null
   }
   user: {
+    name: string
+  }
+  analyst: {
     name: string
   }
   sites: SiteTypeRel
