@@ -38,7 +38,7 @@ export function DialogStructureTypeUpdate({
 
   const form = useForm<StructureTypeSchema>({
     resolver: zodResolver(structureTypeSchema),
-    defaultValues: {
+    values: {
       name: dialogData?.name ?? '',
     },
   })
