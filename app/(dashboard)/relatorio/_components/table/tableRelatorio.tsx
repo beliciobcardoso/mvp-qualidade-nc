@@ -1,11 +1,5 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import {
   Table,
@@ -27,8 +21,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
+import { DataTableToolbar } from './data-table-toolbar'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -67,48 +61,14 @@ export function TableRelatorio<TData, TValue>({
 
   return (
     <div className="w-full">
-      <div className="flex items-center gap-4 py-4">
-        <Input
-          placeholder="Filtrar Cliente..."
-          value={(table.getColumn('Cliente')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('Cliente')?.setFilterValue(event.target.value)
-          }
-          className="max-w-[200px]"
-        />
+      <div className="flex gap-2 py-2">
         <Input
           placeholder="Filtro Global..."
           value={globalFilter}
           onChange={(event) => setGlobalFilter(event.target.value)}
-          className="max-w-[200px]"
+          className="h-8 max-w-[200px]"
         />
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Colunas <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DataTableToolbar table={table} />
       </div>
       <div className="rounded-md border">
         <Table>
