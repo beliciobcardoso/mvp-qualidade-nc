@@ -27,8 +27,6 @@ Table Report {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime
   finishedAt DateTime
-  client Client [not null]
-  clientId String [not null]
   technician Technician [not null]
   technicianId String [not null]
   user User [not null]
@@ -92,7 +90,6 @@ Table Client {
   name String [not null]
   img String
   site Site [not null]
-  reports Report [not null]
 }
 
 Enum Role {
@@ -108,8 +105,6 @@ Ref: PhotoAnalisys.idReport > Report.id
 Ref: DescriptionAnalisys.idReport > Report.id
 
 Ref: Report.siteId > Site.id
-
-Ref: Report.clientId > Client.id
 
 Ref: Report.technicianId > Technician.id
 
