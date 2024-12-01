@@ -1,11 +1,10 @@
 'use client'
-import BulletList from '@tiptap/extension-bullet-list'
 import Color from '@tiptap/extension-color'
-import Heading from '@tiptap/extension-heading'
 import Highlight from '@tiptap/extension-highlight'
 import Image from '@tiptap/extension-image'
-import OrderedList from '@tiptap/extension-ordered-list'
 import TextAlign from '@tiptap/extension-text-align'
+import TextStyle from '@tiptap/extension-text-style'
+import Underline from '@tiptap/extension-underline'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import ImageResize from 'tiptap-extension-resize-image'
@@ -22,27 +21,16 @@ export default function RichTextEditor({
 }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
+      TextStyle.configure(),
       StarterKit.configure(),
+      Underline.configure(),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
-      }),
-      Heading.configure({
-        levels: [1, 2, 3],
-      }),
-      OrderedList.configure({
-        HTMLAttributes: {
-          class: 'list-decimal ml-3',
-        },
-      }),
-      BulletList.configure({
-        HTMLAttributes: {
-          class: 'list-disc ml-3',
-        },
       }),
       Highlight.configure({
         multicolor: true,
         HTMLAttributes: {
-          class: 'font-bold py-1 px-2 my-2 rounded-md',
+          class: 'font-bold py-1 p-2 my-2 rounded-md',
         },
       }),
       Color.configure(),
