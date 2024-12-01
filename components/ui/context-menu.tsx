@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'

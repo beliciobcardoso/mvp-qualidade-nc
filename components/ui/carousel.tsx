@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons'
@@ -255,6 +256,9 @@ CarouselNext.displayName = 'CarouselNext'
 export {
   Carousel,
   CarouselContent,
-  CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi
 }
 
