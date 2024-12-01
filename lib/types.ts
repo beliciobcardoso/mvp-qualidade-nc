@@ -118,16 +118,21 @@ export type ReportRelType = {
 export type ReportType = {
   siteId: number
   dateService: Date
-  clientId: string
   technicianId: string
 }
 
 export type ReportCreateType = {
-  clientId: string
   siteId: number
   technicianId: string
   dateService: Date
   userId: string
+}
+
+export type ReportUpdateType = {
+  id: number
+  siteId: number
+  technicianId: string
+  dateService: Date
 }
 
 export type Relatorio = {

@@ -88,7 +88,6 @@ export type SiteSchema = z.infer<typeof siteSchema>
 
 export const reportSchema = z.object({
   id: z.number().optional(),
-  clientId: z.string(),
   siteId: z.number().min(1, { message: 'Site é obrigatório.' }),
   technicianId: z.string().min(1, { message: 'Técnico é obrigatório.' }),
   dateService: z.date({
