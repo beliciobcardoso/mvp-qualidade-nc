@@ -9,9 +9,11 @@ export default async function DashboardLayout({
 }>) {
   const dataUser = (await getUserByEmail('pedro.doe@email.com')) || undefined
 
-  if (!dataUser) {
-    return <div>Loading...</div>
-  }
+  console.log('dataUser', dataUser)
+
+  // if (!dataUser) {
+  //   return redirect('/')
+  // }
 
   return (
     <SidebarProvider defaultOpen={false}>
