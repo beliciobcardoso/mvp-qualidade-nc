@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 
+import LogoNC from '@/assets/logo.png'
 import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
@@ -14,7 +15,6 @@ import {
 import {
   BriefcaseBusiness,
   ChartSpline,
-  Command,
   ExpandIcon,
   IdCard,
   LandPlotIcon,
@@ -23,6 +23,7 @@ import {
   UserRoundPlus,
   WrenchIcon,
 } from 'lucide-react'
+import Image from 'next/image'
 import { NavAdm } from './nav-adm'
 import { NavMain } from './nav-main'
 import { Separator } from './ui/separator'
@@ -99,8 +100,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenuButton size="lg" asChild>
           <a href="/" className="flex h-12 gap-2 p-0">
-            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-              <Command className="size-4" />
+            <div className="flex aspect-square items-center justify-center">
+              <Image src={LogoNC} alt="Logo" width={32} height={32} />
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-semibold">Nova Corrente</span>

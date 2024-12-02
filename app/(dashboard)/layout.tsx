@@ -1,5 +1,6 @@
 import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import { cookies } from 'next/headers'
 import { getUserByEmail } from './admin/user/actions'
 
 export default async function DashboardLayout({
@@ -14,9 +15,10 @@ export default async function DashboardLayout({
   // if (!dataUser) {
   //   return redirect('/')
   // }
-
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get('sidebar:state')?.value === 'false'
   return (
-    <SidebarProvider defaultOpen={false}>
+    <SidebarProvider defaultOpen={defaultOpen}>
       <AppSidebar />
       <SidebarInset>
         <main className="flex flex-1 flex-col space-y-4 pr-2">{children}</main>
