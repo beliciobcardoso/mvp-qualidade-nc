@@ -22,25 +22,25 @@ export default function HeaderReport({
   return (
     <header className="flex w-[780px] flex-col bg-white">
       <div className="flex items-center justify-between">
-        <div className="h-20 w-44 bg-slate-400">
+        <div className="h-20 w-44">
           <Image
             src={ncLogo}
             alt="Logo"
             width={400}
             height={400}
-            className="h-full w-full object-cover"
+            className="h-full w-full"
           />
         </div>
         <h1 className="px-4 text-lg font-bold">
           RELATÓRIO DE MANUTENÇÃO CORRETIVA
         </h1>
-        <div className="h-20 w-44 bg-slate-400">
+        <div className="h-20 w-44">
           <Image
-            src={relatorioHeader.client.img ?? ncLogo}
+            src={relatorioHeader.sites.client.img ?? ncLogo}
             alt="LogoClient"
-            width={400}
-            height={400}
-            className="h-full w-full object-cover"
+            width={800}
+            height={800}
+            className="h-full w-full"
           />
         </div>
       </div>

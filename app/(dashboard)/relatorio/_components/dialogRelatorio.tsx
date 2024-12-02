@@ -17,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import {
   Popover,
   PopoverContent,
@@ -55,7 +54,6 @@ export function DialogRelatorio({
   const form = useForm<ReportSchema>({
     resolver: zodResolver(reportSchema),
     values: {
-      clientId: report?.clientId || '',
       siteId: report?.sites.id || 0,
       technicianId: report?.technicianId || '',
       dateService: report?.dateService || new Date(),
@@ -63,24 +61,12 @@ export function DialogRelatorio({
   })
 
   async function onSubmit(values: ReportSchema) {
-    const clientId = siteData?.find((site) => site.id === values.siteId)?.client
-      .id
-
-    if (clientId) {
-      values.clientId = clientId
-    }
-
     if (report?.id) {
       await updateReport({
         id: report?.id,
         siteId: values.siteId,
-        clientId: values.clientId,
         technicianId: values.technicianId,
         dateService: values.dateService,
-        createdAt: report?.createdAt,
-        updatedAt: report?.updatedAt,
-        finishedAt: report?.finishedAt,
-        userId: report?.user.id,
       })
       router.refresh()
       setOpen(false)
@@ -135,16 +121,6 @@ export function DialogRelatorio({
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="clientId"
-                render={({ field }) => (
-                  <FormItem>
-                    <Input {...field} className="hidden" />
                     <FormMessage />
                   </FormItem>
                 )}

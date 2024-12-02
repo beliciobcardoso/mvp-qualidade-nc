@@ -16,7 +16,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import {
   Popover,
   PopoverContent,
@@ -39,12 +38,11 @@ import { format } from 'date-fns'
 import { PlusCircleIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import * as React from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createReport } from '../actions'
 
 type ReportCustomType = {
-  clientId: string
   siteId: number
   technicianId: string
   dateService: Date
@@ -58,12 +56,11 @@ export function DialogRelatorioForm({
   siteData,
 }: DialogReportProps) {
   const router = useRouter()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const form = useForm<ReportCustomType>({
     resolver: zodResolver(reportSchema),
     defaultValues: {
-      clientId: '',
       siteId: 0,
       technicianId: '',
     },
@@ -72,14 +69,6 @@ export function DialogRelatorioForm({
   async function onSubmit(values: ReportType) {
     const idUser = dataUser?.id
 
-    const clientId = siteData?.find((site) => site.id === values.siteId)?.client
-      .id
-
-    if (!clientId) {
-      console.error('Client not found')
-      return
-    }
-
     if (!idUser) {
       console.error('User not found')
       return
@@ -87,7 +76,6 @@ export function DialogRelatorioForm({
 
     try {
       await createReport({
-        clientId,
         siteId: values.siteId,
         technicianId: values.technicianId,
         dateService: values.dateService,
@@ -147,16 +135,6 @@ export function DialogRelatorioForm({
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="clientId"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Input {...field} className="hidden" />
                       <FormMessage />
                     </FormItem>
                   )}

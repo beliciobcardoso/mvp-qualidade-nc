@@ -66,6 +66,13 @@ model Site {
   Report          Report[]
 }
 
+model Client {
+  id   String  @id @default(cuid())
+  name String
+  img  String?
+  site Site[]
+}
+
 model SiteType {
   id    Int    @id @default(autoincrement())
   name  String
@@ -95,13 +102,6 @@ model User {
 
   analyst Report[] @relation("ANALYST")
   Report  Report[]
-}
-
-model Client {
-  id   String  @id @default(cuid())
-  name String
-  img  String?
-  site Site[]
 }
 
 enum Role {

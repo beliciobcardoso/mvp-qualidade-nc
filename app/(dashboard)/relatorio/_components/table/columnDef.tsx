@@ -21,6 +21,7 @@ import { ptBR } from 'date-fns/locale'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { DialogRelatorio } from '../dialogRelatorio'
+import { DataTableColumnHeader } from './data-table-column-header'
 
 export const columns: ColumnDef<ReportRelType>[] = [
   {
@@ -31,7 +32,6 @@ export const columns: ColumnDef<ReportRelType>[] = [
   },
   {
     accessorKey: 'status',
-    id: 'Status',
     header: 'Status',
     cell: ({ row }) => {
       const { updatedAt, finishedAt } = row.original
@@ -56,22 +56,27 @@ export const columns: ColumnDef<ReportRelType>[] = [
         </Badge>
       )
     },
+    filterFn: (row, id, filterValue) => {
+      const { updatedAt, finishedAt } = row.original
+
+      let status = 'created'
+      if (finishedAt) {
+        status = 'done'
+      } else if (updatedAt) {
+        status = 'in progress'
+      }
+      return filterValue.includes(status)
+    },
   },
   {
-    accessorKey: 'client.name',
+    accessorKey: 'sites.client.name',
     id: 'Cliente',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Cliente
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="pl-4">{row.original.client.name}</div>,
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Cliente" />
+    ),
+    cell: ({ row }) => (
+      <div className="pl-4">{row.original.sites.client.name}</div>
+    ),
   },
   {
     accessorKey: 'sites.idSite',
@@ -98,12 +103,18 @@ export const columns: ColumnDef<ReportRelType>[] = [
     ),
   },
   {
-    accessorKey: 'analyst.name',
+    accessorKey: 'analyst',
     id: 'Analista',
     header: 'Analista',
-    cell: ({ row }) => (
-      <div className="text-left">{row.original.analyst.name}</div>
-    ),
+    cell: ({ row }) => {
+      const analyst = row.original.analyst
+
+      return (
+        <div className="text-left">
+          {analyst === null ? 'N/A' : analyst.name}
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'dateService',
@@ -129,7 +140,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'dataCriação',
+    accessorKey: 'createdAt',
     id: 'Data de Criação',
     header: ({ column }) => {
       return (
@@ -152,7 +163,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'dataAnalise',
+    accessorKey: 'updatedAt',
     id: 'Inicio da Análise',
     header: ({ column }) => {
       return (
@@ -177,7 +188,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'dataFinalização',
+    accessorKey: 'finishedAt',
     id: 'Data da Finalização',
     header: ({ column }) => {
       return (

@@ -193,18 +193,6 @@ async function main() {
     },
   })
 
-  const analyst1 = await prisma.user.findFirst({
-    where: {
-      name: 'Maria Doe',
-    },
-  })
-
-  const analyst2 = await prisma.user.findFirst({
-    where: {
-      name: 'Antonia Doe',
-    },
-  })
-
   const site1 = await prisma.site.findFirst({
     where: {
       idSite: 'BR251552-AQW',
@@ -229,17 +217,12 @@ async function main() {
     },
   })
 
-  if (site1 && technician1 && user1 && analyst1) {
+  if (site1 && technician1 && user1) {
     await prisma.report.create({
       data: {
         sites: {
           connect: {
             id: site1.id,
-          },
-        },
-        client: {
-          connect: {
-            id: site1.idClient,
           },
         },
         technician: {
@@ -252,11 +235,6 @@ async function main() {
             id: user1.id,
           },
         },
-        analyst: {
-          connect: {
-            id: analyst1.id,
-          },
-        },
         dateService: new Date('2024-10-10'),
       },
     })
@@ -264,17 +242,12 @@ async function main() {
     console.error('Site, Technician, User, or Analyst not found.')
   }
 
-  if (site2 && technician2 && user2 && analyst2) {
+  if (site2 && technician2 && user2) {
     await prisma.report.create({
       data: {
         sites: {
           connect: {
             id: site2.id,
-          },
-        },
-        client: {
-          connect: {
-            id: site2.idClient,
           },
         },
         technician: {
@@ -285,11 +258,6 @@ async function main() {
         user: {
           connect: {
             id: user2.id,
-          },
-        },
-        analyst: {
-          connect: {
-            id: analyst2.id,
           },
         },
         dateService: new Date('2024-10-11'),
