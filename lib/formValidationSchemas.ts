@@ -22,6 +22,23 @@ export const userSchema = z
 
 export type UserSchema = z.infer<typeof userSchema>
 
+export const userRePwdSchema = z
+  .object({
+    id: z.string().optional(),
+    passwordHash: z.string().min(8, {
+      message: 'A senha deve ter pelo menos 8 caracteres.',
+    }),
+    confirmPassword: z.string().min(8, {
+      message: 'A senha deve ter pelo menos 8 caracteres.',
+    }),
+  })
+  .refine((data) => data.passwordHash === data.confirmPassword, {
+    message: 'As senhas devem ser iguais.',
+    path: ['confirmPassword'],
+  })
+
+export type UserRePwdSchema = z.infer<typeof userRePwdSchema>
+
 export const userUpdateSchema = z.object({
   id: z.string().optional(),
   name: z.string().min(3, {

@@ -25,6 +25,19 @@ export type UserUpdate = {
   role: Role
 }
 
+export type UserType = {
+  id: string
+  name: string
+  email: string
+  avatar: string | null
+  role: string
+}
+
+export type UserRePwd = {
+  id: string
+  passwordHash: string
+}
+
 export type UserForm = {
   id?: string
   name: string

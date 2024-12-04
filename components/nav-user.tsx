@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { User } from '@/lib/types'
+import { signOut } from 'next-auth/react'
 
 export function NavUser(user: User) {
   return (
@@ -41,6 +42,7 @@ export function NavUser(user: User) {
             <p className="text-xs leading-none text-muted-foreground">
               {user.email}
             </p>
+            <p>{user.role}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -50,7 +52,9 @@ export function NavUser(user: User) {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">Log out</DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

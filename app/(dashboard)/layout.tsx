@@ -1,5 +1,8 @@
 import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import { auth } from '@/lib/auth'
+import { User } from '@/lib/types'
+import { SessionProvider } from 'next-auth/react'
 import { cookies } from 'next/headers'
 import { getUserByEmail } from './admin/user/actions'
 
@@ -8,21 +11,25 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const dataUser = (await getUserByEmail('pedro.doe@email.com')) || undefined
+  const session = await auth()
+  const user = session?.user as User
+  let dataUser: User | null = null
+  if (session) {
+    dataUser = await getUserByEmail(user.email)
+  }
 
-  console.log('dataUser', dataUser)
-
-  // if (!dataUser) {
-  //   return redirect('/')
-  // }
   const cookieStore = await cookies()
   const defaultOpen = cookieStore.get('sidebar:state')?.value === 'false'
   return (
-    <SidebarProvider defaultOpen={defaultOpen}>
-      <AppSidebar />
-      <SidebarInset>
-        <main className="flex flex-1 flex-col space-y-4 pr-2">{children}</main>
-      </SidebarInset>
-    </SidebarProvider>
+    <SessionProvider session={session}>
+      <SidebarProvider defaultOpen={defaultOpen}>
+        {dataUser && <AppSidebar userData={dataUser} />}
+        <SidebarInset>
+          <main className="flex flex-1 flex-col space-y-4 pr-2">
+            {children}
+          </main>
+        </SidebarInset>
+      </SidebarProvider>
+    </SessionProvider>
   )
 }

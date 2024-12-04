@@ -1,7 +1,4 @@
 'use client'
-
-import * as React from 'react'
-
 import LogoNC from '@/assets/logo.png'
 import { NavUser } from '@/components/nav-user'
 import {
@@ -12,6 +9,7 @@ import {
   SidebarMenuButton,
   SidebarRail,
 } from '@/components/ui/sidebar'
+import { User } from '@/lib/types'
 import {
   BriefcaseBusiness,
   ChartSpline,
@@ -24,6 +22,7 @@ import {
   WrenchIcon,
 } from 'lucide-react'
 import Image from 'next/image'
+import * as React from 'react'
 import { NavAdm } from './nav-adm'
 import { NavMain } from './nav-main'
 import { Separator } from './ui/separator'
@@ -90,7 +89,11 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  userData: User
+}
+
+export function AppSidebar({ userData, ...props }: AppSidebarProps) {
   return (
     <Sidebar
       collapsible="icon"
@@ -117,7 +120,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <Separator className="my-1" />
       <SidebarFooter>
-        <NavUser {...data.user} />
+        <NavUser {...userData} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

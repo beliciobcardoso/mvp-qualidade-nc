@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table'
 import { UserForm } from '@/lib/types'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { DialogUserRePwd } from './dialogUserRePwd'
 import { DialogUserUpdate } from './dialogUserUpdate'
 
 export const columns: ColumnDef<UserForm>[] = [
@@ -56,6 +57,22 @@ export const columns: ColumnDef<UserForm>[] = [
           dialogButton={'Editar'}
           dialogTitle={'Usuário'}
           dialogDescription={'Tela para Editar um Usuário'}
+          dialogData={person}
+        />
+      )
+    },
+  },
+  {
+    accessorKey: 'editReport',
+    header: '',
+    enableHiding: false,
+    cell: ({ row }) => {
+      const person = row.original
+      return (
+        <DialogUserRePwd
+          dialogButton={'Redefinir Senha'}
+          dialogTitle={'Redefinir Senha'}
+          dialogDescription={'Tela para Redefinir Senha'}
           dialogData={person}
         />
       )

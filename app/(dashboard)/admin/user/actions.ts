@@ -1,7 +1,6 @@
 'use server'
-import { UserSchema } from '@/lib/formValidationSchemas'
 import prisma from '@/lib/prisma'
-import { Role, UserCreate, UserUpdate } from '@/lib/types'
+import { Role, UserCreate, UserRePwd, UserUpdate } from '@/lib/types'
 import { hash } from 'bcrypt'
 
 export async function createUser(user: UserCreate) {
@@ -35,7 +34,7 @@ export async function updateUser(user: UserUpdate) {
   return data
 }
 
-export async function updatePassword(user: UserSchema) {
+export async function updatePassword(user: UserRePwd) {
   const passwordHash = await hash(user.passwordHash, 10)
   const data = await prisma.user.update({
     where: {
