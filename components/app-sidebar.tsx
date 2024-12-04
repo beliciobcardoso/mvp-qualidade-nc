@@ -116,7 +116,8 @@ export function AppSidebar({ userData, ...props }: AppSidebarProps) {
       <Separator className="my-1" />
       <SidebarContent>
         <NavMain menuMain={data.menuMain} />
-        <NavAdm items={data.navAdm} />
+        {/* {userData.role === 'ADMIN' && <NavAdm items={data.navAdm} />} */}
+        {<NavAdm items={data.navAdm} />}
       </SidebarContent>
       <Separator className="my-1" />
       <SidebarFooter>
