@@ -18,7 +18,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -32,7 +32,8 @@ type FormValues = z.infer<typeof formSchema>
 
 export function LoginForm() {
   const [error, setError] = useState<string | null>(null)
-  // 1. Define your form.
+  const router = useRouter()
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,22 +42,18 @@ export function LoginForm() {
     },
   })
 
-  // 2. Define a submit handler.
   async function onSubmit(values: FormValues) {
     setError(null)
 
-    await signIn('credentials', {
-      email: values.email,
-      password: values.password,
-      callbackUrl: '/',
+    signIn('credentials', {
+      ...values,
       redirect: false,
     }).then((res) => {
       if (res && res.error === 'CredentialsSignin') {
         setError('Credenciais Inválidas')
-      } else if (res && res.ok) {
-        console.log(res.ok)
+      } else if (res && res.status === 200) {
+        router.push('/')
         setError(null)
-        redirect('/')
       }
     })
   }
