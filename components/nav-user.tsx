@@ -10,8 +10,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { User } from '@/lib/types'
+import type { User } from '@/lib/types'
 import { signOut } from 'next-auth/react'
+import Link from 'next/link'
 
 export function NavUser(user: User) {
   return (
@@ -23,9 +24,7 @@ export function NavUser(user: User) {
             <AvatarFallback>
               {user.name
                 .split(' ')
-                .map((word, index, arr) =>
-                  index === 0 || index === arr.length - 1 ? word[0] : '',
-                )
+                .map((word, index, arr) => (index === 0 || index === arr.length - 1 ? word[0] : ''))
                 .join('')}
             </AvatarFallback>
           </Avatar>
@@ -39,21 +38,19 @@ export function NavUser(user: User) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user.email}
-            </p>
+            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
             <p>{user.role}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
-            Profile
-          </DropdownMenuItem>
+          <Link href="/admin/user/profile">
+            <DropdownMenuItem className="cursor-pointer">Perfil</DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
-          Log out
+          Sair
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

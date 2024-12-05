@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { Role, UserCreate, UserRePwd, UserUpdate } from '@/lib/types'
+import type { Role, UserCreate, UserRePwd, UserUpdate } from '@/lib/types'
 import { hash } from 'bcrypt'
 
 export async function createUser(user: UserCreate) {

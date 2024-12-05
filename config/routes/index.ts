@@ -9,6 +9,7 @@ export const configRoutes: ConfigRoutes = {
     '/admin/client',
     '/admin/site',
     '/admin/user',
+    '/admin/user/profile',
     '/admin/technician',
     '/admin/structureType',
     '/admin/siteType',

@@ -1,35 +1,23 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { UserRePwdSchema, userRePwdSchema } from '@/lib/formValidationSchemas'
-import { DialogNewUserProps } from '@/lib/types'
+import { type UserRePwdSchema, userRePwdSchema } from '@/lib/formValidationSchemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { updatePassword } from '../actions'
 
-export function DialogUserRePwd({
-  dialogButton,
-  dialogTitle,
-  dialogDescription,
-  dialogData,
-}: DialogNewUserProps) {
+type UserRePwdProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  UserId: string | null
+}
+
+export function DialogUserRePwd({ dialogButton, dialogTitle, dialogDescription, UserId }: UserRePwdProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
@@ -42,9 +30,9 @@ export function DialogUserRePwd({
   })
 
   async function onSubmit(values: UserRePwdSchema) {
-    if (dialogData) {
+    if (UserId) {
       await updatePassword({
-        id: dialogData.id ?? '',
+        id: UserId,
         passwordHash: values.passwordHash,
       })
       router.refresh()
