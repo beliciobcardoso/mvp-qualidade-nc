@@ -1,7 +1,7 @@
 import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { auth } from '@/lib/auth'
-import { User } from '@/lib/types'
+import type { User } from '@/lib/types'
 import { SessionProvider } from 'next-auth/react'
 import { cookies } from 'next/headers'
 import { getUserByEmail } from './admin/user/actions'
@@ -25,9 +25,7 @@ export default async function DashboardLayout({
       <SidebarProvider defaultOpen={defaultOpen}>
         {dataUser && <AppSidebar userData={dataUser} />}
         <SidebarInset>
-          <main className="flex flex-1 flex-col space-y-4 pr-2">
-            {children}
-          </main>
+          <main className="flex flex-1 flex-col space-y-4 pr-2">{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </SessionProvider>
