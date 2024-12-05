@@ -5,12 +5,12 @@ const prismaClientSingleton = () => {
 }
 
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-declare const globalThisf: {
+declare const globalThis: {
   prismaGlobal: ReturnType<typeof prismaClientSingleton>
 } & typeof global
 
-const prisma = globalThisf.prismaGlobal ?? prismaClientSingleton()
+const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
 
 export default prisma
 
-if (process.env.NODE_ENV !== 'production') globalThisf.prismaGlobal = prisma
+if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
