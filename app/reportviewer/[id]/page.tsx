@@ -1,9 +1,7 @@
-import {
-  getDescriptionsId,
-  getPhotoAnalisysById,
-  getRelatorioById,
-} from '@/app/(dashboard)/relatorio/actions'
-import { PhotoAnalisysType, Relatorio } from '@/lib/types'
+import { getDescriptionsId, getPhotoAnalisysById, getRelatorioById } from '@/app/(dashboard)/relatorio/actions'
+import { auth } from '@/lib/auth'
+import type { PhotoAnalisysType, Relatorio } from '@/lib/types'
+import { redirect } from 'next/navigation'
 import HeaderReport from '../_components/headerReport'
 import PhotoAnalisys from '../_components/photoAnalisys'
 
@@ -12,7 +10,11 @@ export default async function reportViewer({
 }: {
   params: { id: string }
 }) {
-  const id = parseInt(params.id)
+  const session = await auth()
+  if (!session) {
+    redirect('/signin')
+  }
+  const id = Number.parseInt(params.id)
   const photoAnalisys: PhotoAnalisysType[] = await getPhotoAnalisysById(id)
   const relatorioHeader: Relatorio = await getRelatorioById(id)
   const descriptions = await getDescriptionsId(id)
@@ -29,7 +31,6 @@ export default async function reportViewer({
         <aside className="container flex w-[780px] flex-col items-center py-4">
           <PhotoAnalisys photoAnalisys={photoAnalisys} />
         </aside>
-        <footer className="flex flex-col bg-white"></footer>
       </div>
     </main>
   )

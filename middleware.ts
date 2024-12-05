@@ -7,8 +7,7 @@ import { NextResponse } from 'next/server'
 const { auth } = NextAuth(authConfig)
 
 export default auth((req) => {
-  const { isPublicRoute, isProtectedRoute, isApiRoute, isAuthRoute } =
-    createRouteMatchers(configRoutes, req)
+  const { isPublicRoute, isProtectedRoute, isApiRoute, isAuthRoute } = createRouteMatchers(configRoutes, req)
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
   //   console.log(`Public: ${isPublicRoute}`)

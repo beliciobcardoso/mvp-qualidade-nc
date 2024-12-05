@@ -9,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import { User } from '@/lib/types'
+import type { User } from '@/lib/types'
 import {
   BriefcaseBusiness,
   ChartSpline,
@@ -22,19 +22,12 @@ import {
   WrenchIcon,
 } from 'lucide-react'
 import Image from 'next/image'
-import * as React from 'react'
+import type * as React from 'react'
 import { NavAdm } from './nav-adm'
 import { NavMain } from './nav-main'
 import { Separator } from './ui/separator'
 
 const data = {
-  user: {
-    id: '1',
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-    role: 'ADMIN' as const,
-  },
   menuMain: [
     {
       name: 'Dashboard',
@@ -95,11 +88,7 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ userData, ...props }: AppSidebarProps) {
   return (
-    <Sidebar
-      collapsible="icon"
-      {...props}
-      className="mr-0 bg-sidebar-primary lg:w-[20%] xl:w-[17%] 2xl:w-[13%]"
-    >
+    <Sidebar collapsible="icon" {...props} className="mr-0 bg-sidebar-primary lg:w-[20%] xl:w-[17%] 2xl:w-[13%]">
       <SidebarHeader>
         <SidebarMenuButton size="lg" asChild>
           <a href="/" className="flex h-12 gap-2 p-0">
@@ -117,7 +106,7 @@ export function AppSidebar({ userData, ...props }: AppSidebarProps) {
       <SidebarContent>
         <NavMain menuMain={data.menuMain} />
         {/* {userData.role === 'ADMIN' && <NavAdm items={data.navAdm} />} */}
-        {<NavAdm items={data.navAdm} />}
+        {<NavAdm items={data.navAdm} dataUser={userData} />}
       </SidebarContent>
       <Separator className="my-1" />
       <SidebarFooter>
