@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 'use client'
 
 import * as LabelPrimitive from '@radix-ui/react-label'

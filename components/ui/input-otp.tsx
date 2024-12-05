@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 'use client'
 
 import { DashIcon } from '@radix-ui/react-icons'

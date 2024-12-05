@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 'use client'
 
 import { Cross2Icon } from '@radix-ui/react-icons'
@@ -128,3 +127,4 @@ export {
   type ToastActionElement,
   type ToastProps
 }
+
