@@ -1,7 +1,7 @@
 'use client'
-import { ColumnDef } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
-import { UserForm } from '@/lib/types'
+import type { UserForm } from '@/lib/types'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { DialogUserRePwd } from './dialogUserRePwd'
@@ -26,13 +26,17 @@ export const columns: ColumnDef<UserForm>[] = [
       const role = row.original.role
       if (role === 'ADMIN') {
         return 'Administrador'
-      } else if (role === 'USER') {
+      }
+      if (role === 'USER') {
         return 'Usuário'
-      } else if (role === 'COORDINATOR') {
+      }
+      if (role === 'COORDINATOR') {
         return 'Coordenador'
-      } else if (role === 'ANALYST') {
+      }
+      if (role === 'ANALYST') {
         return 'Analista'
-      } else if (role === 'TECHNICIAN') {
+      }
+      if (role === 'TECHNICIAN') {
         return 'Técnico'
       }
     },
@@ -68,12 +72,13 @@ export const columns: ColumnDef<UserForm>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const person = row.original
+      const UserId = person.id
       return (
         <DialogUserRePwd
           dialogButton={'Redefinir Senha'}
           dialogTitle={'Redefinir Senha'}
           dialogDescription={'Tela para Redefinir Senha'}
-          dialogData={person}
+          UserId={UserId ?? null}
         />
       )
     },
