@@ -67,19 +67,14 @@ export function DialogRelatorioForm({
   })
 
   async function onSubmit(values: ReportType) {
-    const idUser = dataUser?.id
-
-    if (!idUser) {
-      console.error('User not found')
-      return
-    }
+    const idUser = await dataUser?.id
 
     try {
       await createReport({
         siteId: values.siteId,
         technicianId: values.technicianId,
         dateService: values.dateService,
-        userId: idUser,
+        userId: idUser || '',
       })
       router.refresh()
       setOpen(false)

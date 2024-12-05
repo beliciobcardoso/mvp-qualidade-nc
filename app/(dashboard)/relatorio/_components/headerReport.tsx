@@ -1,7 +1,9 @@
 import ncLogo from '@/assets/ncLogo.png'
-import { PhotoAnalisysType, Relatorio } from '@/lib/types'
+import { auth } from '@/lib/auth'
+import { PhotoAnalisysType, Relatorio, User } from '@/lib/types'
 import { PlusIcon } from 'lucide-react'
 import Image from 'next/image'
+import { getUserByEmail } from '../../admin/user/actions'
 import AproveReport from './aproveReport'
 import { DialogServiceDescription } from './dialogServiceDescription'
 import GeneratePdf from './generatePdf'
@@ -21,12 +23,18 @@ interface RelatorioHeaderProps {
   id: number
 }
 
-export default function HeaderReport({
+export default async function HeaderReport({
   relatorioHeader,
   descriptions,
   photoAnalisys,
   id,
 }: RelatorioHeaderProps) {
+  const session = await auth()
+  const user = session?.user as User
+  let dataUser: User | null = null
+  if (session) {
+    dataUser = (await getUserByEmail(user.email)) || null
+  }
   return (
     <header className="flex flex-col bg-white">
       <div className="flex items-center justify-between">
@@ -114,12 +122,13 @@ export default function HeaderReport({
           ) : (
             ''
           )}
-          {relatorioHeader.finishedAt === null ? (
+          {relatorioHeader.finishedAt === null && dataUser ? (
             <DialogServiceDescription
               dialogButton={'Adicionar Serviço'}
               dialogDescription={'Adicione um novo serviço'}
               dialogTitle={'Adicionar Serviço'}
               idReport={id}
+              userId={dataUser.id}
             />
           ) : (
             ''

@@ -298,4 +298,5 @@ export type DialogServiceDescriptionProps = {
   dialogDescription: string
   idReport: number
   openDialog?: boolean
+  userId: string
 }

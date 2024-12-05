@@ -69,7 +69,10 @@ export async function deletePhotoAnalisys(id: number) {
   })
 }
 
-export async function createDescriptionAnalisys(data: DescriptionAnalisysType) {
+export async function createDescriptionAnalisys(
+  data: DescriptionAnalisysType,
+  userId: string,
+) {
   const existingDescription = await prisma.descriptionAnalisys.findFirst({
     where: {
       idReport: data.idReport,
@@ -83,7 +86,7 @@ export async function createDescriptionAnalisys(data: DescriptionAnalisysType) {
       },
       data: {
         updatedAt: new Date(),
-        analystId: 'cm44fft7c0000efdthyqgzz3s',
+        analystId: userId,
       },
     })
   }

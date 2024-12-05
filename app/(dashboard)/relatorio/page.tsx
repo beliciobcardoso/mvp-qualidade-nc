@@ -1,16 +1,25 @@
 import { DialogRelatorioForm } from '@/app/(dashboard)/relatorio/_components/dialogRelatorioForm'
 import ListaRelatorio from '@/app/(dashboard)/relatorio/_components/listaRelatorio'
 import HeaderPage from '@/components/header-page'
+import { auth } from '@/lib/auth'
+import { User } from '@/lib/types'
 import { getAllClient } from '../admin/client/actions'
 import { getAllSites } from '../admin/site/actions'
 import { getAllTechnician } from '../admin/technician/actions'
 import { getUserByEmail } from '../admin/user/actions'
 
 export default async function RelatorioPage() {
+  const session = await auth()
+  const user = session?.user as User
+  let dataUser: User | undefined
+  if (session) {
+    dataUser = (await getUserByEmail(user.email)) || undefined
+  }
+
   const clientData = (await getAllClient()) || []
   const technicianData = (await getAllTechnician()) || []
   const siteData = (await getAllSites()) || []
-  const dataUser = (await getUserByEmail('pedro.doe@email.com')) || undefined
+  // const dataUser = (await getUserByEmail('pedro.doe@email.com')) || undefined
 
   return (
     <main>

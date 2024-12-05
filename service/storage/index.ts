@@ -1,4 +1,4 @@
-import { CONFIG } from '@/config'
+import { CONFIG } from '@/config/config'
 import validateImageType from '@/lib/validateImageType'
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 

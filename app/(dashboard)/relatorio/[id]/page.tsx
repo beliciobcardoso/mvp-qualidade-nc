@@ -4,11 +4,17 @@ import {
   getRelatorioById,
 } from '@/app/(dashboard)/relatorio/actions'
 import HeaderPage from '@/components/header-page'
+import { auth } from '@/lib/auth'
 import { PhotoAnalisysType, Relatorio } from '@/lib/types'
+import { redirect } from 'next/navigation'
 import HeaderReport from '../_components/headerReport'
 import PhotoAnalisys from '../_components/photoAnalisys'
 
 export default async function Page({ params }: { params: { id: string } }) {
+  const session = await auth()
+  if (!session) {
+    redirect('/signin')
+  }
   const id = parseInt(params.id)
   const photoAnalisys: PhotoAnalisysType[] = await getPhotoAnalisysById(id)
   const relatorioHeader: Relatorio = await getRelatorioById(id)
