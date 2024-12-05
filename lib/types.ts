@@ -1,5 +1,5 @@
-import { StructureType } from '@prisma/client'
-import { ReactNode } from 'react'
+import type { StructureType } from '@prisma/client'
+import type { ReactNode } from 'react'
 
 export type Role = 'ADMIN' | 'USER' | 'ANALYST' | 'TECHNICIAN' | 'COORDINATOR'
 

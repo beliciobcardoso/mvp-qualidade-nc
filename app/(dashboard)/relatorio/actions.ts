@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import {
+import type {
   DescriptionAnalisysType,
   PhotoAnalisysType,
   Relatorio,
@@ -9,12 +9,9 @@ import {
   ReportUpdateType,
 } from '@/lib/types'
 import { uploadObject } from '@/service/storage'
-import { Client } from '@prisma/client'
+import type { Client } from '@prisma/client'
 
-export async function upLoadPhotoAnalisys(
-  formData: FormData,
-  idReport: number,
-) {
+export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) {
   const file = formData.get('file') as File
 
   const binaryFile = await file.arrayBuffer()
@@ -69,10 +66,7 @@ export async function deletePhotoAnalisys(id: number) {
   })
 }
 
-export async function createDescriptionAnalisys(
-  data: DescriptionAnalisysType,
-  userId: string,
-) {
+export async function createDescriptionAnalisys(data: DescriptionAnalisysType, userId: string) {
   const existingDescription = await prisma.descriptionAnalisys.findFirst({
     where: {
       idReport: data.idReport,
