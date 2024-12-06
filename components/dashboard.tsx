@@ -1,22 +1,11 @@
 'use client'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/chart'
-import { TrendingUp } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
+import { ChartLineIcon, TrendingUp } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 import { CalendarDateRangePicker } from './date-range-picker'
+import { Button } from './ui/button'
 
 export const description = 'An interactive line chart'
 
@@ -86,8 +75,7 @@ export interface HomeProps {
 }
 
 export function Dashboard({ DataReports }: HomeProps) {
-  const [activeChart, setActiveChart] =
-    useState<keyof typeof chartConfig>('andamento')
+  const [activeChart, setActiveChart] = useState<keyof typeof chartConfig>('andamento')
 
   const total = useMemo(
     () => ({
@@ -105,22 +93,8 @@ export function Dashboard({ DataReports }: HomeProps) {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4" dir="rtl">
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Analistas Totais
-            </CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <rect width="20" height="14" x="2" y="5" rx="2" />
-              <path d="M2 10h20" />
-            </svg>
+            <CardTitle className="text-sm font-medium">Analistas Totais</CardTitle>
+            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.analyst}</div>
@@ -128,21 +102,8 @@ export function Dashboard({ DataReports }: HomeProps) {
         </Card>
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Relatórios Finalizados
-            </CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
+            <CardTitle className="text-sm font-medium">Relatórios Finalizados</CardTitle>
+            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.finished}</div>
@@ -150,21 +111,8 @@ export function Dashboard({ DataReports }: HomeProps) {
         </Card>
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Relatórios Em Andamentos
-            </CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
+            <CardTitle className="text-sm font-medium">Relatórios Em Andamentos</CardTitle>
+            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.inProgress}</div>
@@ -172,21 +120,8 @@ export function Dashboard({ DataReports }: HomeProps) {
         </Card>
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Relatórios Criados
-            </CardTitle>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
-            >
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
+            <CardTitle className="text-sm font-medium">Relatórios Criados</CardTitle>
+            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.created}</div>
@@ -198,36 +133,29 @@ export function Dashboard({ DataReports }: HomeProps) {
           <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
             <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
               <CardTitle>Gráfico de Linhas - Interativo</CardTitle>
-              <CardDescription>
-                Mostrando o total de relatorios em dias
-              </CardDescription>
+              <CardDescription>Mostrando o total de relatorios em dias</CardDescription>
             </div>
             <div className="flex">
               {['andamento', 'finalizado'].map((key) => {
                 const chart = key as keyof typeof chartConfig
                 return (
-                  <button
+                  <Button
                     key={chart}
                     data-active={activeChart === chart}
                     className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
                     onClick={() => setActiveChart(chart)}
                   >
-                    <span className="text-xs text-muted-foreground">
-                      {chartConfig[chart].label}
-                    </span>
+                    <span className="text-xs text-muted-foreground">{chartConfig[chart].label}</span>
                     <span className="text-lg font-bold leading-none sm:text-3xl">
                       {total[key as keyof typeof total].toLocaleString()}
                     </span>
-                  </button>
+                  </Button>
                 )
               })}
             </div>
           </CardHeader>
           <CardContent className="px-2 sm:p-6">
-            <ChartContainer
-              config={chartConfig}
-              className="aspect-auto h-[250px] w-full"
-            >
+            <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
               <LineChart
                 accessibilityLayer
                 data={reports}
@@ -304,17 +232,8 @@ export function Dashboard({ DataReports }: HomeProps) {
                     return value.slice(0, 3)
                   }}
                 />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
-                />
-                <Line
-                  dataKey="reports"
-                  type="natural"
-                  stroke="var(--color-reports)"
-                  strokeWidth={2}
-                  dot={false}
-                />
+                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                <Line dataKey="reports" type="natural" stroke="var(--color-reports)" strokeWidth={2} dot={false} />
               </LineChart>
             </ChartContainer>
           </CardContent>
@@ -322,9 +241,7 @@ export function Dashboard({ DataReports }: HomeProps) {
             <div className="flex gap-2 font-medium leading-none">
               Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
             </div>
-            <div className="leading-none text-muted-foreground">
-              Showing total visitors for the last 6 months
-            </div>
+            <div className="leading-none text-muted-foreground">Showing total visitors for the last 6 months</div>
           </CardFooter>
         </Card>
       </div>
