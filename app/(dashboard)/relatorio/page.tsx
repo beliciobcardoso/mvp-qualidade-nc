@@ -2,7 +2,7 @@ import { DialogRelatorioForm } from '@/app/(dashboard)/relatorio/_components/dia
 import ListaRelatorio from '@/app/(dashboard)/relatorio/_components/listaRelatorio'
 import HeaderPage from '@/components/header-page'
 import { auth } from '@/lib/auth'
-import { User } from '@/lib/types'
+import type { User } from '@/lib/types'
 import { getAllClient } from '../admin/client/actions'
 import { getAllSites } from '../admin/site/actions'
 import { getAllTechnician } from '../admin/technician/actions'

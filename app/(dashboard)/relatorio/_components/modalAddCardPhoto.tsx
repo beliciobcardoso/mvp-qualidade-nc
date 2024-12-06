@@ -1,21 +1,11 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { ModalAddCardPhotoType } from '@/lib/types'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import type { ModalAddCardPhotoType } from '@/lib/types'
 import { useState } from 'react'
 import { UploadImage } from './UploadImage'
 
-export default function ModalAddCardPhoto({
-  textButton,
-  textTitle,
-  textDescription,
-}: ModalAddCardPhotoType) {
+export default function ModalAddCardPhoto({ textButton, textTitle, textDescription }: ModalAddCardPhotoType) {
   const [open, setOpen] = useState(false)
   return (
     <div className="relative inline-block text-left">

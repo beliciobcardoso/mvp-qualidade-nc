@@ -3,11 +3,7 @@ import HeaderPage from '@/components/header-page'
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { getUserRoleCount } from './admin/user/actions'
-import {
-  getTotalReportsCreated,
-  getTotalReportsFinished,
-  getTotalReportsInProgress,
-} from './relatorio/actions'
+import { getTotalReportsCreated, getTotalReportsFinished, getTotalReportsInProgress } from './relatorio/actions'
 
 export default async function Home() {
   const session = await auth()

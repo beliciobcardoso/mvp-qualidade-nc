@@ -1,7 +1,7 @@
 'use client'
-import { ColumnDef } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
-import { StructureTypeType } from '@/lib/types'
+import type { StructureTypeType } from '@/lib/types'
 import { DialogStructureTypeUpdate } from './dialogStructureTypeUpdate'
 
 export const columns: ColumnDef<StructureTypeType>[] = [

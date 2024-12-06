@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { TipoSiteType } from '@/lib/types'
+import type { TipoSiteType } from '@/lib/types'
 
 export async function getAllSitesType() {
   try {

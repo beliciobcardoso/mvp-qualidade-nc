@@ -1,34 +1,17 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { clientSchema, ClientSchema } from '@/lib/formValidationSchemas'
-import { ClientType, DialogNewProps } from '@/lib/types'
+import { type ClientSchema, clientSchema } from '@/lib/formValidationSchemas'
+import type { ClientType, DialogNewProps } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createClient } from '../actions'
 
-export function DialogClient({
-  dialogButton,
-  dialogTitle,
-  dialogDescription,
-}: DialogNewProps) {
+export function DialogClient({ dialogButton, dialogTitle, dialogDescription }: DialogNewProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 

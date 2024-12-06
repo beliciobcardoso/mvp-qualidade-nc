@@ -1,14 +1,8 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { PhotoAnalisysType } from '@/lib/types'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import type { PhotoAnalisysType } from '@/lib/types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -54,12 +48,7 @@ export default function RemovePhoto({
         <Card>
           <div className="flex h-full flex-col items-center justify-between truncate">
             <CardContent className="w-[430px] pb-0 pt-2">
-              <Image
-                src={PhotoAnalisys.url}
-                alt="Imagem"
-                width={400}
-                height={400}
-              />
+              <Image src={PhotoAnalisys.url} alt="Imagem" width={400} height={400} />
             </CardContent>
             <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
               <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
@@ -67,6 +56,7 @@ export default function RemovePhoto({
               </div>
               <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
                 <div
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
                   dangerouslySetInnerHTML={{
                     __html: PhotoAnalisys.description,
                   }}
@@ -78,9 +68,7 @@ export default function RemovePhoto({
         <div className="flex justify-around">
           <Button
             variant={'destructive'}
-            onClick={() =>
-              PhotoAnalisys.id !== undefined && handleDelete(PhotoAnalisys.id)
-            }
+            onClick={() => PhotoAnalisys.id !== undefined && handleDelete(PhotoAnalisys.id)}
           >
             SIM
           </Button>

@@ -1,30 +1,11 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { siteSchema, SiteSchema } from '@/lib/formValidationSchemas'
-import { DialogUpdateSiteTypeProps } from '@/lib/types'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { type SiteSchema, siteSchema } from '@/lib/formValidationSchemas'
+import type { DialogUpdateSiteTypeProps } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -100,10 +81,7 @@ export function DialogUserUpdate({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Cliente</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Escolha um Cliente" />
@@ -141,11 +119,7 @@ export function DialogUserUpdate({
                     <FormItem>
                       <FormLabel>Altura</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="Altura"
-                          {...field}
-                          value={field.value}
-                        />
+                        <Input placeholder="Altura" {...field} value={field.value} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -157,10 +131,7 @@ export function DialogUserUpdate({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>TIPO DE SITE</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={String(field.value)}
-                      >
+                      <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Escolha" />
@@ -184,10 +155,7 @@ export function DialogUserUpdate({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>TIPO DE ESTRUTURA</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={String(field.value)}
-                      >
+                      <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select" />
@@ -265,10 +233,7 @@ export function DialogUserUpdate({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>UF</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="UF" />

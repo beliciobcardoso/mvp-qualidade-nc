@@ -1,7 +1,4 @@
 'use client'
-import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
-
 import { getAllSites } from '@/app/(dashboard)/admin/site/actions'
 import { getAllTechnician } from '@/app/(dashboard)/admin/technician/actions'
 import { Badge } from '@/components/ui/badge'
@@ -14,10 +11,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ReportRelType, SiteTypeRel, TechnicianType } from '@/lib/types'
+import type { ReportRelType, SiteTypeRel, TechnicianType } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import type { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { DialogRelatorio } from '../dialogRelatorio'
@@ -48,10 +47,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
       }
 
       return (
-        <Badge
-          variant="outline"
-          className={cn(statusVariant, 'text-left text-white')}
-        >
+        <Badge variant="outline" className={cn(statusVariant, 'text-left text-white')}>
           {status}
         </Badge>
       )
@@ -71,36 +67,26 @@ export const columns: ColumnDef<ReportRelType>[] = [
   {
     accessorKey: 'sites.client.name',
     id: 'Cliente',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Cliente" />
-    ),
-    cell: ({ row }) => (
-      <div className="pl-4">{row.original.sites.client.name}</div>
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Cliente" />,
+    cell: ({ row }) => <div className="pl-4">{row.original.sites.client.name}</div>,
   },
   {
     accessorKey: 'sites.idSite',
     id: 'Site ID',
     header: 'Site ID',
-    cell: ({ row }) => (
-      <div className="text-left">{row.original.sites.idSite}</div>
-    ),
+    cell: ({ row }) => <div className="text-left">{row.original.sites.idSite}</div>,
   },
   {
     accessorKey: 'technician.name',
     id: 'Técnico',
     header: 'Técnico',
-    cell: ({ row }) => (
-      <div className="text-left">{row.original.technician.name}</div>
-    ),
+    cell: ({ row }) => <div className="text-left">{row.original.technician.name}</div>,
   },
   {
     accessorKey: 'user.name',
     id: 'Usuário',
     header: 'Usuario criador',
-    cell: ({ row }) => (
-      <div className="text-left">{row.original.user.name}</div>
-    ),
+    cell: ({ row }) => <div className="text-left">{row.original.user.name}</div>,
   },
   {
     accessorKey: 'analyst',
@@ -109,11 +95,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     cell: ({ row }) => {
       const analyst = row.original.analyst
 
-      return (
-        <div className="text-left">
-          {analyst === null ? 'N/A' : analyst.name}
-        </div>
-      )
+      return <div className="text-left">{analyst === null ? 'N/A' : analyst.name}</div>
     },
   },
   {
@@ -121,10 +103,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     id: 'Data do Serviço',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Data do Serviço
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -132,11 +111,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
     cell: ({ row }) => {
       const date = new Date(row.original.dateService)
-      return (
-        <div className="pl-4">
-          {format(date, 'dd/MM/yyyy', { locale: ptBR })}
-        </div>
-      )
+      return <div className="pl-4">{format(date, 'dd/MM/yyyy', { locale: ptBR })}</div>
     },
   },
   {
@@ -144,10 +119,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     id: 'Data de Criação',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Data de Criação
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -155,11 +127,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
     cell: ({ row }) => {
       const date = new Date(row.original.createdAt)
-      return (
-        <div className="pl-4">
-          {format(date, 'dd/MM/yyyy', { locale: ptBR })}
-        </div>
-      )
+      return <div className="pl-4">{format(date, 'dd/MM/yyyy', { locale: ptBR })}</div>
     },
   },
   {
@@ -167,24 +135,15 @@ export const columns: ColumnDef<ReportRelType>[] = [
     id: 'Inicio da Análise',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Inicio da Análise
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => {
-      const date = row.original.updatedAt
-        ? new Date(row.original.updatedAt)
-        : null
-      return (
-        <div className="pl-4">
-          {date ? format(date, 'dd/MM/yyyy', { locale: ptBR }) : 'N/A'}
-        </div>
-      )
+      const date = row.original.updatedAt ? new Date(row.original.updatedAt) : null
+      return <div className="pl-4">{date ? format(date, 'dd/MM/yyyy', { locale: ptBR }) : 'N/A'}</div>
     },
   },
   {
@@ -192,24 +151,15 @@ export const columns: ColumnDef<ReportRelType>[] = [
     id: 'Data da Finalização',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Análise Finalizada
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
     cell: ({ row }) => {
-      const date = row.original.finishedAt
-        ? new Date(row.original.finishedAt)
-        : null
-      return (
-        <div className="pl-4">
-          {date ? format(date, 'dd/MM/yyyy', { locale: ptBR }) : 'N/A'}
-        </div>
-      )
+      const date = row.original.finishedAt ? new Date(row.original.finishedAt) : null
+      return <div className="pl-4">{date ? format(date, 'dd/MM/yyyy', { locale: ptBR }) : 'N/A'}</div>
     },
   },
   {
@@ -231,15 +181,11 @@ export const columns: ColumnDef<ReportRelType>[] = [
             <EditReportCell row={row} />
             <DropdownMenuSeparator />
             <Link href={`/relatorio/${relatorio.id}`}>
-              <DropdownMenuItem className="cursor-pointer">
-                Analisar
-              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer">Analisar</DropdownMenuItem>
             </Link>
             {finishedAt && (
               <Link href={`api/reportpdf/${relatorio.id}`} target="_blank">
-                <DropdownMenuItem className="cursor-pointer">
-                  Gerar PDF
-                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">Gerar PDF</DropdownMenuItem>
               </Link>
             )}
           </DropdownMenuContent>
@@ -249,9 +195,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
   },
 ]
 
-const EditReportCell: React.FC<{ row: { original: ReportRelType } }> = ({
-  row,
-}) => {
+const EditReportCell: React.FC<{ row: { original: ReportRelType } }> = ({ row }) => {
   const reports = row.original
   const [technicianData, setTechnicianData] = useState<TechnicianType[]>([])
   const [siteData, setSiteData] = useState<SiteTypeRel[]>([])

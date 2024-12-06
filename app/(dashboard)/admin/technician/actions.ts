@@ -1,7 +1,7 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { TechnicianType } from '@/lib/types'
-import { Technician } from '@prisma/client'
+import type { TechnicianType } from '@/lib/types'
+import type { Technician } from '@prisma/client'
 
 export async function createTechnician(data: TechnicianType) {
   try {

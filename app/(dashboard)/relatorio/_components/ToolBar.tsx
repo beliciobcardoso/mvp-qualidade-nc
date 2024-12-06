@@ -1,17 +1,7 @@
 'use client'
-
 import { Toggle } from '@/components/ui/toggle'
-import { type Editor } from '@tiptap/core'
-import {
-  Bold,
-  CircleDot,
-  Heading2,
-  Italic,
-  List,
-  ListOrdered,
-  Palette,
-  Strikethrough,
-} from 'lucide-react'
+import type { Editor } from '@tiptap/core'
+import { Bold, CircleDot, Heading2, Italic, List, ListOrdered, Palette, Strikethrough } from 'lucide-react'
 
 type Props = {
   editor: Editor | null
@@ -25,9 +15,7 @@ export function Toolbar({ editor }: Props) {
       <Toggle
         size={'sm'}
         pressed={editor.isActive('heading')}
-        onPressedChange={() =>
-          editor.chain().focus().toggleHeading({ level: 2 }).run()
-        }
+        onPressedChange={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
       >
         <Heading2 className="h-4 w-4" />
       </Toggle>
@@ -73,11 +61,7 @@ export function Toolbar({ editor }: Props) {
       >
         <Palette className="h-4 w-4" />
       </Toggle>
-      <Toggle
-        size={'sm'}
-        pressed={editor.isActive('circleDot')}
-        onPressedChange={() => {}}
-      >
+      <Toggle size={'sm'} pressed={editor.isActive('circleDot')} onPressedChange={() => {}}>
         <CircleDot className="h-4 w-4" />
       </Toggle>
     </div>

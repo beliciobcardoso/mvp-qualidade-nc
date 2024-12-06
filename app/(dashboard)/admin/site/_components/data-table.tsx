@@ -1,10 +1,10 @@
 'use client'
 
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -21,14 +21,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
@@ -37,10 +30,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [globalFilter, setGlobalFilter] = useState('')
@@ -72,29 +62,19 @@ export function DataTable<TData, TValue>({
         <Input
           placeholder="Filtrar nome do Site..."
           value={(table.getColumn('Site ID')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table
-              .getColumn('Site ID')
-              ?.setFilterValue(event.target.value.toUpperCase())
-          }
+          onChange={(event) => table.getColumn('Site ID')?.setFilterValue(event.target.value.toUpperCase())}
           className="max-w-[200px]"
         />
         <Input
           placeholder="Filtrar Cliente..."
           value={(table.getColumn('Cliente')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table
-              .getColumn('Cliente')
-              ?.setFilterValue(event.target.value.toUpperCase())
-          }
+          onChange={(event) => table.getColumn('Cliente')?.setFilterValue(event.target.value.toUpperCase())}
           className="max-w-[200px]"
         />
         <Input
           placeholder="Filtro Global..."
           value={globalFilter}
-          onChange={(event) =>
-            setGlobalFilter(event.target.value.toUpperCase())
-          }
+          onChange={(event) => setGlobalFilter(event.target.value.toUpperCase())}
           className="max-w-[200px]"
         />
         <DropdownMenu>
@@ -113,9 +93,7 @@ export function DataTable<TData, TValue>({
                     key={column.id}
                     className="capitalize"
                     checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
@@ -132,12 +110,7 @@ export function DataTable<TData, TValue>({
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   )
                 })}
@@ -149,21 +122,13 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -184,12 +149,7 @@ export function DataTable<TData, TValue>({
           >
             Anterior
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
+          <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
             Próximo
           </Button>
         </div>

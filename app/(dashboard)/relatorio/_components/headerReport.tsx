@@ -1,6 +1,6 @@
 import ncLogo from '@/assets/ncLogo.png'
 import { auth } from '@/lib/auth'
-import { PhotoAnalisysType, Relatorio, User } from '@/lib/types'
+import type { PhotoAnalisysType, Relatorio, User } from '@/lib/types'
 import { PlusIcon } from 'lucide-react'
 import Image from 'next/image'
 import { getUserByEmail } from '../../admin/user/actions'
@@ -23,12 +23,7 @@ interface RelatorioHeaderProps {
   id: number
 }
 
-export default async function HeaderReport({
-  relatorioHeader,
-  descriptions,
-  photoAnalisys,
-  id,
-}: RelatorioHeaderProps) {
+export default async function HeaderReport({ relatorioHeader, descriptions, photoAnalisys, id }: RelatorioHeaderProps) {
   const session = await auth()
   const user = session?.user as User
   let dataUser: User | null = null
@@ -39,17 +34,9 @@ export default async function HeaderReport({
     <header className="flex flex-col bg-white">
       <div className="flex items-center justify-between">
         <div className="h-20 w-44">
-          <Image
-            src={ncLogo}
-            alt="Logo"
-            width={400}
-            height={400}
-            className="h-full w-full"
-          />
+          <Image src={ncLogo} alt="Logo" width={400} height={400} className="h-full w-full" />
         </div>
-        <h1 className="px-4 text-2xl font-bold">
-          RELATÓRIO DE MANUTENÇÃO CORRETIVA
-        </h1>
+        <h1 className="px-4 text-2xl font-bold">RELATÓRIO DE MANUTENÇÃO CORRETIVA</h1>
         <div className="h-20 w-44">
           <Image
             src={relatorioHeader.sites.client.img ?? ncLogo}
@@ -71,36 +58,27 @@ export default async function HeaderReport({
             </tr>
           </thead>
           <tbody>
-            {descriptions.length > 0 ? (
-              descriptions.map((description, index) => (
-                <tr key={index} className="border-2">
-                  <td className="border-2 px-2">{description.service}</td>
-                  <td className="border-2 text-center">
-                    {description.status === 'ok' ? 'X' : ''}
-                  </td>
-                  <td className="border-2 text-center">
-                    {description.status === 'na' ? 'X' : ''}
-                  </td>
-                  <td className="flex items-center justify-center">
-                    {descriptions.length === 1 || relatorioHeader.finishedAt ? (
-                      <p className="cursor-pointer rounded-sm bg-destructive bg-red-300 p-2 text-destructive-foreground text-white shadow-sm hover:bg-destructive/90">
-                        Del
-                      </p>
-                    ) : (
-                      <RemoveServices idService={description.id} />
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td className="h-8 border-2 px-2"> </td>
-                <td className="border-2 px-2 text-center"></td>
-                <td className="border-2 px-2 text-center"></td>
-              </tr>
-            )}
+            {descriptions.length > 0
+              ? descriptions.map((description) => (
+                  <tr key={description.id} className="border-2">
+                    <td className="border-2 px-2">{description.service}</td>
+                    <td className="border-2 text-center">{description.status === 'ok' ? 'X' : ''}</td>
+                    <td className="border-2 text-center">{description.status === 'na' ? 'X' : ''}</td>
+                    <td className="flex items-center justify-center">
+                      {descriptions.length === 1 || relatorioHeader.finishedAt ? (
+                        <p className="cursor-pointer rounded-sm bg-destructive bg-red-300 p-2 text-destructive-foreground text-white shadow-sm hover:bg-destructive/90">
+                          Del
+                        </p>
+                      ) : (
+                        <RemoveServices idService={description.id} />
+                      )}
+                    </td>
+                  </tr>
+                ))
+              : ''}
           </tbody>
         </table>
+        <hr />
         <div className="flex justify-end gap-2 p-2">
           {relatorioHeader.finishedAt ? (
             <GeneratePdf

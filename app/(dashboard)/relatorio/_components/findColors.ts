@@ -1,4 +1,4 @@
-import { Node } from '@tiptap/pm/model'
+import type { Node } from '@tiptap/pm/model'
 import { Decoration, DecorationSet } from '@tiptap/pm/view'
 
 export default function findColors(doc: Node): DecorationSet {
@@ -10,6 +10,7 @@ export default function findColors(doc: Node): DecorationSet {
       return
     }
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     Array.from(node.text.matchAll(hexColor)).forEach((match) => {
       const color = match[0]
       const index = match.index || 0

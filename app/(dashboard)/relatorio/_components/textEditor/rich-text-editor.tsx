@@ -15,10 +15,7 @@ interface RichTextEditorProps {
   onChange: (content: string) => void
 }
 
-export default function RichTextEditor({
-  content,
-  onChange,
-}: RichTextEditorProps) {
+export default function RichTextEditor({ content, onChange }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
       TextStyle.configure(),

@@ -1,11 +1,5 @@
 'use client'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -27,11 +21,7 @@ interface ServiceDescriptionFormProps {
   userId: string
 }
 
-export default function ServiceDescriptionForm({
-  id,
-  handleModal,
-  userId,
-}: ServiceDescriptionFormProps) {
+export default function ServiceDescriptionForm({ id, handleModal, userId }: ServiceDescriptionFormProps) {
   const router = useRouter()
 
   const form = useForm<FormValues>({
@@ -121,10 +111,7 @@ export default function ServiceDescriptionForm({
             </div>
           </div>
           <div className="flex w-full justify-end p-4">
-            <button
-              type="submit"
-              className="rounded-lg bg-blue-500 px-4 py-1 text-white"
-            >
+            <button type="submit" className="rounded-lg bg-blue-500 px-4 py-1 text-white">
               Salvar
             </button>
           </div>

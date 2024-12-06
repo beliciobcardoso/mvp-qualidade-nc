@@ -1,17 +1,13 @@
-import { Relatorio } from '@/lib/types'
+import type { Relatorio } from '@/lib/types'
 
 interface RelatorioHeaderSiteProps {
   relatorioHeader: Relatorio
 }
 
-export default function HeaderReportSite({
-  relatorioHeader,
-}: RelatorioHeaderSiteProps) {
+export default function HeaderReportSite({ relatorioHeader }: RelatorioHeaderSiteProps) {
   return (
     <div className="flex flex-col">
-      <h1 className="bg-blue-500 p-2 text-center text-lg font-bold text-white">
-        DADOS DO SITE
-      </h1>
+      <h1 className="bg-blue-500 p-2 text-center text-lg font-bold text-white">DADOS DO SITE</h1>
       <div className="text-sm">
         <div>
           <table className="border-1 w-full text-left">

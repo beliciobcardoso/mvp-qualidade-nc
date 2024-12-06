@@ -1,41 +1,18 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { userSchema, UserSchema } from '@/lib/formValidationSchemas'
-import { DialogNewUserProps } from '@/lib/types'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { type UserSchema, userSchema } from '@/lib/formValidationSchemas'
+import type { DialogNewUserProps } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createUser } from '../actions'
 
-export function DialogUser({
-  dialogButton,
-  dialogTitle,
-  dialogDescription,
-}: DialogNewUserProps) {
+export function DialogUser({ dialogButton, dialogTitle, dialogDescription }: DialogNewUserProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
@@ -100,10 +77,7 @@ export function DialogUser({
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="nome.sobrenome@email.com"
-                        {...field}
-                      />
+                      <Input placeholder="nome.sobrenome@email.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -116,11 +90,7 @@ export function DialogUser({
                   <FormItem>
                     <FormLabel>Senha</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="********"
-                        type="password"
-                        {...field}
-                      />
+                      <Input placeholder="********" type="password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -133,11 +103,7 @@ export function DialogUser({
                   <FormItem>
                     <FormLabel>Confirmar Senha</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="********"
-                        type="password"
-                        {...field}
-                      />
+                      <Input placeholder="********" type="password" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -149,10 +115,7 @@ export function DialogUser({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Role</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a verified email to display" />

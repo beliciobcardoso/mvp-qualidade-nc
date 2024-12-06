@@ -1,28 +1,9 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { siteSchema } from '@/lib/formValidationSchemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -30,8 +11,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createSite } from '../actions'
 
-import { DialogNewSiteProps } from '@/lib/types'
-import { Site } from '@prisma/client'
+import type { DialogNewSiteProps } from '@/lib/types'
+import type { Site } from '@prisma/client'
 
 export function DialogSite({
   dialogButton,
@@ -96,10 +77,7 @@ export function DialogSite({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Cliente</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Escolha um Cliente" />
@@ -137,11 +115,7 @@ export function DialogSite({
                       <FormItem>
                         <FormLabel>Altura</FormLabel>
                         <FormControl>
-                          <Input
-                            placeholder="Altura"
-                            {...field}
-                            value={field.value ?? ''}
-                          />
+                          <Input placeholder="Altura" {...field} value={field.value ?? ''} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -153,10 +127,7 @@ export function DialogSite({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>TIPO DE SITE</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={String(field.value)}
-                        >
+                        <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Escolha" />
@@ -180,10 +151,7 @@ export function DialogSite({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>TIPO DE ESTRUTURA</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={String(field.value)}
-                        >
+                        <Select onValueChange={field.onChange} defaultValue={String(field.value)}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="Select" />
@@ -261,10 +229,7 @@ export function DialogSite({
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>UF</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="UF" />

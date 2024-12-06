@@ -1,24 +1,11 @@
 'use client'
 import DefaultUploadImage from '@/assets/image.svg'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ClientSchema, clientSchema } from '@/lib/formValidationSchemas'
-import { dialogNewClientProps } from '@/lib/types'
+import { type ClientSchema, clientSchema } from '@/lib/formValidationSchemas'
+import type { dialogNewClientProps } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -26,12 +13,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { updateClient, uploadClientLogo } from '../actions'
 
-export function DialogClientUpdate({
-  dialogButton,
-  dialogTitle,
-  dialogDescription,
-  dialogData,
-}: dialogNewClientProps) {
+export function DialogClientUpdate({ dialogButton, dialogTitle, dialogDescription, dialogData }: dialogNewClientProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
@@ -96,42 +78,22 @@ export function DialogClientUpdate({
         </DialogHeader>
         {dialogData?.img ? (
           <div className="flex justify-center">
-            <Image
-              src={dialogData?.img}
-              alt="Imagem do cliente"
-              width={100}
-              height={100}
-            />
+            <Image src={dialogData?.img} alt="Imagem do cliente" width={100} height={100} />
           </div>
         ) : imageUrl ? (
           <div className="flex justify-center">
-            <Image
-              src={imageUrl}
-              alt="Imagem do cliente"
-              width={100}
-              height={100}
-            />
+            <Image src={imageUrl} alt="Imagem do cliente" width={100} height={100} />
           </div>
         ) : (
           <div className="flex justify-center">
-            <Image
-              src={DefaultUploadImage}
-              alt="Imagem do cliente"
-              width={100}
-              height={100}
-            />
+            <Image src={DefaultUploadImage} alt="Imagem do cliente" width={100} height={100} />
           </div>
         )}
 
         <div>
           <form action={submitForm} className="flex gap-2">
             <label htmlFor="file" className="dark:text-white"></label>
-            <Input
-              type="file"
-              name="file"
-              className="dark:text-white"
-              placeholder="test"
-            />
+            <Input type="file" name="file" className="dark:text-white" placeholder="test" />
             <button
               type="submit"
               className="border-color-gray-700 rounded-md border-2 p-1 dark:bg-gray-700 dark:text-white"

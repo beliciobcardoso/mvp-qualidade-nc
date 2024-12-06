@@ -1,5 +1,7 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import { Toggle } from '@/components/ui/toggle'
+import type { Editor } from '@tiptap/react'
 import {
   AlignCenter,
   AlignLeft,
@@ -12,9 +14,6 @@ import {
   Strikethrough,
   Underline,
 } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
-import { Editor } from '@tiptap/react'
 import { useState } from 'react'
 
 export default function ToolBar({ editor }: { editor: Editor }) {
@@ -141,23 +140,16 @@ export default function ToolBar({ editor }: { editor: Editor }) {
               }}
             />
           ))}
-          <Button
-            onClick={() => setColor(null)}
-            className="ml-2 h-6 w-6 rounded bg-gray-300 text-sm hover:bg-red-400"
-          >
+          <Button onClick={() => setColor(null)} className="ml-2 h-6 w-6 rounded bg-gray-300 text-sm hover:bg-red-400">
             <EraserIcon />
           </Button>
         </div>
       )}
 
       {/* Botões de formatação */}
-      {Options.map((option, i) => (
-        <Toggle
-          key={i}
-          size="sm"
-          pressed={option.preesed}
-          onPressedChange={option.onClick}
-        >
+      {Options.map((option, index) => (
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+        <Toggle key={index} size="sm" pressed={option.preesed} onPressedChange={option.onClick}>
           {option.icon}
         </Toggle>
       ))}

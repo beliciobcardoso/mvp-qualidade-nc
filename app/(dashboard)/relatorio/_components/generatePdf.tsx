@@ -1,13 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
-
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useState } from 'react'
 
 interface GeneratePdfProps {
@@ -17,12 +10,7 @@ interface GeneratePdfProps {
   idReport: number
 }
 
-export default function GeneratePdf({
-  dialogButton,
-  dialogTitle,
-  dialogDescription,
-  idReport,
-}: GeneratePdfProps) {
+export default function GeneratePdf({ dialogButton, dialogTitle, dialogDescription, idReport }: GeneratePdfProps) {
   const [open, setOpen] = useState(false)
 
   function generatePdf(id: number) {
@@ -53,9 +41,7 @@ export default function GeneratePdf({
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
-        <p className="flex justify-center py-4 text-xl">
-          Deseja gerar o PDF do relatório?
-        </p>
+        <p className="flex justify-center py-4 text-xl">Deseja gerar o PDF do relatório?</p>
         <div className="flex justify-around">
           <Button variant={'default'} onClick={generatePdf(idReport)}>
             Gerar

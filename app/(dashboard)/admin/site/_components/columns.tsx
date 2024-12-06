@@ -1,8 +1,8 @@
 'use client'
-import { ColumnDef } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
-import { ClientType, SiteTypeRel, TipoSiteType } from '@/lib/types'
-import { StructureType } from '@prisma/client'
+import type { ClientType, SiteTypeRel, TipoSiteType } from '@/lib/types'
+import type { StructureType } from '@prisma/client'
 
 import { useEffect, useState } from 'react'
 import { getAllClient } from '../../client/actions'
@@ -66,15 +66,11 @@ export const columns: ColumnDef<SiteTypeRel>[] = [
   },
 ]
 
-const EditSiteCell: React.FC<{ row: { original: SiteTypeRel } }> = ({
-  row,
-}) => {
+const EditSiteCell: React.FC<{ row: { original: SiteTypeRel } }> = ({ row }) => {
   const data = row.original
   const [clientData, setClientData] = useState<ClientType[]>([])
   const [siteTypeData, setSiteTypeData] = useState<TipoSiteType[]>([])
-  const [structureTypeData, setStructureTypeData] = useState<StructureType[]>(
-    [],
-  )
+  const [structureTypeData, setStructureTypeData] = useState<StructureType[]>([])
 
   useEffect(() => {
     const fetchStructureData = async () => {

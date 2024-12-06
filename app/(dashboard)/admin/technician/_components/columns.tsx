@@ -1,7 +1,6 @@
 'use client'
-import { ColumnDef } from '@tanstack/react-table'
-
-import { TechnicianType } from '@/lib/types'
+import type { TechnicianType } from '@/lib/types'
+import type { ColumnDef } from '@tanstack/react-table'
 import { DialogTechnicianUpdate } from './dialogTechnicianUpdate'
 
 export const columns: ColumnDef<TechnicianType>[] = [

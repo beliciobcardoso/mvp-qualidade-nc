@@ -1,7 +1,7 @@
 'use client'
-import { ColumnDef } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
-import { TipoSiteType } from '@/lib/types'
+import type { TipoSiteType } from '@/lib/types'
 import { DialogTipoSiteTypeUpdate } from './dialogTypeSiteUpdate'
 
 export const columns: ColumnDef<TipoSiteType>[] = [

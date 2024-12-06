@@ -17,11 +17,7 @@ export function RemoveServices({ idService, className }: RemoveServicesProps) {
   }
   return (
     <>
-      <Button
-        onClick={() => handleDelete(idService)}
-        className={className}
-        variant={'destructive'}
-      >
+      <Button onClick={() => handleDelete(idService)} className={className} variant={'destructive'}>
         Del
       </Button>
     </>

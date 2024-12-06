@@ -1,8 +1,8 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { ClientType } from '@/lib/types'
+import type { ClientType } from '@/lib/types'
 import { uploadObject } from '@/service/storage'
-import { Client } from '@prisma/client'
+import type { Client } from '@prisma/client'
 
 export async function uploadClientLogo(formData: FormData, idClient: string) {
   const file = formData.get('file') as File

@@ -1,7 +1,7 @@
 'use client'
 import imagem from '@/assets/image.svg'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { PhotoAnalisysType, Relatorio } from '@/lib/types'
+import type { PhotoAnalisysType, Relatorio } from '@/lib/types'
 import Image from 'next/image'
 import RemovePhoto from './removePhoto'
 
@@ -10,10 +10,7 @@ interface PhotoAnalisysProps {
   relatorioHeader: Relatorio
 }
 
-export default function PhotoAnalisys({
-  photoAnalisys,
-  relatorioHeader,
-}: PhotoAnalisysProps) {
+export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoAnalisysProps) {
   return (
     <>
       {photoAnalisys.length > 0 ? (
@@ -42,9 +39,8 @@ export default function PhotoAnalisys({
                     <p>{index + 1}</p>
                   </div>
                   <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                    />
+                    {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
+                    <div dangerouslySetInnerHTML={{ __html: item.description }} />
                   </div>
                 </CardFooter>
               </div>
@@ -54,6 +50,7 @@ export default function PhotoAnalisys({
       ) : (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {Array.from({ length: 3 }, (_, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             <Card key={index}>
               <div className="flex flex-col items-center truncate">
                 <CardContent className="w-[430px] pt-2">

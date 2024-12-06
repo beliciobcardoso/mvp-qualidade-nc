@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { Site } from '@prisma/client'
+import type { Site } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 
 export async function createSite(site: Site) {

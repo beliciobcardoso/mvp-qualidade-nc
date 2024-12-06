@@ -1,6 +1,6 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { StructureTypeType } from '@/lib/types'
+import type { StructureTypeType } from '@/lib/types'
 
 export async function getAllStructuresType() {
   try {

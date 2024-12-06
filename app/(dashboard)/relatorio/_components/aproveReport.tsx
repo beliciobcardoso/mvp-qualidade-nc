@@ -1,12 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { updateReportFinished } from '../actions'
@@ -18,12 +12,7 @@ interface AproveReportProps {
   idReport: number
 }
 
-export default function AproveReport({
-  dialogButton,
-  dialogTitle,
-  dialogDescription,
-  idReport,
-}: AproveReportProps) {
+export default function AproveReport({ dialogButton, dialogTitle, dialogDescription, idReport }: AproveReportProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   function aproveReport(id: number) {
@@ -46,9 +35,7 @@ export default function AproveReport({
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
-        <p className="flex justify-center py-4 text-xl">
-          Deseja finalizar o Relatório de número {idReport}
-        </p>
+        <p className="flex justify-center py-4 text-xl">Deseja finalizar o Relatório de número {idReport}</p>
         <div className="flex justify-around">
           <Button variant={'default'} onClick={aproveReport(idReport)}>
             Finalizar

@@ -14,9 +14,7 @@ export const ColorHighlighter = Extension.create({
             return findColors(doc)
           },
           apply(transaction, oldState) {
-            return transaction.docChanged
-              ? findColors(transaction.doc)
-              : oldState
+            return transaction.docChanged ? findColors(transaction.doc) : oldState
           },
         },
         props: {
