@@ -7,7 +7,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copiar arquivos
-COPY package.json package-look.json ./
+COPY package.json ./
 
 # Instalar dependências
 RUN npm install
