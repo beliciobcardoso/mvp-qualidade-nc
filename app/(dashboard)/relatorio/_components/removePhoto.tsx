@@ -52,7 +52,7 @@ export default function RemovePhoto({
             </CardContent>
             <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
               <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
-                <p>{index + 1}</p>
+                <p>{index}</p>
               </div>
               <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
                 <div
