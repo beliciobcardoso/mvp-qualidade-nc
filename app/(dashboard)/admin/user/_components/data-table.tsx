@@ -59,8 +59,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       <div className="flex items-center gap-4 py-4">
         <Input
           placeholder="Pesquisar Usuario..."
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) => table.getColumn('name')?.setFilterValue(event.target.value)}
+          value={(table.getColumn('Nome')?.getFilterValue() as string) ?? ''}
+          onChange={(event) => table.getColumn('Nome')?.setFilterValue(event.target.value)}
           className="max-w-[200px]"
         />
         <Input

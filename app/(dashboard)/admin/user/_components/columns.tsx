@@ -8,13 +8,14 @@ import { DialogUserUpdate } from './dialogUserUpdate'
 
 export const columns: ColumnDef<UserForm>[] = [
   {
-    accessorKey: 'name',
     id: 'Nome',
+    accessorKey: 'name',
+    accessorFn: (row) => row.name,
     header: 'Nome',
   },
   {
-    accessorKey: 'email',
     id: 'E-Mail',
+    accessorKey: 'email',
     header: 'E-Mail',
   },
   {
