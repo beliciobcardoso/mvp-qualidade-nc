@@ -18,7 +18,7 @@ export function NavUser(user: User) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="rounded-full p-0 pr-4">
+        <Button variant="ghost" className="rounded-full h-10 hover:bg-[#009BAB]">
           <Avatar className="h-8 w-8">
             <AvatarImage src={user.avatar ?? ''} alt="@avatar" />
             <AvatarFallback>

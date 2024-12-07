@@ -25,7 +25,7 @@ export default async function DashboardLayout({
       <SidebarProvider defaultOpen={defaultOpen}>
         {dataUser && <AppSidebar userData={dataUser} />}
         <SidebarInset>
-          <main className="flex flex-1 flex-col space-y-4 pr-2">{children}</main>
+          <main className="flex flex-1 flex-col space-y-2 pr-2">{children}</main>
         </SidebarInset>
       </SidebarProvider>
     </SessionProvider>
