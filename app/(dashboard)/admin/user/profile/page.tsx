@@ -15,7 +15,7 @@ export default async function ProfilePage() {
   return (
     <main>
       <HeaderPage pageName={'Perfil'} />
-      <div className="space-y-6">
+      <div className="space-y-2 pl-4">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
             <div className="text-sm font-semibold text-muted-foreground">Nome</div>
@@ -24,6 +24,10 @@ export default async function ProfilePage() {
           <div>
             <div className="text-sm font-semibold text-muted-foreground">Email</div>
             <div className="text-lg font-semibold">{dataUser?.email}</div>
+          </div>
+          <div>
+            <div className="text-sm font-semibold text-muted-foreground">Função</div>
+            <div className="text-lg font-semibold">{dataUser?.role}</div>
           </div>
         </div>
         <Separator />
