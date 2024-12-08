@@ -3,7 +3,6 @@ import { auth } from '@/lib/auth'
 import type { PhotoAnalisysType, Relatorio, User } from '@/lib/types'
 import { PlusIcon } from 'lucide-react'
 import Image from 'next/image'
-import { getUserByEmail } from '../../admin/user/actions'
 import AproveReport from './aproveReport'
 import { DialogServiceDescription } from './dialogServiceDescription'
 import GeneratePdf from './generatePdf'
@@ -28,8 +27,9 @@ export default async function HeaderReport({ relatorioHeader, descriptions, phot
   const user = session?.user as User
   let dataUser: User | null = null
   if (session) {
-    dataUser = (await getUserByEmail(user.email)) || null
+    dataUser = user
   }
+  
   return (
     <header className="flex flex-col bg-white">
       <div className="flex items-center justify-between">

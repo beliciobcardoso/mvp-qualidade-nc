@@ -1,23 +1,10 @@
-import { PrismaAdapter } from '@auth/prisma-adapter'
 import bcrypt from 'bcryptjs'
-import NextAuth, { type DefaultSession } from 'next-auth'
+import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import authConfig from './auth.config'
 import prisma from './prisma'
-import type { Role } from './types'
-
-declare module 'next-auth' {
-  interface User {}
-  interface Account {}
-  interface Session {
-    user: {
-      role: Role
-    } & DefaultSession['user']
-  }
-}
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
   pages: {
     signIn: '/signin',
     // signOut: "/auth/signout",
@@ -58,8 +45,16 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, user, token }) {
-      return { ...session }
+    jwt({ token, user }) {
+      if (user) {
+        token.role = user.role
+      }
+      return token
+    },
+    session({ session, token }) {
+      session.user.role = token.role
+      session.user.id = token.sub || ''
+      return session
     },
   },
 })
