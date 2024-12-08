@@ -91,7 +91,13 @@ export function DialogClientUpdate({ dialogButton, dialogTitle, dialogDescriptio
         )}
 
         <div>
-          <form action={submitForm} className="flex gap-2">
+          <form onSubmit={async (e) => {
+            e.preventDefault()
+            const formData = new FormData()
+            const file = (e.target as HTMLFormElement).file.files[0]
+            formData.append('file', file)
+            await submitForm(formData)
+          }} className="flex gap-2">
             <label htmlFor="file" className="dark:text-white"></label>
             <Input type="file" name="file" className="dark:text-white" placeholder="test" />
             <button
