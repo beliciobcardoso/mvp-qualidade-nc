@@ -3,8 +3,10 @@ import HeaderPage from '@/components/header-page'
 import { auth } from '@/lib/auth'
 import type { PhotoAnalisysType, Relatorio } from '@/lib/types'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 import HeaderReport from '../_components/headerReport'
 import PhotoAnalisys from '../_components/photoAnalisys'
+
 
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth()
@@ -20,12 +22,14 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <HeaderPage pageName={'Analisando Relatório'} />
       <div className="flex w-full flex-col items-center bg-slate-300">
+      <Suspense fallback={<div>Loading...</div>}>
         <HeaderReport
           relatorioHeader={relatorioHeader}
           descriptions={descriptions}
           photoAnalisys={photoAnalisys}
           id={id}
         />
+        </Suspense>
         <aside className="container flex flex-col items-center py-4">
           {<PhotoAnalisys photoAnalisys={photoAnalisys} relatorioHeader={relatorioHeader} />}
         </aside>
