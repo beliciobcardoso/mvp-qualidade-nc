@@ -178,13 +178,21 @@ export const columns: ColumnDef<ReportRelType>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <EditReportCell row={row} />
+            {!finishedAt && (
+              <EditReportCell row={row} />
+            )}
             <DropdownMenuSeparator />
-            <Link href={`/relatorio/${relatorio.id}`}>
-              <DropdownMenuItem className="cursor-pointer">Analisar</DropdownMenuItem>
-            </Link>
+            {!finishedAt && (
+              <Link href={`/relatorio/${relatorio.id}`}>
+                <DropdownMenuItem className="cursor-pointer">Analisar</DropdownMenuItem>
+              </Link>)}
             {finishedAt && (
-              <Link href={`api/reportpdf/${relatorio.id}`} target="_blank">
+              <Link href={`/reportviewer/${relatorio.id}`} target="_blank">
+                <DropdownMenuItem className="cursor-pointer">Visualizar</DropdownMenuItem>
+              </Link>
+            )}
+            {finishedAt && (
+              <Link href={`/api/reportpdf/${relatorio.id}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">Gerar PDF</DropdownMenuItem>
               </Link>
             )}

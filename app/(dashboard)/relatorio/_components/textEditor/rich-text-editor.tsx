@@ -41,7 +41,6 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
       },
     },
     onUpdate: ({ editor }) => {
-      console.log(editor.getHTML())
       if (editor.getHTML() === '<p></p>') {
         onChange('')
       } else {
@@ -51,9 +50,9 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
   })
 
   return (
-    <div>
+    <div className='flex flex-col items-center'>
       {editor && <ToolBar editor={editor} />}
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} className='w-96' />
     </div>
   )
 }

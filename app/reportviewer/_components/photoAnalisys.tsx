@@ -24,8 +24,10 @@ export default function PhotoAnalisys({
                     <p>{index + 1}</p>
                   </div>
                   <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
-                    {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-                    <div dangerouslySetInnerHTML={{ __html: item.description }} />
+                    <div
+                      className='max-w-96 max-h-14 text-wrap'
+                      /* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */
+                      dangerouslySetInnerHTML={{ __html: item.description }} />
                     {/* <p>{item.description}</p> */}
                   </div>
                 </CardFooter>
