@@ -1,11 +1,11 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
-import { ChartLineIcon, TrendingUp } from 'lucide-react'
+import { FileStack, NotebookPen, NotebookText, TrendingUp, Users } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts'
 import { CalendarDateRangePicker } from './date-range-picker'
-import { Button } from './ui/button'
 
 export const description = 'An interactive line chart'
 
@@ -94,7 +94,7 @@ export function Dashboard({ DataReports }: HomeProps) {
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Analistas Totais</CardTitle>
-            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
+            <Users className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.analyst}</div>
@@ -103,7 +103,7 @@ export function Dashboard({ DataReports }: HomeProps) {
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Relatórios Finalizados</CardTitle>
-            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
+            <NotebookText className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.finished}</div>
@@ -112,7 +112,7 @@ export function Dashboard({ DataReports }: HomeProps) {
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Relatórios Em Andamentos</CardTitle>
-            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
+            <NotebookPen className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.inProgress}</div>
@@ -121,7 +121,7 @@ export function Dashboard({ DataReports }: HomeProps) {
         <Card dir="ltr">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Relatórios Criados</CardTitle>
-            <ChartLineIcon className="h-6 w-6 text-muted-foreground" />
+            <FileStack className="h-6 w-6 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{DataReports.created}</div>
@@ -135,14 +135,16 @@ export function Dashboard({ DataReports }: HomeProps) {
               <CardTitle>Gráfico de Linhas - Interativo</CardTitle>
               <CardDescription>Mostrando o total de relatorios em dias</CardDescription>
             </div>
-            <div className="flex">
+            <div className="flex gap-2">
               {['andamento', 'finalizado'].map((key) => {
                 const chart = key as keyof typeof chartConfig
                 return (
                   <Button
+                    variant={'ghost'}
+                    size={'lg'}
                     key={chart}
                     data-active={activeChart === chart}
-                    className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
+                    className="flex flex-1 flex-col justify-center h-20 my-4 gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
                     onClick={() => setActiveChart(chart)}
                   >
                     <span className="text-xs text-muted-foreground">{chartConfig[chart].label}</span>
