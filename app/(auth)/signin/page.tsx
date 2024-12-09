@@ -15,8 +15,10 @@ export default async function SignInPage() {
       <div className="flex w-0 items-center justify-center md:w-[40%] lg:w-[60%] xl:w-[60%]">
         <Image src={LogoNC} width={800} height={800} alt="Logo" />
       </div>
-      <div className="flex w-full md:w-[60%] lg:w-[40%] xl:w-[40%]">
-        <LoginForm />
+      <div className="flex w-full h-full items-center justify-center md:w-[60%] lg:w-[40%] xl:w-[40%] shadow-2xl bg-slate-100">
+        <div>
+          <LoginForm />
+        </div>
       </div>
     </main>
   )
