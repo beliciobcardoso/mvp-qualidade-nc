@@ -1,5 +1,4 @@
 import ncLogo from '@/assets/ncLogo.png'
-import { auth } from '@/lib/auth'
 import type { PhotoAnalisysType, Relatorio, User } from '@/lib/types'
 import { PlusIcon } from 'lucide-react'
 import Image from 'next/image'
@@ -20,16 +19,10 @@ interface RelatorioHeaderProps {
   }[]
   photoAnalisys: PhotoAnalisysType[]
   id: number
+  user: User
 }
 
-export default async function HeaderReport({ relatorioHeader, descriptions, photoAnalisys, id }: RelatorioHeaderProps) {
-  const session = await auth()
-  const user = session?.user as User
-  let dataUser: User | null = null
-  if (session) {
-    dataUser = user
-  }
-  
+export default function HeaderReport({ relatorioHeader, descriptions, photoAnalisys, id, user }: RelatorioHeaderProps) {
   return (
     <header className="flex flex-col bg-white">
       <div className="flex items-center justify-between">
@@ -60,21 +53,21 @@ export default async function HeaderReport({ relatorioHeader, descriptions, phot
           <tbody>
             {descriptions.length > 0
               ? descriptions.map((description) => (
-                  <tr key={description.id} className="border-2">
-                    <td className="border-2 px-2">{description.service}</td>
-                    <td className="border-2 text-center">{description.status === 'ok' ? 'X' : ''}</td>
-                    <td className="border-2 text-center">{description.status === 'na' ? 'X' : ''}</td>
-                    <td className="flex items-center justify-center">
-                      {descriptions.length === 1 || relatorioHeader.finishedAt ? (
-                        <p className="cursor-pointer rounded-sm bg-destructive bg-red-300 p-2 text-destructive-foreground text-white shadow-sm hover:bg-destructive/90">
-                          Del
-                        </p>
-                      ) : (
-                        <RemoveServices idService={description.id} />
-                      )}
-                    </td>
-                  </tr>
-                ))
+                <tr key={description.id} className="border-2">
+                  <td className="border-2 px-2">{description.service}</td>
+                  <td className="border-2 text-center">{description.status === 'ok' ? 'X' : ''}</td>
+                  <td className="border-2 text-center">{description.status === 'na' ? 'X' : ''}</td>
+                  <td className="flex items-center justify-center">
+                    {descriptions.length === 1 || relatorioHeader.finishedAt ? (
+                      <p className="cursor-pointer rounded-sm bg-destructive bg-red-300 p-2 text-destructive-foreground text-white shadow-sm hover:bg-destructive/90">
+                        Del
+                      </p>
+                    ) : (
+                      <RemoveServices idService={description.id} />
+                    )}
+                  </td>
+                </tr>
+              ))
               : ''}
           </tbody>
         </table>
@@ -100,13 +93,13 @@ export default async function HeaderReport({ relatorioHeader, descriptions, phot
           ) : (
             ''
           )}
-          {relatorioHeader.finishedAt === null && dataUser ? (
+          {relatorioHeader.finishedAt === null && user ? (
             <DialogServiceDescription
               dialogButton={'Adicionar Serviço'}
               dialogDescription={'Adicione um novo serviço'}
               dialogTitle={'Adicionar Serviço'}
               idReport={id}
-              userId={dataUser.id}
+              userId={user.id}
             />
           ) : (
             ''

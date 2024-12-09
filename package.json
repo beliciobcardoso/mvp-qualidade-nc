@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "prodlocal": "next dev -p 8088",
-    "prod": "next build && next start -p 8088"
+    "start": "next start -p 8088",
+    "prodlocal": "next dev -p 8087",
+    "prod": "next build && next start -p 8086",
+    "homolog": "next start -p 8085",
+    "lint": "next lint"
   },
   "dependencies": {
     "@auth/prisma-adapter": "2.7.4",
