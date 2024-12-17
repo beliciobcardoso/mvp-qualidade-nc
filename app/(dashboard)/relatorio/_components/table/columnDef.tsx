@@ -24,8 +24,8 @@ import { DataTableColumnHeader } from './data-table-column-header'
 
 export const columns: ColumnDef<ReportRelType>[] = [
   {
-    accessorKey: 'id',
     id: 'ID',
+    accessorKey: 'id',
     header: 'ID Relatório',
     cell: ({ row }) => <div className="text-left">{row.original.id}</div>,
   },
@@ -65,42 +65,44 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'sites.client.name',
     id: 'Cliente',
+    accessorKey: 'sites.client.name',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Cliente" />,
     cell: ({ row }) => <div className="pl-4">{row.original.sites.client.name}</div>,
   },
   {
-    accessorKey: 'sites.idSite',
     id: 'Site ID',
+    accessorKey: 'sites.idSite',
     header: 'Site ID',
     cell: ({ row }) => <div className="text-left">{row.original.sites.idSite}</div>,
   },
   {
-    accessorKey: 'technician.name',
     id: 'Técnico',
+    accessorKey: 'technician.name',
     header: 'Técnico',
     cell: ({ row }) => <div className="text-left">{row.original.technician.name}</div>,
   },
   {
-    accessorKey: 'user.name',
     id: 'Usuário',
+    accessorKey: 'user.name',
     header: 'Usuario criador',
     cell: ({ row }) => <div className="text-left">{row.original.user.name}</div>,
   },
   {
-    accessorKey: 'analyst.name',
     id: 'Analista',
-    header: 'Analista',
-    cell: ({ row }) => {
-      const analyst = row.original.analyst
+    header: 'Analistas',
+    accessorKey: 'analyst.name',
 
-      return <div className="text-left">{analyst === null ? 'N/A' : analyst.name}</div>
+    filterFn: (row, id, filterValue) => {
+      return row.original.analyst?.name?.toLowerCase().includes(filterValue.toLowerCase())
+    },
+    cell: ({ row }) => {
+      return <div className="text-left">{row.original.analyst === null ? 'N/A' : row.original.analyst.name}</div>
     },
   },
   {
-    accessorKey: 'dateService',
     id: 'Data do Serviço',
+    accessorKey: 'dateService',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -115,8 +117,8 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'createdAt',
     id: 'Data de Criação',
+    accessorKey: 'createdAt',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -131,8 +133,8 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'updatedAt',
     id: 'Inicio da Análise',
+    accessorKey: 'updatedAt',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -147,8 +149,8 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    accessorKey: 'finishedAt',
     id: 'Data da Finalização',
+    accessorKey: 'finishedAt',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
