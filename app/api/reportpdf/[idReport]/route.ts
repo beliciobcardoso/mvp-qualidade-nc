@@ -1,9 +1,6 @@
 import puppeteer from 'puppeteer'
 
-export async function GET(
-  request: Request,
-  { params }: { params: { idReport: number } },
-) {
+export async function GET(request: Request, { params }: { params: { idReport: number } }) {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.setViewport({ width: 1600, height: 1024 })
