@@ -1,4 +1,5 @@
 'use client'
+import LogoNC from '@/assets/ncLogo.png'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -18,6 +19,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -61,6 +63,9 @@ export function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
+        <div className="flex items-center justify-center bg-primary-500 rounded-full">
+          <Image src={LogoNC} width={200} height={200} alt="Logo" />
+        </div>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
           Insira seu email abaixo para fazer login na sua conta
