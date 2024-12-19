@@ -15,6 +15,7 @@ export default function GeneratePdf({ dialogButton, dialogTitle, dialogDescripti
 
   function generatePdf(id: number) {
     return async () => {
+      console.log("teste", id)
       const filePDF = await fetch(`/api/reportpdf/${id}`, {
         method: 'GET',
         headers: {

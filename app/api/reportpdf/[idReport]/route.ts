@@ -1,10 +1,10 @@
 import puppeteer from 'puppeteer'
 
-export async function GET(
-  request: Request,
-  { params }: { params: { idReport: number } },
-) {
-  const browser = await puppeteer.launch()
+export async function GET(request: Request, { params }: { params: { idReport: number } }) {
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
   const page = await browser.newPage()
   await page.setViewport({ width: 1600, height: 1024 })
   await page.goto(`${process.env.URL_APP}/reportviewer/${params.idReport}`, {
