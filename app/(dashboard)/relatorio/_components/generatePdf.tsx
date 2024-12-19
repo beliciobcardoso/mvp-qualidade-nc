@@ -1,7 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import puppeteer from 'puppeteer'
 import { useState } from 'react'
 
 interface GeneratePdfProps {
@@ -16,42 +15,21 @@ export default function GeneratePdf({ dialogButton, dialogTitle, dialogDescripti
 
   function generatePdf(id: number) {
     return async () => {
-      const browser = await puppeteer.launch()
-      // const filePDF = await fetch(`/api/reportpdf/${id}`, {
-      //   method: 'GET',
-      //   headers: {
-      //     'Content-Type': 'application/pdf',
-      //   },
-      // })
-
-      const page = await browser.newPage()
-      await page.setViewport({ width: 1600, height: 1024 })
-      await page.goto(`${process.env.URL_APP}/reportviewer/${id}`, {
-        waitUntil: 'networkidle0',
-      })
-
-      const pdf = await page.pdf({
-        format: 'Letter',
-        printBackground: true,
-        margin: {
-          top: '20px',
-          right: '20px',
-          bottom: '20px',
-          left: '20px',
+      console.log("teste", id)
+      const filePDF = await fetch(`/api/reportpdf/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/pdf',
         },
       })
 
-      console.log(pdf)
+      const blob = await filePDF.blob()
 
-      await browser.close()
-
-      // const blob = await filePDF.blob()
-
-      // const url = URL.createObjectURL(pdf)
-      // const a = document.createElement('a')
-      // a.href = url
-      // a.download = `relatorio-${id}.pdf`
-      // a.click()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `relatorio-${id}.pdf`
+      a.click()
       setOpen(false)
     }
   }

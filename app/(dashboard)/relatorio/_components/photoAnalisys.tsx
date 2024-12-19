@@ -18,8 +18,8 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
           {photoAnalisys.map((item, index) => (
             <Card key={item.id} className="">
               <div className="flex h-full flex-col items-center justify-between truncate">
-                <CardContent className="w-[430px] pb-0 pt-2">
-                  <div className="flex justify-end pb-2">
+                <CardContent className="w-[430px] h-full flex flex-col items-center justify-center pb-0 pt-2">
+                  <div className="flex w-full justify-end pb-2">
                     {relatorioHeader.finishedAt ? (
                       <></>
                     ) : (
