@@ -98,7 +98,8 @@ export function DialogClientUpdate({ dialogButton, dialogTitle, dialogDescriptio
             formData.append('file', file)
             await submitForm(formData)
           }} className="flex gap-2">
-            <label htmlFor="file" className="dark:text-white"></label>
+            {/* biome-ignore lint/a11y/noLabelWithoutControl: <explanation> */}
+            <label htmlFor="file" className="dark:text-white" />
             <Input type="file" name="file" className="dark:text-white" placeholder="test" />
             <button
               type="submit"
