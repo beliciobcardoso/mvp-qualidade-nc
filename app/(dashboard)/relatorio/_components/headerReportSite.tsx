@@ -24,7 +24,7 @@ export default function HeaderReportSite({ relatorioHeader }: RelatorioHeaderSit
                 </td>
                 <td className="border-x-2 px-2">
                   <span className="font-bold">DATA DO SERVIÇO: </span>
-                  {relatorioHeader.dateService.toLocaleDateString()}
+                  {relatorioHeader.dateService.toLocaleDateString("pt-BR")}
                 </td>
               </tr>
             </tbody>
