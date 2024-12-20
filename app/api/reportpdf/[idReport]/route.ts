@@ -7,7 +7,7 @@ export async function GET(request: Request, { params }: { params: { idReport: nu
   })
   const page = await browser.newPage()
   await page.setViewport({ width: 1600, height: 1024 })
-  await page.goto(`${process.env.URL_APP}/reportviewer/${params.idReport}`, {
+  await page.goto(`${process.env.NEXT_PUBLIC_URL}/reportviewer/${params.idReport}`, {
     waitUntil: 'networkidle0',
   })
   const pdf = await page.pdf({
