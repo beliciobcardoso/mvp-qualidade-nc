@@ -18,13 +18,12 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {photoAnalisys.map((item, index) => (
             <Card key={item.id} className="flex h-full flex-col items-center justify-between truncate">
-
               <CardContent className="w-[430px] h-full flex flex-col justify-between pb-0 pt-2">
                 <div className="flex w-full justify-end pb-0">
                   {relatorioHeader.finishedAt ? (
                     <></>
                   ) : (
-                    <div className='gap-2 flex'>
+                    <div className="gap-2 flex">
                       <EditPhoto
                         PhotoAnalisys={item}
                         index={index + 1}
@@ -41,7 +40,7 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                     </div>
                   )}
                 </div>
-                <div className='flex-grow flex items-center justify-center pt-2 pb-0 px-0'>
+                <div className="flex-grow flex items-center justify-center pt-2 pb-0 px-0">
                   <Image src={item.url} alt="Imagem" width={400} height={800} />
                 </div>
               </CardContent>
@@ -51,10 +50,9 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                 </div>
                 <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
                   {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-                  <div dangerouslySetInnerHTML={{ __html: item.description }} className='max-w-96 max-h-14 text-wrap' />
+                  <div dangerouslySetInnerHTML={{ __html: item.description }} className="max-w-96 max-h-14 text-wrap" />
                 </div>
               </CardFooter>
-
             </Card>
           ))}
         </div>

@@ -11,11 +11,7 @@ export const clientS3 = new S3Client({
   },
 })
 
-export const uploadObject = async (
-  key: string,
-  body: Buffer | Uint8Array | Blob | string,
-  file: File,
-) => {
+export const uploadObject = async (key: string, body: Buffer | Uint8Array | Blob | string, file: File) => {
   const command = new PutObjectCommand({
     Bucket: CONFIG.providers.storage.bucket,
     Key: key,

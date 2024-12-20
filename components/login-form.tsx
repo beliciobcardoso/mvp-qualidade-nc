@@ -1,21 +1,8 @@
 'use client'
 import LogoNC from '@/assets/ncLogo.png'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
@@ -67,9 +54,7 @@ export function LoginForm() {
           <Image src={LogoNC} width={200} height={200} alt="Logo" />
         </div>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>
-          Insira seu email abaixo para fazer login na sua conta
-        </CardDescription>
+        <CardDescription>Insira seu email abaixo para fazer login na sua conta</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -81,13 +66,7 @@ export function LoginForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="email@novacorrente.ind.br"
-                      required
-                      {...field}
-                    />
+                    <Input id="email" type="email" placeholder="email@novacorrente.ind.br" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -100,21 +79,13 @@ export function LoginForm() {
                 <FormItem>
                   <FormLabel>Senha</FormLabel>
                   <FormControl>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="********"
-                      required
-                      {...field}
-                    />
+                    <Input id="password" type="password" placeholder="********" required {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            {error && (
-              <p className="mt-8 text-center text-sm text-red-500">{error}</p>
-            )}
+            {error && <p className="mt-8 text-center text-sm text-red-500">{error}</p>}
             <Button className="w-full">Entrar</Button>
           </form>
         </Form>

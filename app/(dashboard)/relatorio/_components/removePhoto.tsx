@@ -56,7 +56,7 @@ export default function RemovePhoto({
               </div>
               <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
                 <div
-                  className='max-w-96 max-h-14 text-wrap'
+                  className="max-w-96 max-h-14 text-wrap"
                   // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
                   dangerouslySetInnerHTML={{
                     __html: PhotoAnalisys.description,

@@ -75,13 +75,15 @@ export function UploadImage() {
   return (
     <div className="flex flex-col items-center justify-start gap-2">
       <div>
-        <form onSubmit={async (e) => {
-          e.preventDefault()
-          const formData = new FormData()
-          const file = (e.target as HTMLFormElement).file.files[0]
-          formData.append('file', file)
-          await submitForm(formData)
-        }} >
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault()
+            const formData = new FormData()
+            const file = (e.target as HTMLFormElement).file.files[0]
+            formData.append('file', file)
+            await submitForm(formData)
+          }}
+        >
           <label htmlFor="file" className="dark:text-white">
             {' '}
           </label>

@@ -25,12 +25,7 @@ interface RemovePhotoProps {
   index: number
 }
 
-export default function EditPhoto({
-  dialogTitle,
-  dialogDescription,
-  PhotoAnalisys,
-  index,
-}: RemovePhotoProps) {
+export default function EditPhoto({ dialogTitle, dialogDescription, PhotoAnalisys, index }: RemovePhotoProps) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const router = useRouter()
@@ -76,7 +71,6 @@ export default function EditPhoto({
     },
   })
 
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const fileName = imageUrl.split('/').pop() as string
     const data = {
@@ -112,8 +106,9 @@ export default function EditPhoto({
           <div
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            className={`bg-gray-50 dark:bg-gray-800 ${isDragging ? 'border-green' : 'border-light-blue'
-              } flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-2`}
+            className={`bg-gray-50 dark:bg-gray-800 ${
+              isDragging ? 'border-green' : 'border-light-blue'
+            } flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-2`}
           >
             {imageUrl ? (
               <Image src={imageUrl} alt="Uploaded image" width={300} height={300} />
@@ -144,9 +139,7 @@ export default function EditPhoto({
                       </FormItem>
                     )}
                   />
-                  <Button type="submit">
-                    Salvar
-                  </Button>
+                  <Button type="submit">Salvar</Button>
                 </form>
               </Form>
             </div>

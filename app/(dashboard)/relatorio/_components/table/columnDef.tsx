@@ -180,14 +180,13 @@ export const columns: ColumnDef<ReportRelType>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            {!finishedAt && (
-              <EditReportCell row={row} />
-            )}
+            {!finishedAt && <EditReportCell row={row} />}
             <DropdownMenuSeparator />
             {!finishedAt && (
               <Link href={`/relatorio/${relatorio.id}`}>
                 <DropdownMenuItem className="cursor-pointer">Analisar</DropdownMenuItem>
-              </Link>)}
+              </Link>
+            )}
             {finishedAt && (
               <Link href={`/reportviewer/${relatorio.id}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">Visualizar</DropdownMenuItem>
