@@ -21,11 +21,11 @@ const formSchema = z.object({
 interface RemovePhotoProps {
   dialogTitle: string
   dialogDescription: string
-  PhotoAnalisys: PhotoAnalisysType
+  photoAnalisys: PhotoAnalisysType
   index: number
 }
 
-export default function EditPhoto({ dialogTitle, dialogDescription, PhotoAnalisys, index }: RemovePhotoProps) {
+export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisys, index }: RemovePhotoProps) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const router = useRouter()
@@ -35,7 +35,7 @@ export default function EditPhoto({ dialogTitle, dialogDescription, PhotoAnalisy
   const [description, setDescription] = useState('')
 
   if (imageUrl === '') {
-    setImageUrl(PhotoAnalisys.url)
+    setImageUrl(photoAnalisys.url)
   }
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
@@ -67,14 +67,14 @@ export default function EditPhoto({ dialogTitle, dialogDescription, PhotoAnalisy
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     values: {
-      description: PhotoAnalisys.description,
+      description: photoAnalisys.description,
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const fileName = imageUrl.split('/').pop() as string
     const data = {
-      id: PhotoAnalisys.id,
+      id: photoAnalisys.id,
       idReport,
       url: imageUrl,
       name: fileName,
@@ -106,9 +106,8 @@ export default function EditPhoto({ dialogTitle, dialogDescription, PhotoAnalisy
           <div
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            className={`bg-gray-50 dark:bg-gray-800 ${
-              isDragging ? 'border-green' : 'border-light-blue'
-            } flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-2`}
+            className={`bg-gray-50 dark:bg-gray-800 ${isDragging ? 'border-green' : 'border-light-blue'
+              } flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-2`}
           >
             {imageUrl ? (
               <Image src={imageUrl} alt="Uploaded image" width={300} height={300} />

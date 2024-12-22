@@ -12,7 +12,7 @@ interface RemovePhotoProps {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
-  PhotoAnalisys: PhotoAnalisysType
+  photoAnalisys: PhotoAnalisysType
   index: number
 }
 
@@ -20,14 +20,14 @@ export default function RemovePhoto({
   dialogButton,
   dialogTitle,
   dialogDescription,
-  PhotoAnalisys,
+  photoAnalisys,
   index,
 }: RemovePhotoProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
 
-  const handleDelete = async (photoId: number) => {
-    await deletePhotoAnalisys(photoId)
+  const handleDelete = async (photoAnalisysData: PhotoAnalisysType) => {
+    await deletePhotoAnalisys(photoAnalisysData)
     setOpen(false)
     router.refresh()
   }
@@ -48,7 +48,7 @@ export default function RemovePhoto({
         <Card>
           <div className="flex h-full flex-col items-center justify-between truncate">
             <CardContent className="w-[430px] pb-0 pt-2">
-              <Image src={PhotoAnalisys.url} alt="Imagem" width={400} height={400} />
+              <Image src={photoAnalisys.url} alt="Imagem" width={400} height={400} />
             </CardContent>
             <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
               <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
@@ -59,7 +59,7 @@ export default function RemovePhoto({
                   className="max-w-96 max-h-14 text-wrap"
                   // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
                   dangerouslySetInnerHTML={{
-                    __html: PhotoAnalisys.description,
+                    __html: photoAnalisys.description,
                   }}
                 />
               </div>
@@ -69,7 +69,7 @@ export default function RemovePhoto({
         <div className="flex justify-around">
           <Button
             variant={'destructive'}
-            onClick={() => PhotoAnalisys.id !== undefined && handleDelete(PhotoAnalisys.id)}
+            onClick={() => photoAnalisys.id !== undefined && handleDelete(photoAnalisys)}
           >
             SIM
           </Button>
