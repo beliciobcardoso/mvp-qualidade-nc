@@ -25,13 +25,13 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                   ) : (
                     <div className="gap-2 flex">
                       <EditPhoto
-                        PhotoAnalisys={item}
+                        photoAnalisys={item}
                         index={index + 1}
                         dialogTitle={'Editar Foto'}
                         dialogDescription={'Tela para editar uma foto'}
                       />
                       <RemovePhoto
-                        PhotoAnalisys={item}
+                        photoAnalisys={item}
                         index={index + 1}
                         dialogButton={'X'}
                         dialogTitle={'Excluir Foto'}
@@ -41,7 +41,7 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                   )}
                 </div>
                 <div className="flex-grow flex items-center justify-center pt-2 pb-0 px-0">
-                  <Image src={item.url} alt="Imagem" width={400} height={800} />
+                  <Image src={item.url} alt="Imagem" width={400} height={400} />
                 </div>
               </CardContent>
               <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">

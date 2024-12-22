@@ -15,7 +15,7 @@ export default async function reportViewer({
 
   return (
     <main>
-      <div className="flex w-full flex-col items-center bg-slate-300">
+      <div className="flex w-full flex-col items-center bg-slate-100">
         <HeaderReport
           relatorioHeader={relatorioHeader}
           descriptions={descriptions}
