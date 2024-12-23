@@ -12,16 +12,24 @@ import { deleteObject, uploadObject } from '@/service/storage'
 import type { Client } from '@prisma/client'
 import sharp from 'sharp'
 
-export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) {
+export async function upLoadPhotoAnalisys(formData: FormData, idReport: number, rotate: number) {
   if (!formData || !idReport) {
     throw new Error('Parâmetros inválidos')
   }
+
   const file = formData.get('file') as File
+
+  console.log('rotate', rotate)
 
   try {
     const binaryFile = await file.arrayBuffer()
     // resize image to 430x280 and convert to jpeg
-    const resizedImage = await sharp(binaryFile).resize(430, 300).toFormat('jpeg').jpeg({ quality: 80 }).toBuffer()
+    const resizedImage = await sharp(binaryFile)
+      .rotate(rotate)
+      .resize(430, 300)
+      .toFormat('jpeg')
+      .jpeg({ quality: 80 })
+      .toBuffer()
     const fileBuffer = Buffer.from(resizedImage)
     const keyName = `reports/${idReport}/${file.name}`
     const result = await uploadObject(keyName, fileBuffer, file)
@@ -76,7 +84,7 @@ export async function getPhotoAnalisysById(id: number) {
 export async function deletePhotoAnalisys(photoAnalisysData: PhotoAnalisysType) {
   const id = photoAnalisysData.id
 
-  const result = deleteObject(photoAnalisysData.url)
+  const result = await deleteObject(photoAnalisysData.url)
 
   if (!result) {
     throw new Error('Erro ao deletar imagem')
@@ -87,6 +95,14 @@ export async function deletePhotoAnalisys(photoAnalisysData: PhotoAnalisysType) 
       id,
     },
   })
+}
+
+export async function deletePhoto(url: string) {
+  const result = await deleteObject(url)
+
+  if (result) {
+    return true
+  }
 }
 
 export async function createDescriptionAnalisys(data: DescriptionAnalisysType, userId: string) {

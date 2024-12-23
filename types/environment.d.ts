@@ -5,6 +5,12 @@ declare global {
       DB_PASSWORD: string
       DB_PORT: string
       DATABASE_URL: string
+      STORAGE_ENDPOINT: string
+      STORAGE_BUCKET: string
+      STORAGE_REGION: string
+      STORAGE_PATH: string
+      STORAGE_ACCESS_KEY_ID: string
+      STORAGE_SECRET_ACCESS_KEY: string
       NEXTAUTH_SECRET: string
       NEXT_PUBLIC_URL_APP: string
       VERIFICATION_URL: string

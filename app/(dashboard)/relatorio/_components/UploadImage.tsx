@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
+import { deletePhoto, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 import RichTextEditor from './textEditor/rich-text-editor'
 
 const formSchema = z.object({
@@ -22,6 +22,7 @@ export function UploadImage() {
   const [description, setDescription] = useState('')
   const idReport = Number(pathname.split('/').pop())
   const router = useRouter()
+  const [rotate, setRotate] = useState<number>(90)
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault()
@@ -40,7 +41,22 @@ export function UploadImage() {
   }
 
   async function submitForm(formData: FormData) {
-    const url = await upLoadPhotoAnalisys(formData, idReport)
+    setRotate(Number(formData.get('rotate')))
+
+    console.log(rotate)
+
+    if (imageUrl !== '') {
+      const result = await deletePhoto(imageUrl)
+
+      if (result) {
+        setImageUrl('')
+      } else {
+        console.log('Erro ao deletar imagem')
+      }
+
+    }
+
+    const url = await upLoadPhotoAnalisys(formData, idReport, rotate)
 
     if (url !== null) {
       setImageUrl(url)
@@ -80,34 +96,52 @@ export function UploadImage() {
             e.preventDefault()
             const formData = new FormData()
             const file = (e.target as HTMLFormElement).file.files[0]
+            const rotate = (e.target as HTMLFormElement).rotate.value
             formData.append('file', file)
+            formData.append('rotate', rotate)
             await submitForm(formData)
           }}
         >
           <label htmlFor="file" className="dark:text-white">
-            {' '}
+            <input type="file" name="file" className="dark:text-white" />
           </label>
-          <input type="file" name="file" className="dark:text-white" />
-          <button
-            type="submit"
-            className="border-color-gray-700 rounded-md border-2 p-1 dark:bg-gray-700 dark:text-white"
-          >
-            upload
-          </button>
+          <div className="flex justify-between items-center">
+            <div className="flex gap-2">
+              <label className="dark:text-white">
+                <input type="radio" name="rotate" value="0" defaultChecked /> 0°
+              </label>
+              <label className="dark:text-white">
+                <input type="radio" name="rotate" value="90" /> 90°
+              </label>
+              <label className="dark:text-white">
+                <input type="radio" name="rotate" value="180" /> 180°
+              </label>
+              <label className="dark:text-white">
+                <input type="radio" name="rotate" value="360" /> 360°
+              </label>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="border-color-gray-700 rounded-md border-2 p-1 dark:bg-gray-700 dark:text-white"
+              >
+                upload
+              </button>
+            </div>
+          </div>
         </form>
       </div>
       <p className="text-sm dark:text-white">Or</p>
       <div
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        className={`bg-gray-50 dark:bg-gray-800 ${
-          isDragging ? 'border-green' : 'border-light-blue'
-        } flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-2`}
+        className={`bg-gray-50 dark:bg-gray-800 ${isDragging ? 'border-green' : 'border-light-blue'
+          } flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-2`}
       >
         {imageUrl ? (
-          <Image src={imageUrl} alt="Uploaded image" width={300} height={300} />
+          <Image src={imageUrl} alt="Uploaded image" width={400} height={400} />
         ) : (
-          <Image src={DefaultUploadImage} alt="Upload image" width={300} height={300} />
+          <Image src={DefaultUploadImage} alt="Upload image" width={400} height={400} />
         )}
         <p className="text-sm dark:text-white">{!isDragging && 'Arraste e solte sua imagem aqui'}</p>
       </div>
@@ -115,6 +149,18 @@ export function UploadImage() {
         <div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="description"
