@@ -6,7 +6,7 @@ declare global {
       DB_PORT: string
       DATABASE_URL: string
       NEXTAUTH_SECRET: string
-      NEXT_PUBLIC_URL: string
+      NEXT_PUBLIC_URL_APP: string
       VERIFICATION_URL: string
       AUTH_RESEND_KEY: string
       RESEND_EMAIL_FROM: string

@@ -1,22 +1,31 @@
 import puppeteer from 'puppeteer'
 
 export async function GET(request: Request, { params }: { params: { idReport: number } }) {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  })
+  const browser = await puppeteer.launch()
   const page = await browser.newPage()
   await page.setViewport({ width: 1600, height: 1024 })
-  await page.goto(`${process.env.NEXT_PUBLIC_URL}/reportviewer/${params.idReport}`, {
-    waitUntil: 'networkidle0',
+  await page.goto(`${process.env.NEXT_PUBLIC_URL_APP}/reportviewer/${params.idReport}`, {
+    waitUntil: 'networkidle2',
   })
+  await page.emulateMediaType('print')
   const pdf = await page.pdf({
-    format: 'Letter',
+    format: 'LETTER',
     printBackground: true,
+    displayHeaderFooter: true,
+    headerTemplate: `<div style="font-size: 10px; padding-bottom: 5px; display: flex; justify-content: space-between; width: 100%; margin-left: 20px; margin-right: 20px;">
+      <div style="text-align: left;">
+        <span class="date"></span>
+      </div>
+    </div>`,
+    footerTemplate: `
+    <div style="font-size: 10px; padding-top: 5px; text-align: center; width: 100%; margin-left: 20px; margin-right: 20px;">
+      <span>Pagina</span> - <span class="pageNumber"></span> / <span class="totalPages"></span>
+    </div>
+  `,
     margin: {
-      top: '20px',
+      top: '25px',
       right: '20px',
-      bottom: '20px',
+      bottom: '25px',
       left: '20px',
     },
   })
