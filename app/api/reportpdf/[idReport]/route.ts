@@ -12,20 +12,25 @@ export async function GET(request: Request, { params }: { params: { idReport: nu
     format: 'LETTER',
     printBackground: true,
     displayHeaderFooter: true,
-    headerTemplate: `<div style="font-size: 10px; padding-bottom: 5px; display: flex; justify-content: space-between; width: 100%; margin-left: 20px; margin-right: 20px;">
+    // headerTemplate: `<div style="font-size: 10px; padding-bottom: 5px; display: flex; justify-content: space-between; width: 100%; margin-left: 20px; margin-right: 20px;">
+    //   <div style="text-align: left;">
+    //     <span class="date"></span>
+    //   </div>
+    // </div>`,
+    footerTemplate: `
+    <div style="font-size: 10px; padding-top: 5px; display: flex; justify-content: space-between; width: 100%; margin-left: 20px; margin-right: 20px;">
       <div style="text-align: left;">
         <span class="date"></span>
       </div>
-    </div>`,
-    footerTemplate: `
-    <div style="font-size: 10px; padding-top: 5px; text-align: center; width: 100%; margin-left: 20px; margin-right: 20px;">
+      <div>
       <span>Pagina</span> - <span class="pageNumber"></span> / <span class="totalPages"></span>
+      </div>
     </div>
   `,
     margin: {
-      top: '25px',
+      top: '20px',
       right: '20px',
-      bottom: '25px',
+      bottom: '20px',
       left: '20px',
     },
   })
