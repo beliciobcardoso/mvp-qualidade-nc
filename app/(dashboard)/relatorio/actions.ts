@@ -16,7 +16,6 @@ export async function upLoadPhotoAnalisys(formData: FormData, idReport: number, 
   if (!formData || !idReport) {
     throw new Error('Parâmetros inválidos')
   }
-
   const file = formData.get('file') as File
 
   console.log('rotate', rotate)
@@ -26,9 +25,11 @@ export async function upLoadPhotoAnalisys(formData: FormData, idReport: number, 
     // resize image to 430x280 and convert to jpeg
     const resizedImage = await sharp(binaryFile)
       .rotate(rotate)
-      .resize(430, 300)
-      .toFormat('jpeg')
-      .jpeg({ quality: 80 })
+      .resize(300, 250, {
+        fit: 'fill',
+        kernel: sharp.kernel.nearest,
+        withoutEnlargement: true,
+      })
       .toBuffer()
     const fileBuffer = Buffer.from(resizedImage)
     const keyName = `reports/${idReport}/${file.name}`

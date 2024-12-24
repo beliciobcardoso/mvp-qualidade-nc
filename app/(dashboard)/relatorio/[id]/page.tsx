@@ -7,6 +7,7 @@ import { Suspense } from 'react'
 import HeaderReport from '../_components/headerReport'
 import PhotoAnalisys from '../_components/photoAnalisys'
 
+
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth()
 

@@ -22,7 +22,7 @@ export function UploadImage() {
   const [description, setDescription] = useState('')
   const idReport = Number(pathname.split('/').pop())
   const router = useRouter()
-  const [rotate, setRotate] = useState<number>(90)
+  const [rotate, setRotate] = useState<number>(0)
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault()
@@ -43,7 +43,7 @@ export function UploadImage() {
   async function submitForm(formData: FormData) {
     setRotate(Number(formData.get('rotate')))
 
-    console.log(rotate)
+    console.log('front', rotate)
 
     if (imageUrl !== '') {
       const result = await deletePhoto(imageUrl)
@@ -60,6 +60,7 @@ export function UploadImage() {
 
     if (url !== null) {
       setImageUrl(url)
+      router.refresh()
     } else {
       setImageUrl('')
     }
@@ -108,16 +109,16 @@ export function UploadImage() {
           <div className="flex justify-between items-center">
             <div className="flex gap-2">
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="0" defaultChecked /> 0°
+                <input type="radio" name="rotate" value="0" defaultChecked onChange={() => setRotate(0)} /> 0°
               </label>
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="90" /> 90°
+                <input type="radio" name="rotate" value="90" onChange={() => setRotate(90)} /> 90°
               </label>
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="180" /> 180°
+                <input type="radio" name="rotate" value="180" onChange={() => setRotate(180)} /> 180°
               </label>
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="360" /> 360°
+                <input type="radio" name="rotate" value="360" onChange={() => setRotate(360)} /> 360°
               </label>
             </div>
             <div>
