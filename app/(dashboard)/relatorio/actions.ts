@@ -1,4 +1,5 @@
 'use server'
+import { ImageSharp } from '@/lib/imageSharp'
 import prisma from '@/lib/prisma'
 import type {
   DescriptionAnalisysType,
@@ -10,7 +11,8 @@ import type {
 } from '@/lib/types'
 import { deleteObject, uploadObject } from '@/service/storage'
 import type { Client } from '@prisma/client'
-import sharp from 'sharp'
+
+const imageResize = new ImageSharp()
 
 export async function upLoadPhotoAnalisys(formData: FormData, idReport: number, rotate: number) {
   if (!formData || !idReport) {
@@ -23,14 +25,16 @@ export async function upLoadPhotoAnalisys(formData: FormData, idReport: number, 
   try {
     const binaryFile = await file.arrayBuffer()
     // resize image to 430x280 and convert to jpeg
-    const resizedImage = await sharp(binaryFile)
-      .rotate(rotate)
-      .resize(300, 250, {
-        fit: 'fill',
-        kernel: sharp.kernel.nearest,
-        withoutEnlargement: true,
-      })
-      .toBuffer()
+    // const resizedImage = await sharp(binaryFile)
+    //   .rotate(rotate)
+    //   .resize(300, 250, {
+    //     fit: 'fill',
+    //     kernel: sharp.kernel.nearest,
+    //     withoutEnlargement: true,
+    //   })
+    //   .toBuffer()
+
+    const resizedImage = await imageResize.resizedImage(binaryFile, 300, 250, 'fill')
     const fileBuffer = Buffer.from(resizedImage)
     const keyName = `reports/${idReport}/${file.name}`
     const result = await uploadObject(keyName, fileBuffer, file)

@@ -2,14 +2,16 @@
 import DefaultUploadImage from '@/assets/image.svg'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { rotateImaged } from '@/lib/rotateImage'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { deletePhoto, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 import RichTextEditor from './textEditor/rich-text-editor'
+
 
 const formSchema = z.object({
   description: z.string().min(10, { message: 'A Descrição deve ter no mínimo 10 caracteres' }).trim(),
@@ -23,6 +25,9 @@ export function UploadImage() {
   const idReport = Number(pathname.split('/').pop())
   const router = useRouter()
   const [rotate, setRotate] = useState<number>(0)
+  const [imagemRotacionada, setImagemRotacionada] = useState<Buffer | null>(null);
+
+
 
   function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault()
@@ -35,8 +40,21 @@ export function UploadImage() {
     const file = e.dataTransfer.files[0]
     if (file) {
       const formData = new FormData()
-      formData.append('file', file)
-      await submitForm(formData)
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        if (event.target?.result) {
+          const binaryFile = await file.arrayBuffer();
+          const rotateImage = rotateImaged(binaryFile, rotate);
+          console.log(event.target.result as string);
+
+
+          // setImageUrl(event.target.result as string);
+          setImageUrl(event.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+      // formData.append('file', file)
+      // await submitForm(formData)
     }
   }
 
@@ -89,6 +107,20 @@ export function UploadImage() {
     form.reset()
   }
 
+  useEffect(() => {
+    rotacionarImagem(rotate);
+  }, [rotate]);
+
+  const rotacionarImagem = async (rotate: number) => {
+    // const imagemBuffer = await sharp(imageUrl)
+    //   .rotate(rotate)
+    //   .toFormat('jpeg')
+    //   .toBuffer();
+
+    // setImagemRotacionada(imagemBuffer);
+  };
+
+
   return (
     <div className="flex flex-col items-center justify-start gap-2">
       <div>
@@ -109,16 +141,16 @@ export function UploadImage() {
           <div className="flex justify-between items-center">
             <div className="flex gap-2">
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="0" defaultChecked onChange={() => setRotate(0)} /> 0°
+                <input type="radio" name="rotate" value="0" defaultChecked onChange={() => rotacionarImagem(0)} /> 0°
               </label>
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="90" onChange={() => setRotate(90)} /> 90°
+                <input type="radio" name="rotate" value="90" onChange={() => rotacionarImagem(90)} /> 90°
               </label>
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="180" onChange={() => setRotate(180)} /> 180°
+                <input type="radio" name="rotate" value="180" onChange={() => rotacionarImagem(180)} /> 180°
               </label>
               <label className="dark:text-white">
-                <input type="radio" name="rotate" value="360" onChange={() => setRotate(360)} /> 360°
+                <input type="radio" name="rotate" value="360" onChange={() => rotacionarImagem(360)} /> 360°
               </label>
             </div>
             <div>
