@@ -12,6 +12,27 @@ import { deleteObject, uploadObject } from '@/service/storage'
 import type { Client } from '@prisma/client'
 import sharp from 'sharp'
 
+export async function teste(file: ArrayBuffer) {
+  const result = await sharp(file).toBuffer()
+
+  return result
+}
+
+export async function reduceImageSize(buffer: ArrayBuffer, width: number, height: number) {
+  const result = await sharp(buffer)
+    .resize(width, height, {
+      fit: 'fill',
+      kernel: sharp.kernel.nearest,
+      withoutEnlargement: true,
+    })
+    .toBuffer()
+
+  const formData = new FormData()
+  formData.append('file', new Blob([result], { type: 'image/jpeg' }))
+
+  return formData
+}
+
 export async function upLoadPhotoAnalisys(formData: FormData, idReport: number, rotate: number) {
   if (!formData || !idReport) {
     throw new Error('Parâmetros inválidos')

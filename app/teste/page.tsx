@@ -1,4 +1,5 @@
 'use client';
+import { ImagePlus } from "lucide-react";
 import { useState } from "react";
 import type { FileWithPath } from 'react-dropzone';
 import { useDropzone } from "react-dropzone";
@@ -62,6 +63,9 @@ export default function ImageUploader() {
                           hover:border-gray-400 transition-colors w-[600px] h-[600px] flex flex-col justify-center items-center"
             >
                 <input {...getInputProps()} />
+                <div className="w-32 h-24 bg-muted rounded-lg flex items-center justify-center">
+                    <ImagePlus className="w-8 h-8 text-muted-foreground" />
+                </div>
                 <p>Arraste e solte sua imagem aqui, ou clique para selecionar</p>
 
 

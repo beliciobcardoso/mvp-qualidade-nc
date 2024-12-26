@@ -53,21 +53,21 @@ export default function HeaderReport({ relatorioHeader, descriptions, photoAnali
           <tbody>
             {descriptions.length > 0
               ? descriptions.map((description) => (
-                  <tr key={description.id} className="border-2">
-                    <td className="border-2 px-2">{description.service}</td>
-                    <td className="border-2 text-center">{description.status === 'ok' ? 'X' : ''}</td>
-                    <td className="border-2 text-center">{description.status === 'na' ? 'X' : ''}</td>
-                    <td className="flex items-center justify-center">
-                      {descriptions.length === 1 || relatorioHeader.finishedAt ? (
-                        <p className="cursor-pointer rounded-sm bg-destructive bg-red-300 p-2 text-destructive-foreground text-white shadow-sm hover:bg-destructive/90">
-                          Del
-                        </p>
-                      ) : (
-                        <RemoveServices idService={description.id} />
-                      )}
-                    </td>
-                  </tr>
-                ))
+                <tr key={description.id} className="border-2">
+                  <td className="border-2 px-2">{description.service}</td>
+                  <td className="border-2 text-center">{description.status === 'ok' ? 'X' : ''}</td>
+                  <td className="border-2 text-center">{description.status === 'na' ? 'X' : ''}</td>
+                  <td className="flex items-center justify-center">
+                    {descriptions.length === 1 || relatorioHeader.finishedAt ? (
+                      <p className="cursor-pointer rounded-sm bg-destructive bg-red-300 p-2 text-destructive-foreground text-white shadow-sm hover:bg-destructive/90">
+                        Del
+                      </p>
+                    ) : (
+                      <RemoveServices idService={description.id} />
+                    )}
+                  </td>
+                </tr>
+              ))
               : ''}
           </tbody>
         </table>
