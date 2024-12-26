@@ -41,7 +41,7 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                   )}
                 </div>
                 <div className="flex-grow flex items-center justify-center pt-2 pb-0 px-0">
-                  <Image src={item.url} alt="Imagem" width={380} height={200} />
+                  <Image src={item.url} alt="Imagem" width={380} height={380} />
                 </div>
               </CardContent>
               <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
