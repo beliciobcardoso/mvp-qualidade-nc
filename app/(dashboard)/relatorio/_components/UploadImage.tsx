@@ -72,7 +72,6 @@ export function UploadImage() {
     maxFiles: 1
   });
 
-
   const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
     const file = e.dataTransfer.files[0]
@@ -88,28 +87,26 @@ export function UploadImage() {
     }
   }
 
-  async function submitForm(formData: FormData) {
+  async function submitForm(imageUrl: string) {
+    const formData = new FormData()
+    formData.append('file', new Blob([imageUrl], { type: 'image/jpeg' }))
 
-    console.log('front', rotate)
-
-    if (imageUrl !== '') {
-      const result = await deletePhoto(imageUrl)
-
-      if (result) {
-        setImageUrl('')
-      } else {
-        console.log('Erro ao deletar imagem')
-      }
-
+    if (imageUrl === '') {
+      return
     }
 
-    const url = await upLoadPhotoAnalisys(formData, idReport, rotation)
-
-    if (url !== null) {
-      setImageUrl(url)
-      router.refresh()
-    } else {
-      setImageUrl('')
+    if (imageUrl !== '') {
+      try {
+        const uploadResult = await upLoadPhotoAnalisys(formData, idReport)
+        if (uploadResult) {
+          const result = await deletePhoto(imageUrl)
+          if (result) {
+            setImageUrl('')
+          }
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error)
+      }
     }
   }
 
@@ -121,6 +118,9 @@ export function UploadImage() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+
+    await submitForm(processedImage as string)
+
     const fileName = imageUrl.split('/').pop() as string
     const data = {
       idReport,
@@ -135,8 +135,6 @@ export function UploadImage() {
     setImageUrl('')
     form.reset()
   }
-
-
 
   const rotate = (direction: 'left' | 'right') => {
     setRotation(prev => direction === 'left' ? prev - 90 : prev + 90)
@@ -158,9 +156,9 @@ export function UploadImage() {
             className="border border-gray-200 rounded-lg mx-auto"
           />
         ) : (
-          <div className="w-32 h-24 bg-muted rounded-lg flex flex-col h-full items-center justify-center w-full">
+          <div className="px-2 bg-muted rounded-lg flex flex-col h-full items-center justify-center w-full">
             <ImagePlus className="w-8 h-8 text-muted-foreground" />
-            <p>Arraste e solte sua imagem aqui, ou clique para selecionar</p>
+            <p>Arraste e solte sua imagem ou clique para selecionar</p>
           </div>
         )}
       </div>

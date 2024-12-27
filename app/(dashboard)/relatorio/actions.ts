@@ -33,26 +33,15 @@ export async function reduceImageSize(buffer: ArrayBuffer, width: number, height
   return formData
 }
 
-export async function upLoadPhotoAnalisys(formData: FormData, idReport: number, rotate: number) {
+export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) {
   if (!formData || !idReport) {
     throw new Error('Parâmetros inválidos')
   }
   const file = formData.get('file') as File
 
-  console.log('rotate', rotate)
-
   try {
     const binaryFile = await file.arrayBuffer()
-    // resize image to 430x280 and convert to jpeg
-    const resizedImage = await sharp(binaryFile)
-      .rotate(rotate)
-      .resize(300, 250, {
-        fit: 'fill',
-        kernel: sharp.kernel.nearest,
-        withoutEnlargement: true,
-      })
-      .toBuffer()
-    const fileBuffer = Buffer.from(resizedImage)
+    const fileBuffer = Buffer.from(binaryFile)
     const keyName = `reports/${idReport}/${file.name}`
     const result = await uploadObject(keyName, fileBuffer, file)
     return result
