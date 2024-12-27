@@ -9,7 +9,7 @@ import type { FileWithPath } from 'react-dropzone'
 import { useDropzone } from "react-dropzone"
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { deletePhoto, reduceImageSize, savePhotoAnalisys, teste, upLoadPhotoAnalisys } from '../actions'
+import { savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 import RichTextEditor from './textEditor/rich-text-editor'
 
 interface ImageProcessingProps {
@@ -18,19 +18,18 @@ interface ImageProcessingProps {
   quality?: number;
 }
 
-
 const formSchema = z.object({
   description: z.string().min(10, { message: 'A Descrição deve ter no mínimo 10 caracteres' }).trim(),
 })
 
 export function UploadImage() {
   const pathname = usePathname()
-  const [imageUrl, setImageUrl] = useState('')
   const [description, setDescription] = useState('')
   const idReport = Number(pathname.split('/').pop())
   const router = useRouter()
   const [rotation, setRotation] = useState<number>(0)
   const [processedImage, setProcessedImage] = useState<string | null>(null);
+  const [originalFileName, setOriginalFileName] = useState<string>('');
 
   const processImage = (
     image: HTMLImageElement,
@@ -49,6 +48,9 @@ export function UploadImage() {
   const onDrop = (acceptedFiles: FileWithPath[]) => {
     const file = acceptedFiles[0];
     if (!file) return;
+
+    // Guardar o nome original do arquivo
+    setOriginalFileName(file.name);
 
     const reader = new FileReader();
 
@@ -72,42 +74,20 @@ export function UploadImage() {
     maxFiles: 1
   });
 
-  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault()
-    const file = e.dataTransfer.files[0]
-    const binaryFile = await file.arrayBuffer()
-    const imageReducer = await reduceImageSize(binaryFile, 300, 300)
+  async function saveStorage(processedImage: string) {
+    const fileExt = originalFileName.split('.').pop() || 'jpeg';
+    const baseName = originalFileName.split('.')[0];
+    const fileName = `${baseName}.${fileExt}`;
 
-  }
+    // Converter base64 para blob mantendo o tipo JPEG
+    const base64Data = processedImage.split(',')[1];
+    const blob = await fetch(`data:image/jpeg;base64,${base64Data}`).then(res => res.blob());
 
-  const handleFileInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      const result = await teste(await file.arrayBuffer())
-    }
-  }
+    const formData = new FormData();
+    formData.append('file', blob, fileName);
 
-  async function submitForm(imageUrl: string) {
-    const formData = new FormData()
-    formData.append('file', new Blob([imageUrl], { type: 'image/jpeg' }))
-
-    if (imageUrl === '') {
-      return
-    }
-
-    if (imageUrl !== '') {
-      try {
-        const uploadResult = await upLoadPhotoAnalisys(formData, idReport)
-        if (uploadResult) {
-          const result = await deletePhoto(imageUrl)
-          if (result) {
-            setImageUrl('')
-          }
-        }
-      } catch (error) {
-        console.error('Error uploading image:', error)
-      }
-    }
+    const url = await upLoadPhotoAnalisys(formData, idReport);
+    return url;
   }
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -119,12 +99,17 @@ export function UploadImage() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
-    await submitForm(processedImage as string)
+    const urlImage = await saveStorage(processedImage as string)
 
-    const fileName = imageUrl.split('/').pop() as string
+    if (!urlImage) {
+      return
+    }
+
+    const fileName = urlImage.split('/').pop() as string
+
     const data = {
       idReport,
-      url: imageUrl,
+      url: urlImage,
       name: fileName,
       description: values.description,
     }
@@ -132,7 +117,7 @@ export function UploadImage() {
     await savePhotoAnalisys(data)
     setDescription('')
     router.refresh()
-    setImageUrl('')
+    setProcessedImage(null)
     form.reset()
   }
 

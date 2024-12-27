@@ -38,11 +38,12 @@ export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) 
     throw new Error('Parâmetros inválidos')
   }
   const file = formData.get('file') as File
+  const fileName = file.name
 
   try {
     const binaryFile = await file.arrayBuffer()
     const fileBuffer = Buffer.from(binaryFile)
-    const keyName = `reports/${idReport}/${file.name}`
+    const keyName = `reports/${idReport}/${fileName}`
     const result = await uploadObject(keyName, fileBuffer, file)
     return result
   } catch (error) {
@@ -67,6 +68,17 @@ export async function savePhotoAnalisys(data: PhotoAnalisysType) {
   return await prisma.photoAnalisys.create({
     data: {
       ...data,
+    },
+  })
+}
+
+export async function saveDescriptionAnalisys({ id, description }: { id: number; description: string }) {
+  return await prisma.photoAnalisys.update({
+    where: {
+      id,
+    },
+    data: {
+      description,
     },
   })
 }
