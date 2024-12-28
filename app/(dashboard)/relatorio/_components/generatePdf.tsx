@@ -12,12 +12,9 @@ interface GeneratePdfProps {
 
 export default function GeneratePdf({ dialogButton, dialogTitle, dialogDescription, idReport }: GeneratePdfProps) {
   const [open, setOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
 
   function generatePdf(id: number) {
     return async () => {
-      setIsLoading(true)
-      console.log('teste', id)
       const filePDF = await fetch(`/api/reportpdf/${id}`, {
         method: 'GET',
         headers: {
@@ -32,7 +29,6 @@ export default function GeneratePdf({ dialogButton, dialogTitle, dialogDescripti
       a.href = url
       a.download = `relatorio-${id}.pdf`
       a.click()
-      setIsLoading(false)
       setOpen(false)
     }
   }
@@ -45,16 +41,12 @@ export default function GeneratePdf({ dialogButton, dialogTitle, dialogDescripti
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
-
-        {isLoading ?
-          (<p className="flex justify-center py-4 text-xl">Aguarde, gerando o PDF...</p>) :
-          (<p className="flex justify-center py-4 text-xl">Deseja gerar o PDF do relatório?</p>)}
-
+        <p className="flex justify-center py-4 text-xl">Deseja gerar o PDF do relatório?</p>
         <div className="flex justify-around">
-          <Button variant={'default'} disabled={isLoading} onClick={generatePdf(idReport)}>
+          <Button variant={'default'} onClick={generatePdf(idReport)}>
             Gerar
           </Button>
-          <Button variant={'destructive'} disabled={isLoading} onClick={() => setOpen(false)}>
+          <Button variant={'destructive'} onClick={() => setOpen(false)}>
             Cancelar
           </Button>
         </div>

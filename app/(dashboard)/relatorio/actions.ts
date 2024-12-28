@@ -8,48 +8,20 @@ import type {
   ReportRelType,
   ReportUpdateType,
 } from '@/lib/types'
-import { deleteObject, uploadObject } from '@/service/storage'
+import { uploadObject } from '@/service/storage'
 import type { Client } from '@prisma/client'
-import sharp from 'sharp'
-
-export async function teste(file: ArrayBuffer) {
-  const result = await sharp(file).toBuffer()
-
-  return result
-}
-
-export async function reduceImageSize(buffer: ArrayBuffer, width: number, height: number) {
-  const result = await sharp(buffer)
-    .resize(width, height, {
-      fit: 'fill',
-      kernel: sharp.kernel.nearest,
-      withoutEnlargement: true,
-    })
-    .toBuffer()
-
-  const formData = new FormData()
-  formData.append('file', new Blob([result], { type: 'image/jpeg' }))
-
-  return formData
-}
 
 export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) {
-  if (!formData || !idReport) {
-    throw new Error('Parâmetros inválidos')
-  }
   const file = formData.get('file') as File
-  const fileName = file.name
 
-  try {
-    const binaryFile = await file.arrayBuffer()
-    const fileBuffer = Buffer.from(binaryFile)
-    const keyName = `reports/${idReport}/${fileName}`
-    const result = await uploadObject(keyName, fileBuffer, file)
-    return result
-  } catch (error) {
-    console.error('Erro ao processar imagem:', error)
-    throw new Error('Erro ao processar imagem')
-  }
+  const binaryFile = await file.arrayBuffer()
+  const fileBuffer = Buffer.from(binaryFile)
+
+  const keyName = `reports/${idReport}/${file.name}`
+
+  const result = uploadObject(keyName, fileBuffer, file)
+
+  return result
 }
 
 export async function savePhotoAnalisys(data: PhotoAnalisysType) {
@@ -72,30 +44,12 @@ export async function savePhotoAnalisys(data: PhotoAnalisysType) {
   })
 }
 
-export async function saveDescriptionAnalisys({ id, description }: { id: number; description: string }) {
-  return await prisma.photoAnalisys.update({
-    where: {
-      id,
-    },
-    data: {
-      description,
-    },
-  })
-}
-
 export async function getPhotoAnalisys() {
-  return await prisma.photoAnalisys.findMany({
-    orderBy: {
-      id: 'desc',
-    },
-  })
+  return await prisma.photoAnalisys.findMany()
 }
 
 export async function getPhotoAnalisysById(id: number) {
   const photoAnalisys = await prisma.photoAnalisys.findMany({
-    orderBy: {
-      id: 'asc',
-    },
     where: {
       idReport: id,
     },
@@ -104,28 +58,12 @@ export async function getPhotoAnalisysById(id: number) {
   return photoAnalisys
 }
 
-export async function deletePhotoAnalisys(photoAnalisysData: PhotoAnalisysType) {
-  const id = photoAnalisysData.id
-
-  const result = await deleteObject(photoAnalisysData.url)
-
-  if (!result) {
-    throw new Error('Erro ao deletar imagem')
-  }
-
+export async function deletePhotoAnalisys(id: number) {
   return await prisma.photoAnalisys.delete({
     where: {
       id,
     },
   })
-}
-
-export async function deletePhoto(url: string) {
-  const result = await deleteObject(url)
-
-  if (result) {
-    return true
-  }
 }
 
 export async function createDescriptionAnalisys(data: DescriptionAnalisysType, userId: string) {

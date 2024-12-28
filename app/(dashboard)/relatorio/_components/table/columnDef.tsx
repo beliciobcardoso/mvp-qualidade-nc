@@ -24,8 +24,8 @@ import { DataTableColumnHeader } from './data-table-column-header'
 
 export const columns: ColumnDef<ReportRelType>[] = [
   {
-    id: 'ID',
     accessorKey: 'id',
+    id: 'ID',
     header: 'ID Relatório',
     cell: ({ row }) => <div className="text-left">{row.original.id}</div>,
   },
@@ -65,44 +65,42 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    id: 'Cliente',
     accessorKey: 'sites.client.name',
+    id: 'Cliente',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Cliente" />,
     cell: ({ row }) => <div className="pl-4">{row.original.sites.client.name}</div>,
   },
   {
-    id: 'Site ID',
     accessorKey: 'sites.idSite',
+    id: 'Site ID',
     header: 'Site ID',
     cell: ({ row }) => <div className="text-left">{row.original.sites.idSite}</div>,
   },
   {
-    id: 'Técnico',
     accessorKey: 'technician.name',
+    id: 'Técnico',
     header: 'Técnico',
     cell: ({ row }) => <div className="text-left">{row.original.technician.name}</div>,
   },
   {
-    id: 'Usuário',
     accessorKey: 'user.name',
+    id: 'Usuário',
     header: 'Usuario criador',
     cell: ({ row }) => <div className="text-left">{row.original.user.name}</div>,
   },
   {
-    id: 'Analista',
-    header: 'Analistas',
     accessorKey: 'analyst.name',
-
-    filterFn: (row, id, filterValue) => {
-      return row.original.analyst?.name?.toLowerCase().includes(filterValue.toLowerCase())
-    },
+    id: 'Analista',
+    header: 'Analista',
     cell: ({ row }) => {
-      return <div className="text-left">{row.original.analyst === null ? 'N/A' : row.original.analyst.name}</div>
+      const analyst = row.original.analyst
+
+      return <div className="text-left">{analyst === null ? 'N/A' : analyst.name}</div>
     },
   },
   {
-    id: 'Data do Serviço',
     accessorKey: 'dateService',
+    id: 'Data do Serviço',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -117,8 +115,8 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    id: 'Data de Criação',
     accessorKey: 'createdAt',
+    id: 'Data de Criação',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -133,8 +131,8 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    id: 'Inicio da Análise',
     accessorKey: 'updatedAt',
+    id: 'Inicio da Análise',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -149,8 +147,8 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    id: 'Data da Finalização',
     accessorKey: 'finishedAt',
+    id: 'Data da Finalização',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -180,13 +178,14 @@ export const columns: ColumnDef<ReportRelType>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            {!finishedAt && <EditReportCell row={row} />}
+            {!finishedAt && (
+              <EditReportCell row={row} />
+            )}
             <DropdownMenuSeparator />
             {!finishedAt && (
               <Link href={`/relatorio/${relatorio.id}`}>
                 <DropdownMenuItem className="cursor-pointer">Analisar</DropdownMenuItem>
-              </Link>
-            )}
+              </Link>)}
             {finishedAt && (
               <Link href={`/reportviewer/${relatorio.id}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">Visualizar</DropdownMenuItem>

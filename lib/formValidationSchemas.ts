@@ -67,7 +67,9 @@ export type TechnicianSchema = z.infer<typeof technicianSchema>
 
 export const structureTypeSchema = z.object({
   id: z.number().optional(),
-  name: z.string().min(3, { message: 'Nome do Tipo de Estrutura é obrigatório.' }),
+  name: z
+    .string()
+    .min(3, { message: 'Nome do Tipo de Estrutura é obrigatório.' }),
 })
 
 export type StructureTypeSchema = z.infer<typeof structureTypeSchema>
@@ -89,8 +91,14 @@ export const siteSchema = z.object({
   cidade: z.string().min(3, { message: 'Cidade é obrigatório.' }),
   uf: z.string().min(2, { message: 'UF é obrigatório.' }),
   idClient: z.string().min(1, { message: 'Cliente é obrigatório.' }),
-  structureTypeId: z.preprocess((val) => (val ? Number(val) : undefined), z.number()),
-  siteTypeId: z.preprocess((val) => (val ? Number(val) : undefined), z.number()),
+  structureTypeId: z.preprocess(
+    (val) => (val ? Number(val) : undefined),
+    z.number(),
+  ),
+  siteTypeId: z.preprocess(
+    (val) => (val ? Number(val) : undefined),
+    z.number(),
+  ),
 })
 
 export type SiteSchema = z.infer<typeof siteSchema>

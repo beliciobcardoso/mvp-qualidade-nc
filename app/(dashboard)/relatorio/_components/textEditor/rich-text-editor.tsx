@@ -50,9 +50,9 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
   })
 
   return (
-    <div className="flex flex-col items-center">
+    <div className='flex flex-col items-center'>
       {editor && <ToolBar editor={editor} />}
-      <EditorContent editor={editor} className="w-96" />
+      <EditorContent editor={editor} className='w-96' />
     </div>
   )
 }

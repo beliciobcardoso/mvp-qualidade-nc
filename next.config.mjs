@@ -14,11 +14,6 @@ const nextConfig = {
       },
       {
         protocol: 'http',
-        hostname: '192.168.0.120',
-        port: '9000',
-      },
-      {
-        protocol: 'http',
         hostname: '10.0.3.6',
         port: '9000',
       },
