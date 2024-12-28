@@ -21,7 +21,7 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
           placeholder="Filtrar Cliente..."
           value={(table.getColumn('Cliente')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('Cliente')?.setFilterValue(event.target.value)}
-          className="h-8 w-[150px] lg:w-[250px]"
+          className="h-8 max-w-[200px]"
         />
         <Input
           placeholder="Filtro Analista..."

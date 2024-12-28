@@ -16,9 +16,7 @@ export default function HeaderPage({ pageName }: HeaderPageProps) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem className="hidden md:block">
-              <h1 className="text-3xl font-bold tracking-tight text-black">
-                {pageName}
-              </h1>
+              <h1 className="text-3xl font-bold tracking-tight text-black">{pageName}</h1>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
