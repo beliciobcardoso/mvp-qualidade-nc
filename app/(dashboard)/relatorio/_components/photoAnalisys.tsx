@@ -44,13 +44,14 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                   <Image src={item.url} alt="Imagem" width={380} height={380} />
                 </div>
               </CardContent>
-              <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
-                <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
-                  <p>{index + 1}</p>
+              <CardFooter className="mb-2 flex justify-center max-h-20 w-full p-2">
+                <div className="flex h-full items-center justify-center border-2 py-1 font-bold">
+                  <p className="text-center w-12">{index + 1}</p>
                 </div>
-                <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
+                <div className="h-full border-2 p-2 font-bold">
                   {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-                  <div dangerouslySetInnerHTML={{ __html: item.description }} className="max-w-96 max-h-14 text-wrap" />
+                  <div dangerouslySetInnerHTML={{ __html: item.description }}
+                    className="w-80 max-h-14 text-wrap" />
                 </div>
               </CardFooter>
             </Card>
