@@ -23,7 +23,7 @@ export default function PhotoAnalisys({
                   <div className="flex h-full items-center justify-center border-2 py-1 font-bold">
                     <p className="text-center w-11">{index + 1}</p>
                   </div>
-                  <div className="h-full p-2 font-bold  border-2 border-l-0">
+                  <div className="h-full p-2 border-2 border-l-0">
                     {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
                     <div dangerouslySetInnerHTML={{ __html: item.description }}
                       className="w-72 max-h-14 text-wrap" />
