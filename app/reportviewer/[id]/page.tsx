@@ -14,15 +14,15 @@ export default async function reportViewer({
   const descriptions = await getDescriptionsId(id)
 
   return (
-    <main className=' flex w-full justify-center'>
-      <div className="container flex w-[780px] flex-col ">
+    <main>
+      <div className="flex w-full flex-col items-center bg-slate-300">
         <HeaderReport
           relatorioHeader={relatorioHeader}
           descriptions={descriptions}
           photoAnalisys={photoAnalisys}
           id={id}
         />
-        <aside className="container flex w-[780px] flex-col py-4">
+        <aside className="container flex w-[780px] flex-col items-center py-4">
           <PhotoAnalisys photoAnalisys={photoAnalisys} />
         </aside>
       </div>

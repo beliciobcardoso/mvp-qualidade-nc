@@ -12,7 +12,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     verifyRequest: '',
     newUser: '',
   },
-  session: { strategy: 'jwt', maxAge: 4 * 60 * 60 },
+  session: { strategy: 'jwt' },
   ...authConfig,
   providers: [
     Credentials({
