@@ -48,7 +48,7 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                 <div className="flex h-full items-center justify-center border-2 py-1 font-bold">
                   <p className="text-center w-12">{index + 1}</p>
                 </div>
-                <div className="h-full border-2 p-2 font-bold">
+                <div className="h-full border-2 p-2">
                   {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
                   <div dangerouslySetInnerHTML={{ __html: item.description }}
                     className="w-80 max-h-14 text-wrap" />

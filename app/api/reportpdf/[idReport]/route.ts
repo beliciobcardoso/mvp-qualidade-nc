@@ -1,12 +1,18 @@
 import puppeteer from 'puppeteer'
 
 export async function GET(request: Request, { params }: { params: { idReport: number } }) {
-  const browser = await puppeteer.launch()
+  console.log('Iniciando o puppeteer')
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
+  console.log('Navegador iniciado.')
   const page = await browser.newPage()
+  console.log('Nova página aberta.')
   await page.setViewport({ width: 1600, height: 1024 })
   await page.goto(`${process.env.NEXT_PUBLIC_URL_APP}/reportviewer/${params.idReport}`, {
     waitUntil: 'networkidle2',
   })
+  console.log('Pagina carregada.')
   await page.emulateMediaType('print')
   const pdf = await page.pdf({
     format: 'LETTER',
