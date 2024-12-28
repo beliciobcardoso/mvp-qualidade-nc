@@ -16,19 +16,17 @@ export default function PhotoAnalisys({
           {photoAnalisys.map((item, index) => (
             <Card key={item.id}>
               <div className="flex h-full flex-col items-center justify-between truncate">
-                <CardContent className="w-[430px] pt-2">
-                  <Image src={item.url} alt="Imagem" width={400} height={400} />
+                <CardContent className="w-[378px] p-0 pt-2 flex justify-center">
+                  <Image src={item.url} alt="Imagem" width={300} height={300} />
                 </CardContent>
-                <CardFooter className="mb-2 grid max-h-20 w-full grid-flow-col p-2">
-                  <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
-                    <p>{index + 1}</p>
+                <CardFooter className="mb-2 flex justify-center max-h-20 w-full p-2">
+                  <div className="flex h-full items-center justify-center border-2 py-1 font-bold">
+                    <p className="text-center w-11">{index + 1}</p>
                   </div>
-                  <div className="col-span-4 mr-2 h-full border-2 p-2 font-bold">
-                    <div
-                      className='max-w-96 max-h-14 text-wrap'
-                      /* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */
-                      dangerouslySetInnerHTML={{ __html: item.description }} />
-                    {/* <p>{item.description}</p> */}
+                  <div className="h-full p-2 font-bold  border-2 border-l-0">
+                    {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
+                    <div dangerouslySetInnerHTML={{ __html: item.description }}
+                      className="w-72 max-h-14 text-wrap" />
                   </div>
                 </CardFooter>
               </div>

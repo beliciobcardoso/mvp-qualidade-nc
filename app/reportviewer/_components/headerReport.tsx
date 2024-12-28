@@ -17,7 +17,7 @@ interface RelatorioHeaderProps {
 
 export default function HeaderReport({ relatorioHeader, descriptions }: RelatorioHeaderProps) {
   return (
-    <header className="flex w-[780px] flex-col bg-white">
+    <header className="flex flex-col bg-white">
       <div className="flex items-center justify-between">
         <div className="h-20 w-44">
           <Image src={ncLogo} alt="Logo" width={400} height={400} className="h-full w-full" />
@@ -27,8 +27,8 @@ export default function HeaderReport({ relatorioHeader, descriptions }: Relatori
           <Image
             src={relatorioHeader.sites.client.img ?? ncLogo}
             alt="LogoClient"
-            width={800}
-            height={800}
+            width={300}
+            height={300}
             className="h-full w-full"
           />
         </div>
@@ -46,12 +46,12 @@ export default function HeaderReport({ relatorioHeader, descriptions }: Relatori
           <tbody>
             {descriptions.length > 0
               ? descriptions.map((description) => (
-                  <tr key={description.id} className="border-2">
-                    <td className="border-2 px-2">{description.service}</td>
-                    <td className="border-2 text-center">{description.status === 'ok' ? 'X' : ''}</td>
-                    <td className="border-2 text-center">{description.status === 'na' ? 'X' : ''}</td>
-                  </tr>
-                ))
+                <tr key={description.id} className="border-2">
+                  <td className="border-2 px-2">{description.service}</td>
+                  <td className="border-2 text-center">{description.status === 'ok' ? 'X' : ''}</td>
+                  <td className="border-2 text-center">{description.status === 'na' ? 'X' : ''}</td>
+                </tr>
+              ))
               : ''}
           </tbody>
         </table>
