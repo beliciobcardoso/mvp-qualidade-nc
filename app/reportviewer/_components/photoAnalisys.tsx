@@ -17,7 +17,7 @@ export default function PhotoAnalisys({
             <Card key={item.id}>
               <div className="flex h-full flex-col items-center justify-between truncate">
                 <CardContent className="w-[378px] p-0 pt-2 flex justify-center">
-                  <Image src={item.url} alt="Imagem" width={300} height={300} />
+                  <Image src={item.url} alt="Imagem" width={320} height={320} />
                 </CardContent>
                 <CardFooter className=" grid max-h-20 w-full grid-flow-col py-2 m-auto">
                   <div className="col-span-1 flex h-full items-center justify-center border-2 py-1 font-bold">
