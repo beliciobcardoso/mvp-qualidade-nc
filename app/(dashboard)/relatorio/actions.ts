@@ -43,7 +43,7 @@ export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) 
   try {
     const binaryFile = await file.arrayBuffer()
     const fileBuffer = Buffer.from(binaryFile)
-    const keyName = `reports/${idReport}/${fileName}`
+    const keyName = `reports/${idReport}/${Date.now()}-${fileName}`
     const result = await uploadObject(keyName, fileBuffer, file)
     return result
   } catch (error) {
