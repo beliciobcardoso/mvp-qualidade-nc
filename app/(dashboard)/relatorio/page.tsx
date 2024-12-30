@@ -38,7 +38,7 @@ export default async function RelatorioPage() {
           siteData={siteData}
         />
       </div>
-      <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-8 pl-2">
         <TableRelatorio data={data} columns={columns} />
       </div>
     </main>
