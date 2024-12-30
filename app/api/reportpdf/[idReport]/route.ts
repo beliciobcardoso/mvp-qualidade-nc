@@ -35,9 +35,9 @@ export async function GET(request: Request, { params }: { params: { idReport: nu
   `,
     margin: {
       top: '20px',
-      right: '20px',
+      right: '15px',
       bottom: '20px',
-      left: '20px',
+      left: '15px',
     },
   })
 
