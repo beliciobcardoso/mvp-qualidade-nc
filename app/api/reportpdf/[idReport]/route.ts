@@ -26,7 +26,7 @@ export async function GET(request: Request, { params }: { params: { idReport: nu
     footerTemplate: `
     <div style="font-size: 10px; padding-top: 5px; display: flex; justify-content: space-between; width: 100%; margin-left: 20px; margin-right: 20px;">
       <div style="text-align: left;">
-        <span class="date"></span>
+        <span>${new Date().toLocaleDateString('pt-BR')}</span>
       </div>
       <div>
       <span>Pagina</span> - <span class="pageNumber"></span> / <span class="totalPages"></span>
