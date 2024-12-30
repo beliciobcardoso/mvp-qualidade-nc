@@ -8,6 +8,7 @@ import GeneratePdf from './generatePdf'
 import HeaderReportSite from './headerReportSite'
 import ModalAddCardPhoto from './modalAddCardPhoto'
 import { RemoveServices } from './removerServices'
+import ReopenReport from './reopenReport'
 
 interface RelatorioHeaderProps {
   relatorioHeader: Relatorio
@@ -73,6 +74,16 @@ export default function HeaderReport({ relatorioHeader, descriptions, photoAnali
         </table>
         <hr />
         <div className="flex justify-end gap-2 p-2">
+          {relatorioHeader.finishedAt ? (
+            <ReopenReport
+              dialogButton={'Reabrir Relatório'}
+              dialogTitle={'Reabrir Relatório'}
+              dialogDescription={'Tela para reabrir um relatório'}
+              idReport={id}
+            />
+          ) : (
+            <> </>
+          )}
           {relatorioHeader.finishedAt ? (
             <GeneratePdf
               dialogButton={'Gerar PDF'}
