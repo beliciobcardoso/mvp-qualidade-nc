@@ -20,9 +20,11 @@ export default function HeaderReport({ relatorioHeader, descriptions }: Relatori
     <header className="flex flex-col bg-white">
       <div className="flex items-center justify-between">
         <div className="h-20 w-44">
-          <Image src={ncLogo} alt="Logo" width={400} height={400} className="h-full w-full" />
+          <Image src={ncLogo} alt="Logo" width={300} height={300} className="h-full w-full" />
         </div>
-        <h1 className="px-4 text-lg font-bold">RELATÓRIO DE MANUTENÇÃO CORRETIVA</h1>
+        <div className='flex justify-center items-center h-full w-[428px]'>
+        <h1 className="text-base font-bold w-full text-center">RELATÓRIO DE MANUTENÇÃO CORRETIVA</h1>
+        </div>
         <div className="h-20 w-44">
           <Image
             src={relatorioHeader.sites.client.img ?? ncLogo}
