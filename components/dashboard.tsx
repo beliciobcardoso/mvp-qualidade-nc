@@ -86,7 +86,7 @@ export function Dashboard({ DataReports }: HomeProps) {
   )
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 pl-2">
       <div className="flex items-center justify-end space-y-2 pt-2">
         <CalendarDateRangePicker />
       </div>
