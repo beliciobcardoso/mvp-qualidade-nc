@@ -1,12 +1,18 @@
 import puppeteer from 'puppeteer'
 
 export async function GET(request: Request, { params }: { params: { idReport: number } }) {
-  const browser = await puppeteer.launch()
+  console.log('Iniciando o puppeteer')
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  })
+  console.log('Navegador iniciado.')
   const page = await browser.newPage()
+  console.log('Nova página aberta.')
   await page.setViewport({ width: 1600, height: 1024 })
   await page.goto(`${process.env.NEXT_PUBLIC_URL_APP}/reportviewer/${params.idReport}`, {
     waitUntil: 'networkidle2',
   })
+  console.log('Pagina carregada.')
   await page.emulateMediaType('print')
   const pdf = await page.pdf({
     format: 'LETTER',
@@ -20,7 +26,7 @@ export async function GET(request: Request, { params }: { params: { idReport: nu
     footerTemplate: `
     <div style="font-size: 10px; padding-top: 5px; display: flex; justify-content: space-between; width: 100%; margin-left: 20px; margin-right: 20px;">
       <div style="text-align: left;">
-        <span class="date"></span>
+        <span>${new Date().toLocaleDateString('pt-BR')}</span>
       </div>
       <div>
       <span>Pagina</span> - <span class="pageNumber"></span> / <span class="totalPages"></span>
@@ -29,9 +35,9 @@ export async function GET(request: Request, { params }: { params: { idReport: nu
   `,
     margin: {
       top: '20px',
-      right: '20px',
+      right: '15px',
       bottom: '20px',
-      left: '20px',
+      left: '15px',
     },
   })
 
