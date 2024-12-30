@@ -234,6 +234,17 @@ export async function updateReportFinished(id: number) {
   })
 }
 
+export async function reopenReport(id: number) {
+  return await prisma.report.update({
+    where: {
+      id,
+    },
+    data: {
+      finishedAt: null,
+    },
+  })
+}
+
 export async function getRelatorios() {
   const relatorios = await prisma.report.findMany({
     select: {

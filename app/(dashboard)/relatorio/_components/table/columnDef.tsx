@@ -197,6 +197,11 @@ export const columns: ColumnDef<ReportRelType>[] = [
                 <DropdownMenuItem className="cursor-pointer">Gerar PDF</DropdownMenuItem>
               </Link>
             )}
+            {finishedAt && (
+              <Link href={`/relatorio/${relatorio.id}`}>
+                <DropdownMenuItem className="cursor-pointer">Reabrir Relatório</DropdownMenuItem>
+              </Link>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       )
