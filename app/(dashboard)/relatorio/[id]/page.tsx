@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main>
-      <HeaderPage pageName={`Analisando Realatório - ${id}`} />
+      <HeaderPage pageName={`Analisando Relatório - ${id}`} />
       <div className="flex w-full flex-col items-center bg-slate-300">
         <Suspense fallback={<div>Loading...</div>}>
           <HeaderReport
