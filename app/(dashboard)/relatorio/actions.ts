@@ -94,7 +94,7 @@ export async function getPhotoAnalisys() {
 export async function getPhotoAnalisysById(id: number) {
   const photoAnalisys = await prisma.photoAnalisys.findMany({
     orderBy: {
-      id: 'asc',
+      index: 'asc',
     },
     where: {
       idReport: id,
