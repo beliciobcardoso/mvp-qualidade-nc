@@ -20,8 +20,12 @@ export default function ToolBar({ editor }: { editor: Editor }) {
   const [showColorPicker, setShowColorPicker] = useState(false)
   if (!editor) return null
 
+  const blue = '#49BCFE'
+  const red = '#FF3B3B'
+  const green = '#3BFF3B'
+
   const colors = [
-    '#FF0000', // Vermelho
+    '#ff0000', // Vermelho
     '#00FF00', // Verde
     '#0000FF', // Azul
     '#FFFF00', // Amarelo
@@ -83,7 +87,7 @@ export default function ToolBar({ editor }: { editor: Editor }) {
           .chain()
           .focus()
           .toggleHighlight({
-            color: 'green',
+            color: green,
           })
           .run(),
       preesed: editor.isActive('highlight'),
@@ -95,7 +99,7 @@ export default function ToolBar({ editor }: { editor: Editor }) {
           .chain()
           .focus()
           .toggleHighlight({
-            color: 'red',
+            color: red,
           })
           .run(),
       preesed: editor.isActive('highlight'),
@@ -107,7 +111,7 @@ export default function ToolBar({ editor }: { editor: Editor }) {
           .chain()
           .focus()
           .toggleHighlight({
-            color: 'blue',
+            color: blue,
           })
           .run(),
       preesed: editor.isActive('highlight'),

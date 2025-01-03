@@ -4,15 +4,15 @@ import { Calendar } from '@/components/ui/calendar'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { reportSchema } from '@/lib/formValidationSchemas'
-import type { DialogReportProps, ReportType } from '@/lib/types'
+import { type ReportSchema, reportSchema } from '@/lib/formValidationSchemas'
+import type { DialogReportProps } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CalendarIcon } from '@radix-ui/react-icons'
 
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
 import { format } from 'date-fns'
-import { PlusCircleIcon } from 'lucide-react'
+import { Check, ChevronsUpDown, PlusCircleIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -34,8 +34,11 @@ export function DialogRelatorioForm({
 }: DialogReportProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const [openPopover, setOpenPopover] = useState(false)
+  const [openCalendar, setOpenCalendar] = useState(false)
+  const [openPopoverTechnician, setOpenPopoverTechnician] = useState(false)
 
-  const form = useForm<ReportCustomType>({
+  const form = useForm<ReportSchema>({
     resolver: zodResolver(reportSchema),
     defaultValues: {
       siteId: 0,
@@ -43,7 +46,7 @@ export function DialogRelatorioForm({
     },
   })
 
-  async function onSubmit(values: ReportType) {
+  async function onSubmit(values: ReportSchema) {
     const idUser = await dataUser?.id
 
     try {
@@ -85,28 +88,62 @@ export function DialogRelatorioForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>ID Site</FormLabel>
-                      <Select
-                        onValueChange={(value) => field.onChange(Number(value))}
-                        defaultValue={String(field.value)}
-                      >
-                        <div className="flex items-center gap-2">
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Escolha um Cliente" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <Link href="/admin/site">
-                            <PlusCircleIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Link>
-                        </div>
-                        <SelectContent>
-                          {siteData?.map((item) => (
-                            <SelectItem key={item.id} value={String(item.id)}>
-                              {item.idSite}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <Popover open={openPopover} onOpenChange={setOpenPopover}>
+                        <PopoverTrigger asChild>
+                          <div className="flex items-center gap-2">
+                            <FormControl>
+                              <Button
+                                type='button'
+                                variant="outline"
+                                // biome-ignore lint/a11y/useSemanticElements: <explanation>
+                                role="combobox"
+                                className={cn(
+                                  'w-[240px] justify-between',
+                                  !field.value && 'text-muted-foreground',
+                                )}
+                              >
+                                {field.value
+                                  ? siteData?.find((site) => site.id === field.value)?.idSite
+                                  : 'Escolha um Site'}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                            <Link href="/admin/site">
+                              <PlusCircleIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Link>
+                          </div>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput placeholder="Buscar site..." />
+                            <CommandList>
+                              <CommandEmpty>Nenhum site encontrado.</CommandEmpty>
+                              <CommandGroup>
+                                {siteData?.map((site) => (
+                                  <CommandItem
+                                    key={site.id}
+                                    value={site.idSite}
+                                    onSelect={() => {
+                                      form.setValue("siteId", site.id)
+                                      setOpenPopover(false)
+                                    }}
+                                  >
+                                    {site.idSite}
+                                    <Check
+                                      className={cn(
+                                        "ml-auto",
+                                        site.id === field.value
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -117,25 +154,62 @@ export function DialogRelatorioForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Técnico</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <div className="flex items-center gap-2">
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Escolha um Técnico" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <Link href="/admin/technician">
-                            <PlusCircleIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Link>
-                        </div>
-                        <SelectContent>
-                          {technicianData?.map((item) => (
-                            <SelectItem key={item.id} value={String(item.id)}>
-                              {item.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <Popover open={openPopoverTechnician} onOpenChange={setOpenPopoverTechnician}>
+                        <PopoverTrigger asChild>
+                          <div className="flex items-center gap-2">
+                            <FormControl>
+                              <Button
+                                type='button'
+                                variant="outline"
+                                // biome-ignore lint/a11y/useSemanticElements: <explanation>
+                                role="combobox"
+                                className={cn(
+                                  'w-[240px] justify-between',
+                                  !field.value && 'text-muted-foreground',
+                                )}
+                              >
+                                {field.value
+                                  ? technicianData?.find((technician) => technician.id === field.value)?.name
+                                  : 'Escolha um Técnico'}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                            <Link href="/admin/technician">
+                              <PlusCircleIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Link>
+                          </div>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput placeholder="Buscar Técnico..." />
+                            <CommandList>
+                              <CommandEmpty>Nenhum Técnico encontrado.</CommandEmpty>
+                              <CommandGroup>
+                                {technicianData?.map((technician) => (
+                                  <CommandItem
+                                    key={technician.id}
+                                    value={technician.name}
+                                    onSelect={() => {
+                                      form.setValue("technicianId", technician.id || '')
+                                      setOpenPopoverTechnician(false)
+                                    }}
+                                  >
+                                    {technician.name}
+                                    <Check
+                                      className={cn(
+                                        "ml-auto",
+                                        technician.name === field.value
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -144,12 +218,13 @@ export function DialogRelatorioForm({
                   control={form.control}
                   name="dateService"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col pt-3">
+                    <FormItem>
                       <FormLabel>Data do Serviço</FormLabel>
-                      <Popover>
+                      <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
+                              type="button"
                               variant={'outline'}
                               className={cn(
                                 'w-[240px] pl-3 text-left font-normal',
@@ -165,7 +240,10 @@ export function DialogRelatorioForm({
                           <Calendar
                             mode="single"
                             selected={field.value}
-                            onSelect={field.onChange}
+                            onSelect={(value) => {
+                              field.onChange(value)
+                              setOpenCalendar(false)
+                            }}
                             disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                             initialFocus
                           />
