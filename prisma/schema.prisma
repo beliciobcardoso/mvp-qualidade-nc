@@ -18,6 +18,7 @@ model PhotoAnalisys {
   report      Report @relation(fields: [idReport], references: [id])
   url         String
   name        String
+  index       Int    @default(1)
   description String
 }
 
