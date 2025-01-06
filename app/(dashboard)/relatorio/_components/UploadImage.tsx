@@ -9,7 +9,7 @@ import type { FileWithPath } from 'react-dropzone'
 import { useDropzone } from "react-dropzone"
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
+import { photoAnalisysLength, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 import RichTextEditor from './textEditor/rich-text-editor'
 
 interface ImageProcessingProps {
@@ -107,10 +107,15 @@ export function UploadImage() {
 
     const fileName = urlImage.split('/').pop() as string
 
+    const photoAnalisysListLength = await photoAnalisysLength(idReport)
+
+    console.log(photoAnalisysListLength)
+
     const data = {
       idReport,
       url: urlImage,
       name: fileName,
+      index: photoAnalisysListLength + 1,
       description: values.description,
     }
 
