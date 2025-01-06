@@ -52,6 +52,14 @@ export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) 
   }
 }
 
+export async function photoAnalisysLength(idReport: number) {
+  return await prisma.photoAnalisys.count({
+    where: {
+      idReport,
+    },
+  })
+}
+
 export async function savePhotoAnalisys(data: PhotoAnalisysType) {
   // save relatorio to database asynchronously
   if (data.id) {
@@ -129,13 +137,23 @@ export async function deletePhoto(url: string) {
 }
 
 export async function createDescriptionAnalisys(data: DescriptionAnalisysType, userId: string) {
+  const userExist = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  })
+
+  if (!userExist) {
+    console.error('User not found')
+    return
+  }
   const existingDescription = await prisma.descriptionAnalisys.findFirst({
     where: {
       idReport: data.idReport,
     },
   })
 
-  if (!existingDescription) {
+  if (existingDescription === null) {
     await prisma.report.update({
       where: {
         id: data.idReport,
