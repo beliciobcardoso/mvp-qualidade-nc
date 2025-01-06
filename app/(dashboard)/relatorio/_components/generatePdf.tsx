@@ -46,9 +46,11 @@ export default function GeneratePdf({ dialogButton, dialogTitle, dialogDescripti
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
 
-        {isLoading ?
-          (<p className="flex justify-center py-4 text-xl">Aguarde, gerando o PDF...</p>) :
-          (<p className="flex justify-center py-4 text-xl">Deseja gerar o PDF do relatório?</p>)}
+        {isLoading ? (
+          <p className="flex justify-center py-4 text-xl">Aguarde, gerando o PDF...</p>
+        ) : (
+          <p className="flex justify-center py-4 text-xl">Deseja gerar o PDF do relatório?</p>
+        )}
 
         <div className="flex justify-around">
           <Button variant={'default'} disabled={isLoading} onClick={generatePdf(idReport)}>
