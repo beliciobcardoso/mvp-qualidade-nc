@@ -14,7 +14,7 @@ export default async function reportViewer({
   const descriptions = await getDescriptionsId(id)
 
   return (
-    <main className=' flex w-full justify-center'>
+    <main className=" flex w-full justify-center">
       <div className="container flex w-[780px] flex-col ">
         <HeaderReport
           relatorioHeader={relatorioHeader}
