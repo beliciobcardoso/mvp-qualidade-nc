@@ -67,10 +67,7 @@ export default function RemovePhoto({
           </div>
         </Card>
         <div className="flex justify-around">
-          <Button
-            variant={'destructive'}
-            onClick={() => photoAnalisys.id !== undefined && handleDelete(photoAnalisys)}
-          >
+          <Button variant={'destructive'} onClick={() => photoAnalisys.id !== undefined && handleDelete(photoAnalisys)}>
             SIM
           </Button>
           <Button onClick={() => setOpen(false)}>NÃO</Button>

@@ -8,16 +8,16 @@ import { ImagePlus, PenIcon, RotateCcw, RotateCw } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import type { FileWithPath } from 'react-dropzone'
-import { useDropzone } from "react-dropzone"
+import { useDropzone } from 'react-dropzone'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { deletePhoto, saveDescriptionAnalisys, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 import RichTextEditor from './textEditor/rich-text-editor'
 
 interface ImageProcessingProps {
-  width?: number;
-  height?: number;
-  quality?: number;
+  width?: number
+  height?: number
+  quality?: number
 }
 
 interface RemovePhotoProps {
@@ -39,8 +39,8 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
   const [imageUrl, setImageUrl] = useState('')
   const idReport = Number(pathname.split('/').pop())
   const [description, setDescription] = useState('')
-  const [originalFileName, setOriginalFileName] = useState<string>('');
-  const [processedImage, setProcessedImage] = useState<string | null>(null);
+  const [originalFileName, setOriginalFileName] = useState<string>('')
+  const [processedImage, setProcessedImage] = useState<string | null>(null)
   const [rotation, setRotation] = useState<number>(0)
 
   if (imageUrl === '') {
@@ -56,68 +56,66 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
 
   const processImage = (
     image: HTMLImageElement,
-    { width = 400, height = 300, quality = 0.8 }: ImageProcessingProps = {}
+    { width = 400, height = 300, quality = 0.8 }: ImageProcessingProps = {},
   ): string => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
 
-    canvas.width = width || image.width;
-    canvas.height = height || image.height;
+    canvas.width = width || image.width
+    canvas.height = height || image.height
 
-    ctx?.drawImage(image, 0, 0, canvas.width, canvas.height);
-    return canvas.toDataURL("image/jpeg", quality);
-  };
+    ctx?.drawImage(image, 0, 0, canvas.width, canvas.height)
+    return canvas.toDataURL('image/jpeg', quality)
+  }
 
   const onDrop = (acceptedFiles: FileWithPath[]) => {
-    const file = acceptedFiles[0];
-    if (!file) return;
+    const file = acceptedFiles[0]
+    if (!file) return
 
     // Guardar o nome original do arquivo
-    setOriginalFileName(file.name);
+    setOriginalFileName(file.name)
 
-    const reader = new FileReader();
+    const reader = new FileReader()
 
     reader.onload = (e) => {
-      const image = new Image();
+      const image = new Image()
       image.onload = () => {
-        const resizedImage = processImage(image);
-        setProcessedImage(resizedImage);
-        setImageUrl(resizedImage);
-      };
-      image.src = e.target?.result as string;
-    };
+        const resizedImage = processImage(image)
+        setProcessedImage(resizedImage)
+        setImageUrl(resizedImage)
+      }
+      image.src = e.target?.result as string
+    }
 
-    reader.readAsDataURL(file);
-  };
+    reader.readAsDataURL(file)
+  }
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.png', '.jpg', '.jpeg', '.gif']
+      'image/*': ['.png', '.jpg', '.jpeg', '.gif'],
     },
-    maxFiles: 1
-  });
+    maxFiles: 1,
+  })
 
   async function saveStorage(processedImage: string) {
-    const fileExt = originalFileName.split('.').pop() || 'jpeg';
-    const baseName = originalFileName.split('.')[0];
-    const fileName = `${baseName}.${fileExt}`;
+    const fileExt = originalFileName.split('.').pop() || 'jpeg'
+    const baseName = originalFileName.split('.')[0]
+    const fileName = `${baseName}.${fileExt}`
 
     // Converter base64 para blob mantendo o tipo JPEG
-    const base64Data = processedImage.split(',')[1];
-    const blob = await fetch(`data:image/jpeg;base64,${base64Data}`).then(res => res.blob());
+    const base64Data = processedImage.split(',')[1]
+    const blob = await fetch(`data:image/jpeg;base64,${base64Data}`).then((res) => res.blob())
 
-    const formData = new FormData();
-    formData.append('file', blob, fileName);
+    const formData = new FormData()
+    formData.append('file', blob, fileName)
 
-    const url = await upLoadPhotoAnalisys(formData, idReport);
-    return url;
+    const url = await upLoadPhotoAnalisys(formData, idReport)
+    return url
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-
     if (processedImage) {
-
       const result = await deletePhoto(photoAnalisys.url)
 
       if (!result) {
@@ -136,6 +134,7 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
         idReport,
         url: urlImage,
         name: fileName,
+        index: photoAnalisys.index,
         description: values.description,
       }
       await savePhotoAnalisys(data)
@@ -153,7 +152,7 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
   }
 
   const rotate = (direction: 'left' | 'right') => {
-    setRotation(prev => direction === 'left' ? prev - 90 : prev + 90)
+    setRotation((prev) => (direction === 'left' ? prev - 90 : prev + 90))
   }
 
   return (
@@ -176,11 +175,7 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
           >
             <input {...getInputProps()} />
             {imageUrl ? (
-              <img
-                src={imageUrl}
-                alt="Imagem processada"
-                className="border border-gray-200 rounded-lg mx-auto"
-              />
+              <img src={imageUrl} alt="Imagem processada" className="border border-gray-200 rounded-lg mx-auto" />
             ) : (
               <div className="px-2 bg-muted rounded-lg flex flex-col h-full items-center justify-center w-full">
                 <ImagePlus className="w-8 h-8 text-muted-foreground" />
@@ -190,18 +185,10 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
             <p className="text-sm dark:text-white">{!isDragging && 'Arraste e solte sua imagem aqui'}</p>
           </div>
           <div className="flex justify-center gap-4">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => rotate('left')}
-            >
+            <Button variant="outline" size="icon" onClick={() => rotate('left')}>
               <RotateCcw className="h-4 w-4" />
             </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => rotate('right')}
-            >
+            <Button variant="outline" size="icon" onClick={() => rotate('right')}>
               <RotateCw className="h-4 w-4" />
             </Button>
           </div>

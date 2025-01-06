@@ -36,9 +36,11 @@ export default function ReopenReport({ dialogButton, dialogTitle, dialogDescript
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
 
-        {isLoading ?
-          (<p className="flex justify-center py-4 text-xl">Aguarde, reabrindo o relatório...</p>) :
-          (<p className="flex justify-center py-4 text-xl">Deseja reabrir do relatório?</p>)}
+        {isLoading ? (
+          <p className="flex justify-center py-4 text-xl">Aguarde, reabrindo o relatório...</p>
+        ) : (
+          <p className="flex justify-center py-4 text-xl">Deseja reabrir do relatório?</p>
+        )}
 
         <div className="flex justify-around">
           <Button variant={'default'} disabled={isLoading} onClick={OpenReport(idReport)}>

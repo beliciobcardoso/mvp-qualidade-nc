@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CalendarIcon } from '@radix-ui/react-icons'
 
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { format } from 'date-fns'
 import { Check, ChevronsUpDown, PlusCircleIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -93,14 +93,11 @@ export function DialogRelatorioForm({
                           <div className="flex items-center gap-2">
                             <FormControl>
                               <Button
-                                type='button'
+                                type="button"
                                 variant="outline"
                                 // biome-ignore lint/a11y/useSemanticElements: <explanation>
                                 role="combobox"
-                                className={cn(
-                                  'w-[240px] justify-between',
-                                  !field.value && 'text-muted-foreground',
-                                )}
+                                className={cn('w-[240px] justify-between', !field.value && 'text-muted-foreground')}
                               >
                                 {field.value
                                   ? siteData?.find((site) => site.id === field.value)?.idSite
@@ -124,18 +121,13 @@ export function DialogRelatorioForm({
                                     key={site.id}
                                     value={site.idSite}
                                     onSelect={() => {
-                                      form.setValue("siteId", site.id)
+                                      form.setValue('siteId', site.id)
                                       setOpenPopover(false)
                                     }}
                                   >
                                     {site.idSite}
                                     <Check
-                                      className={cn(
-                                        "ml-auto",
-                                        site.id === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
+                                      className={cn('ml-auto', site.id === field.value ? 'opacity-100' : 'opacity-0')}
                                     />
                                   </CommandItem>
                                 ))}
@@ -159,14 +151,11 @@ export function DialogRelatorioForm({
                           <div className="flex items-center gap-2">
                             <FormControl>
                               <Button
-                                type='button'
+                                type="button"
                                 variant="outline"
                                 // biome-ignore lint/a11y/useSemanticElements: <explanation>
                                 role="combobox"
-                                className={cn(
-                                  'w-[240px] justify-between',
-                                  !field.value && 'text-muted-foreground',
-                                )}
+                                className={cn('w-[240px] justify-between', !field.value && 'text-muted-foreground')}
                               >
                                 {field.value
                                   ? technicianData?.find((technician) => technician.id === field.value)?.name
@@ -190,17 +179,15 @@ export function DialogRelatorioForm({
                                     key={technician.id}
                                     value={technician.name}
                                     onSelect={() => {
-                                      form.setValue("technicianId", technician.id || '')
+                                      form.setValue('technicianId', technician.id || '')
                                       setOpenPopoverTechnician(false)
                                     }}
                                   >
                                     {technician.name}
                                     <Check
                                       className={cn(
-                                        "ml-auto",
-                                        technician.name === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
+                                        'ml-auto',
+                                        technician.name === field.value ? 'opacity-100' : 'opacity-0',
                                       )}
                                     />
                                   </CommandItem>
