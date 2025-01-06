@@ -1,10 +1,11 @@
 'use client'
-import imagem from '@/assets/image.svg'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import type { PhotoAnalisysType, Relatorio } from '@/lib/types'
-import Image from 'next/image'
-import EditPhoto from './editPhoto'
-import RemovePhoto from './removePhoto'
+import imagem from '@/assets/image.svg';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import type { PhotoAnalisysType, Relatorio } from '@/lib/types';
+import { GripVertical } from 'lucide-react';
+import Image from 'next/image';
+import EditPhoto from './editPhoto';
+import RemovePhoto from './removePhoto';
 
 interface PhotoAnalisysProps {
   photoAnalisys: PhotoAnalisysType[]
@@ -12,6 +13,8 @@ interface PhotoAnalisysProps {
 }
 
 export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoAnalisysProps) {
+
+
   return (
     <>
       {photoAnalisys.length > 0 ? (
@@ -37,6 +40,11 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                         dialogTitle={'Excluir Foto'}
                         dialogDescription={'Tela para excluir uma foto'}
                       />
+                      <div
+                        className="flex justify-center items-center h-9 w-10 cursor-grab active:cursor-grabbing rounded-md hover:bg-gray-100 border-2 border-gray-300"
+                      >
+                        <GripVertical className="w-5 h-5 text-gray-500" />
+                      </div>
                     </div>
                   )}
                 </div>
