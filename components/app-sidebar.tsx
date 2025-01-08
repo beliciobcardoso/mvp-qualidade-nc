@@ -77,6 +77,11 @@ const data = {
           icon: LandPlotIcon,
           url: '/admin/site',
         },
+        {
+          title: 'Escopo do Serviço',
+          icon: LandPlotIcon,
+          url: '/admin/scopeService',
+        },
       ],
     },
   ],

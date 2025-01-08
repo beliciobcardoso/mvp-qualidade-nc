@@ -255,6 +255,19 @@ export type ModalAddCardPhotoType = {
   textDescription: string
 }
 
+export type ScopeServiceType = {
+  id?: number
+  name: string
+}
+
+export type dialogScopeServiceProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  dialogData?: ScopeServiceType
+  openDialog?: boolean
+}
+
 export type dialogNewTechnicianProps = {
   dialogButton: string
   dialogTitle: string

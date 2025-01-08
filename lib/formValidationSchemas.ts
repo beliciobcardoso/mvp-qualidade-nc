@@ -105,3 +105,10 @@ export const reportSchema = z.object({
 })
 
 export type ReportSchema = z.infer<typeof reportSchema>
+
+export const scopeServiceSchema = z.object({
+  id: z.number().optional(),
+  name: z.string().min(3, { message: 'Nome do escopo é obrigatório.' }),
+})
+
+export type ScopeServiceSchema = z.infer<typeof scopeServiceSchema>
