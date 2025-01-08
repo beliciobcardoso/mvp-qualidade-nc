@@ -44,7 +44,7 @@ model Report {
   userId         String
   analyst        User?         @relation("ANALYST", fields: [analystId], references: [id])
   analystId      String?
-  ScopeService   ScopeService? @relation(fields: [scopeServiceId], references: [id])
+  scopeService   ScopeService? @relation(fields: [scopeServiceId], references: [id])
   scopeServiceId Int?
 
   photoAnalisys       PhotoAnalisys[]

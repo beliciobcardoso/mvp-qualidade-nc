@@ -34,7 +34,7 @@ Table Report {
   userId String [not null]
   analyst User
   analystId String
-  ScopeService ScopeService
+  scopeService ScopeService
   scopeServiceId Int
   photoAnalisys PhotoAnalisys [not null]
   descriptionAnalisys DescriptionAnalisys [not null]
