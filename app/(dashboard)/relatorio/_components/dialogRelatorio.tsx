@@ -30,6 +30,7 @@ export function DialogRelatorio({
   report,
   siteData,
   technicianData,
+  scopeServiceData,
 }: DialogReportProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -37,6 +38,7 @@ export function DialogRelatorio({
   const form = useForm<ReportSchema>({
     resolver: zodResolver(reportSchema),
     values: {
+      scopeServiceId: report?.scopeServiceId || 0,
       siteId: report?.sites.id || 0,
       technicianId: report?.technicianId || '',
       dateService: report?.dateService || new Date(),
@@ -47,6 +49,7 @@ export function DialogRelatorio({
     if (report?.id) {
       await updateReport({
         id: report?.id,
+        scopeServiceId: values.scopeServiceId,
         siteId: values.siteId,
         technicianId: values.technicianId,
         dateService: values.dateService,
@@ -81,6 +84,30 @@ export function DialogRelatorio({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
             <div className="grid grid-cols-1">
+              <FormField
+                control={form.control}
+                name="scopeServiceId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Escopo do Serviço</FormLabel>
+                    <Select onValueChange={(value) => field.onChange(Number(value))} defaultValue={String(field.value)}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Escolha um Cliente" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {scopeServiceData?.map((item) => (
+                          <SelectItem key={item.id} value={String(item.id)}>
+                            {item.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="siteId"

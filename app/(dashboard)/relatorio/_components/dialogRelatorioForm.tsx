@@ -19,28 +19,25 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createReport } from '../actions'
 
-type ReportCustomType = {
-  siteId: number
-  technicianId: string
-  dateService: Date
-}
-
 export function DialogRelatorioForm({
   dialogButton,
   dialogTitle,
   dataUser,
   technicianData,
   siteData,
+  scopeServiceData,
 }: DialogReportProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const [openPopover, setOpenPopover] = useState(false)
   const [openCalendar, setOpenCalendar] = useState(false)
   const [openPopoverTechnician, setOpenPopoverTechnician] = useState(false)
+  const [openPopoverSite, setOpenPopoverSite] = useState(false)
+  const [openPopoverScopeService, setOpenPopoverScopeService] = useState(false)
 
   const form = useForm<ReportSchema>({
     resolver: zodResolver(reportSchema),
     defaultValues: {
+      scopeServiceId: 0,
       siteId: 0,
       technicianId: '',
     },
@@ -51,6 +48,7 @@ export function DialogRelatorioForm({
 
     try {
       await createReport({
+        scopeServiceId: values.scopeServiceId,
         siteId: values.siteId,
         technicianId: values.technicianId,
         dateService: values.dateService,
@@ -74,7 +72,7 @@ export function DialogRelatorioForm({
       <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
-      <DialogContent className="sm:max-h-[400px] sm:max-w-[350px]">
+      <DialogContent className="sm:max-h-[500px] sm:max-w-[350px]">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
         </DialogHeader>
@@ -84,11 +82,69 @@ export function DialogRelatorioForm({
               <div className="space-y-2">
                 <FormField
                   control={form.control}
+                  name="scopeServiceId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Escopo de Serviço</FormLabel>
+                      <Popover open={openPopoverScopeService} onOpenChange={setOpenPopoverScopeService}>
+                        <PopoverTrigger asChild>
+                          <div className="flex items-center gap-2">
+                            <FormControl>
+                              <Button
+                                type="button"
+                                variant="outline"
+                                // biome-ignore lint/a11y/useSemanticElements: <explanation>
+                                role="combobox"
+                                className={cn('w-[240px] justify-between', !field.value && 'text-muted-foreground')}
+                              >
+                                {field.value
+                                  ? scopeServiceData?.find((scopeService) => scopeService.id === field.value)?.name
+                                  : 'Escolha um Escopo de Serviço'}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                            <Link href="/admin/scopeService">
+                              <PlusCircleIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Link>
+                          </div>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-[200px] p-0">
+                          <Command>
+                            <CommandInput placeholder="Buscar escopo de serviço..." />
+                            <CommandList>
+                              <CommandEmpty>Nenhum escopo de serviço encontrado.</CommandEmpty>
+                              <CommandGroup>
+                                {scopeServiceData?.map((scopeService) => (
+                                  <CommandItem
+                                    key={scopeService.id}
+                                    value={scopeService.name}
+                                    onSelect={() => {
+                                      form.setValue('scopeServiceId', scopeService.id || 0)
+                                      setOpenPopoverScopeService(false)
+                                    }}
+                                  >
+                                    {scopeService.name}
+                                    <Check
+                                      className={cn('ml-auto', scopeService.id === field.value ? 'opacity-100' : 'opacity-0')}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </CommandList>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="siteId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>ID Site</FormLabel>
-                      <Popover open={openPopover} onOpenChange={setOpenPopover}>
+                      <Popover open={openPopoverSite} onOpenChange={setOpenPopoverSite}>
                         <PopoverTrigger asChild>
                           <div className="flex items-center gap-2">
                             <FormControl>
@@ -122,7 +178,7 @@ export function DialogRelatorioForm({
                                     value={site.idSite}
                                     onSelect={() => {
                                       form.setValue('siteId', site.id)
-                                      setOpenPopover(false)
+                                      setOpenPopoverSite(false)
                                     }}
                                   >
                                     {site.idSite}

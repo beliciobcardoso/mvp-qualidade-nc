@@ -113,6 +113,7 @@ export type SiteTypeRel = {
 
 export type ReportRelType = {
   id?: number
+  scopeServiceId: number
   siteId: number
   technicianId: string
   dateService: Date
@@ -120,6 +121,7 @@ export type ReportRelType = {
   updatedAt: Date | null
   finishedAt: Date | null
   sites: SiteType
+  scopeService: ScopeServiceType
   technician: {
     id: string
     name: string
@@ -135,6 +137,7 @@ export type ReportType = {
 }
 
 export type ReportCreateType = {
+  scopeServiceId: number
   siteId: number
   technicianId: string
   dateService: Date
@@ -143,6 +146,7 @@ export type ReportCreateType = {
 
 export type ReportUpdateType = {
   id: number
+  scopeServiceId: number
   siteId: number
   technicianId: string
   dateService: Date
@@ -157,6 +161,7 @@ export type Relatorio = {
   finishedAt: Date | null
   technicianId: string
   userId: string | null
+  scopeService: ScopeServiceType
   technician: {
     name: string
   }
@@ -213,6 +218,7 @@ export type DialogReportProps = {
   clientData?: ClientType[]
   technicianData?: TechnicianType[]
   siteData?: SiteTypeRel[]
+  scopeServiceData?: ScopeServiceType[]
   onInputChange?: (value: number) => void
 }
 

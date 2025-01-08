@@ -216,6 +216,7 @@ export async function createReport(report: ReportCreateType) {
   try {
     const data = await prisma.report.create({
       data: {
+        scopeServiceId: report.scopeServiceId,
         siteId: report.siteId,
         technicianId: report.technicianId,
         dateService: report.dateService,
@@ -234,6 +235,7 @@ export async function updateReport(data: ReportUpdateType) {
       id: data.id,
     },
     data: {
+      scopeServiceId: data.scopeServiceId,
       siteId: data.siteId,
       technicianId: data.technicianId,
       dateService: data.dateService,
@@ -267,6 +269,7 @@ export async function getRelatorios() {
   const relatorios = await prisma.report.findMany({
     select: {
       id: true,
+      scopeServiceId: true,
       siteId: true,
       technicianId: true,
       dateService: true,
@@ -292,6 +295,7 @@ export async function getRelatorios() {
         },
       },
       technician: true,
+      scopeService: true,
       analyst: true,
       user: true,
     },
@@ -308,6 +312,7 @@ export async function getRelatorioById(id: number) {
       id,
     },
     include: {
+      scopeService: true,
       technician: true,
       user: {
         select: {

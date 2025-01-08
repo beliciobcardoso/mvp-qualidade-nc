@@ -98,6 +98,7 @@ export type SiteSchema = z.infer<typeof siteSchema>
 export const reportSchema = z.object({
   id: z.number().optional(),
   siteId: z.number().min(1, { message: 'Site é obrigatório.' }),
+  scopeServiceId: z.number().min(1, { message: 'Escopo de serviço é obrigatório.' }),
   technicianId: z.string().min(1, { message: 'Técnico é obrigatório.' }),
   dateService: z.date({
     required_error: 'Uma data de serviço é obrigatória.',
