@@ -1,6 +1,6 @@
-// generator dbml {
-//   provider = "prisma-dbml-generator"
-// }
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
 
 generator client {
   provider        = "prisma-client-js"
@@ -31,19 +31,21 @@ model DescriptionAnalisys {
 }
 
 model Report {
-  id           Int        @id @default(autoincrement())
-  sites        Site       @relation(fields: [siteId], references: [id])
-  siteId       Int
-  dateService  DateTime
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime?
-  finishedAt   DateTime?
-  technician   Technician @relation(fields: [technicianId], references: [id])
-  technicianId String
-  user         User       @relation(fields: [userId], references: [id])
-  userId       String
-  analyst      User?      @relation("ANALYST", fields: [analystId], references: [id])
-  analystId    String?
+  id             Int           @id @default(autoincrement())
+  sites          Site          @relation(fields: [siteId], references: [id])
+  siteId         Int
+  dateService    DateTime
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime?
+  finishedAt     DateTime?
+  technician     Technician    @relation(fields: [technicianId], references: [id])
+  technicianId   String
+  user           User          @relation(fields: [userId], references: [id])
+  userId         String
+  analyst        User?         @relation("ANALYST", fields: [analystId], references: [id])
+  analystId      String?
+  ScopeService   ScopeService? @relation(fields: [scopeServiceId], references: [id])
+  scopeServiceId Int?
 
   photoAnalisys       PhotoAnalisys[]
   descriptionAnalisys DescriptionAnalisys[]
@@ -65,6 +67,12 @@ model Site {
   siteType        SiteType      @relation(fields: [siteTypeId], references: [id])
   siteTypeId      Int
   Report          Report[]
+}
+
+model ScopeService {
+  id      Int      @id @default(autoincrement())
+  name    String
+  reports Report[]
 }
 
 model Client {
