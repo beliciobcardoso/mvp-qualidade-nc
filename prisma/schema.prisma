@@ -31,21 +31,21 @@ model DescriptionAnalisys {
 }
 
 model Report {
-  id             Int           @id @default(autoincrement())
-  sites          Site          @relation(fields: [siteId], references: [id])
+  id             Int          @id @default(autoincrement())
+  sites          Site         @relation(fields: [siteId], references: [id])
   siteId         Int
   dateService    DateTime
-  createdAt      DateTime      @default(now())
+  createdAt      DateTime     @default(now())
   updatedAt      DateTime?
   finishedAt     DateTime?
-  technician     Technician    @relation(fields: [technicianId], references: [id])
+  technician     Technician   @relation(fields: [technicianId], references: [id])
   technicianId   String
-  user           User          @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
   userId         String
-  analyst        User?         @relation("ANALYST", fields: [analystId], references: [id])
+  analyst        User?        @relation("ANALYST", fields: [analystId], references: [id])
   analystId      String?
-  scopeService   ScopeService? @relation(fields: [scopeServiceId], references: [id])
-  scopeServiceId Int?
+  scopeService   ScopeService @relation(fields: [scopeServiceId], references: [id])
+  scopeServiceId Int
 
   photoAnalisys       PhotoAnalisys[]
   descriptionAnalisys DescriptionAnalisys[]
