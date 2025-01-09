@@ -45,7 +45,7 @@ model Report {
   analyst        User?        @relation("ANALYST", fields: [analystId], references: [id])
   analystId      String?
   scopeService   ScopeService @relation(fields: [scopeServiceId], references: [id])
-  scopeServiceId Int
+  scopeServiceId Int          @default(1)
 
   photoAnalisys       PhotoAnalisys[]
   descriptionAnalisys DescriptionAnalisys[]
@@ -71,7 +71,7 @@ model Site {
 
 model ScopeService {
   id      Int      @id @default(autoincrement())
-  name    String
+  name    String   @default("RELATÓRIO DE MANUTENÇÃO CORRETIVA")
   reports Report[]
 }
 
