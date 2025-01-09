@@ -8,6 +8,7 @@ Table PhotoAnalisys {
   report Report [not null]
   url String [not null]
   name String [not null]
+  index Int [not null]
   description String [not null]
 }
 
@@ -33,6 +34,8 @@ Table Report {
   userId String [not null]
   analyst User
   analystId String
+  scopeService ScopeService [not null]
+  scopeServiceId Int [not null]
   photoAnalisys PhotoAnalisys [not null]
   descriptionAnalisys DescriptionAnalisys [not null]
 }
@@ -53,6 +56,12 @@ Table Site {
   siteType SiteType [not null]
   siteTypeId Int [not null]
   Report Report [not null]
+}
+
+Table ScopeService {
+  id Int [pk, increment]
+  name String [not null]
+  reports Report [not null]
 }
 
 Table Client {
@@ -111,6 +120,8 @@ Ref: Report.technicianId > Technician.id
 Ref: Report.userId > User.id
 
 Ref: Report.analystId > User.id
+
+Ref: Report.scopeServiceId > ScopeService.id
 
 Ref: Site.structureTypeId > StructureType.id
 
