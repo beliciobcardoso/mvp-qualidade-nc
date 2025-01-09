@@ -4,6 +4,7 @@ import HeaderPage from '@/components/header-page'
 import { auth } from '@/lib/auth'
 import type { User } from '@/lib/types'
 import { getAllClient } from '../admin/client/actions'
+import { getAllScopeService } from '../admin/scopeService/actions'
 import { getAllSites } from '../admin/site/actions'
 import { getAllTechnician } from '../admin/technician/actions'
 import { getUserByEmail } from '../admin/user/actions'
@@ -21,6 +22,7 @@ export default async function RelatorioPage() {
   const clientData = (await getAllClient()) || []
   const technicianData = (await getAllTechnician()) || []
   const siteData = (await getAllSites()) || []
+  const scopeServiceData = (await getAllScopeService()) || []
   const data = await getRelatorios()
   // const dataUser = (await getUserByEmail('pedro.doe@email.com')) || undefined
 
@@ -36,6 +38,7 @@ export default async function RelatorioPage() {
           clientData={clientData}
           technicianData={technicianData}
           siteData={siteData}
+          scopeServiceData={scopeServiceData}
         />
       </div>
       <div className="flex flex-col items-center gap-8 pl-2">

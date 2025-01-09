@@ -1,4 +1,5 @@
 'use client'
+import { getAllScopeService } from '@/app/(dashboard)/admin/scopeService/actions'
 import { getAllSites } from '@/app/(dashboard)/admin/site/actions'
 import { getAllTechnician } from '@/app/(dashboard)/admin/technician/actions'
 import { Badge } from '@/components/ui/badge'
@@ -11,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import type { ReportRelType, SiteTypeRel, TechnicianType } from '@/lib/types'
+import type { ReportRelType, ScopeServiceType, SiteTypeRel, TechnicianType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import type { ColumnDef } from '@tanstack/react-table'
 import { format } from 'date-fns'
@@ -26,7 +27,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
   {
     id: 'ID',
     accessorKey: 'id',
-    header: 'ID Relatório',
+    header: 'Relatórios',
     cell: ({ row }) => <div className="text-left">{row.original.id}</div>,
   },
   {
@@ -65,7 +66,13 @@ export const columns: ColumnDef<ReportRelType>[] = [
     },
   },
   {
-    id: 'Cliente',
+    id: 'ScopeService',
+    accessorKey: 'scopeServices.name',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Escopo do Serviço" />,
+    cell: ({ row }) => <div className="pl-4">{row.original.scopeService.name}</div>,
+  },
+  {
+    id: 'Clientes',
     accessorKey: 'sites.client.name',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Cliente" />,
     cell: ({ row }) => <div className="pl-4">{row.original.sites.client.name}</div>,
@@ -213,6 +220,7 @@ const EditReportCell: React.FC<{ row: { original: ReportRelType } }> = ({ row })
   const reports = row.original
   const [technicianData, setTechnicianData] = useState<TechnicianType[]>([])
   const [siteData, setSiteData] = useState<SiteTypeRel[]>([])
+  const [scopeServiceData, setScopeServiceData] = useState<ScopeServiceType[]>([])
 
   useEffect(() => {
     const fetchTechnicianData = async () => {
@@ -227,8 +235,15 @@ const EditReportCell: React.FC<{ row: { original: ReportRelType } }> = ({ row })
         setSiteData(data)
       }
     }
+    const fetchScopeServiceData = async () => {
+      const data = await getAllScopeService()
+      if (data) {
+        setScopeServiceData(data)
+      }
+    }
     fetchTechnicianData()
     fetchSiteData()
+    fetchScopeServiceData()
   }, [])
 
   return (
@@ -239,6 +254,7 @@ const EditReportCell: React.FC<{ row: { original: ReportRelType } }> = ({ row })
       report={reports}
       siteData={siteData}
       technicianData={technicianData}
+      scopeServiceData={scopeServiceData}
     />
   )
 }
