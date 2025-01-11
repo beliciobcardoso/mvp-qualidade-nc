@@ -24,8 +24,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       authorize: async (credentials) => {
         const email = credentials.email as string
         const password = credentials.password as string
+        console.log(email, password)
 
         const user = await prisma.user.findFirst({ where: { email } })
+
+        if (!user) {
+          console.log('User not found')
+          return null
+        }
 
         if (user) {
           const isValid = await bcrypt.compare(password, user?.passwordHash || '')
