@@ -76,7 +76,7 @@ export function DialogRelatorio({
         {dialogButton}
       </Button>
 
-      <DialogContent className="sm:max-h-[600px] sm:max-w-[300px]">
+      <DialogContent className="sm:max-h-[600px] sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
@@ -88,8 +88,8 @@ export function DialogRelatorio({
                 control={form.control}
                 name="scopeServiceId"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Escopo do Serviço</FormLabel>
+                  <FormItem className="flex flex-col pt-3">
+                    <FormLabel className="sr-only">Escopo do Serviço</FormLabel>
                     <Select onValueChange={(value) => field.onChange(Number(value))} defaultValue={String(field.value)}>
                       <FormControl>
                         <SelectTrigger>
@@ -112,8 +112,8 @@ export function DialogRelatorio({
                 control={form.control}
                 name="siteId"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ID Site</FormLabel>
+                  <FormItem className="flex flex-col pt-3">
+                    <FormLabel className="sr-only">ID Site</FormLabel>
                     <Select onValueChange={(value) => field.onChange(Number(value))} defaultValue={String(field.value)}>
                       <FormControl>
                         <SelectTrigger>
@@ -136,8 +136,8 @@ export function DialogRelatorio({
                 control={form.control}
                 name="technicianId"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Técnico</FormLabel>
+                  <FormItem className="flex flex-col pt-3">
+                    <FormLabel className="sr-only">Técnico</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -161,7 +161,7 @@ export function DialogRelatorio({
                 name="dateService"
                 render={({ field }) => (
                   <FormItem className="flex flex-col pt-3">
-                    <FormLabel>Data do Serviço</FormLabel>
+                    <FormLabel className="sr-only">Data do Serviço</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
