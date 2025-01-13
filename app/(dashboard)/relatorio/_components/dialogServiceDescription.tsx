@@ -11,11 +11,14 @@ export function DialogServiceDescription({
   dialogDescription,
   idReport,
   userId,
+  serviceDescription,
 }: DialogServiceDescriptionProps) {
   const [open, setOpen] = useState(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button onClick={() => setOpen(true)}>{dialogButton}</Button>
+      <Button onClick={() => setOpen(true)} disabled={serviceDescription?.length === 3}>
+        {dialogButton}
+      </Button>
       <DialogContent className="sm:max-w-[700px]">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
