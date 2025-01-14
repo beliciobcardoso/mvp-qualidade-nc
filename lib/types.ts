@@ -312,6 +312,13 @@ export type DialogUpdateSiteTypeProps = {
   openDialog?: boolean
 }
 
+export type ServiceDescriptionType = {
+  id: number
+  idReport: number
+  service: string
+  status: string
+}
+
 export type DialogServiceDescriptionProps = {
   dialogButton: string
   dialogTitle: string
@@ -319,4 +326,5 @@ export type DialogServiceDescriptionProps = {
   idReport: number
   openDialog?: boolean
   userId: string
+  serviceDescription: ServiceDescriptionType[]
 }

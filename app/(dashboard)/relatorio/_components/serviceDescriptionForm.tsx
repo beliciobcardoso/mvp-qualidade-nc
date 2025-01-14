@@ -70,7 +70,7 @@ export default function ServiceDescriptionForm({ id, handleModal, userId }: Serv
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <Input {...field} placeholder="" />
+                            <Input {...field} placeholder="" maxLength={65} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -117,6 +117,6 @@ export default function ServiceDescriptionForm({ id, handleModal, userId }: Serv
           </div>
         </form>
       </Form>
-    </div>
+    </div >
   )
 }
