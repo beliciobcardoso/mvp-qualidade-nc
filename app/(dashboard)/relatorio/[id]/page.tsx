@@ -7,7 +7,6 @@ import { Suspense } from 'react'
 import HeaderReport from '../_components/headerReport'
 import PhotoAnalisys from '../_components/photoAnalisys'
 
-
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth()
 
@@ -26,7 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main>
-      <HeaderPage pageName={`Analisando Realatório - ${id}`} />
+      <HeaderPage pageName={`Analisando Relatório - ${id}`} />
       <div className="flex w-full flex-col items-center bg-slate-300">
         <Suspense fallback={<div>Loading...</div>}>
           <HeaderReport

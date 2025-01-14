@@ -225,6 +225,7 @@ export type PhotoAnalisysType = {
   idReport: number
   url: string
   name: string
+  index: number
   description: string
 }
 

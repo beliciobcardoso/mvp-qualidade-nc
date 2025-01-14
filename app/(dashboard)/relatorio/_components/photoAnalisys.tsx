@@ -50,8 +50,7 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioHeader }: PhotoA
                 </div>
                 <div className="h-full border-2 p-2">
                   {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-                  <div dangerouslySetInnerHTML={{ __html: item.description }}
-                    className="w-80 max-h-14 text-wrap" />
+                  <div dangerouslySetInnerHTML={{ __html: item.description }} className="w-80 max-h-14 text-wrap" />
                 </div>
               </CardFooter>
             </Card>

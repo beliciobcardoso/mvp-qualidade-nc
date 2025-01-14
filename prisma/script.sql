@@ -1,6 +1,15 @@
+
 -- Active: 1735309583107@@10.0.3.6@5432@dev-qualy@public
 
 SELECT id, "idReport", index,  description FROM "PhotoAnalisys" WHERE "idReport" = 6 ORDER BY "index" asc LIMIT 100
+
+#npx prisma migrate dev --name add_index_to_photoanalisys
+#npx prisma migrate deploy
+
+
+
+#SELECT id, "idReport", index,  description FROM "PhotoAnalisys" WHERE "idReport" = 1 ORDER BY "index" asc LIMIT 100
+
 
 WITH RankedRows AS (
   SELECT
@@ -12,4 +21,8 @@ WITH RankedRows AS (
 UPDATE "PhotoAnalisys"
 SET index = RankedRows.new_index
 FROM RankedRows
+
 WHERE "PhotoAnalisys".id = RankedRows.id;
+
+#WHERE "PhotoAnalisys".id = RankedRows.id;
+
