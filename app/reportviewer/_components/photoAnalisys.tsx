@@ -19,13 +19,13 @@ export default function PhotoAnalisys({
                 <CardContent className="w-[378px] p-0 pt-2 flex justify-center">
                   <Image src={item.url} alt="Imagem" width={300} height={300} />
                 </CardContent>
-                <CardFooter className="mb-2 flex justify-center max-h-20 w-full p-2">
+                <CardFooter className="mb-2 flex justify-center max-h-20 w-full py-2 px-1">
                   <div className="flex h-full items-center justify-center border-2 py-1 font-bold">
                     <p className="text-center w-11">{index + 1}</p>
                   </div>
-                  <div className="h-full p-2 border-2 border-l-0">
+                  <div className="h-full border-2 border-l-0">
                     {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
-                    <div dangerouslySetInnerHTML={{ __html: item.description }} className="w-72 max-h-14 text-wrap" />
+                    <div dangerouslySetInnerHTML={{ __html: item.description }} className="w-[326px] h-[56px] pl-1 flex flex-col justify-center" />
                   </div>
                 </CardFooter>
               </div>

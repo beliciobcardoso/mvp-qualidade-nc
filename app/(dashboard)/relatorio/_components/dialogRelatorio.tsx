@@ -30,6 +30,7 @@ export function DialogRelatorio({
   report,
   siteData,
   technicianData,
+  scopeServiceData,
 }: DialogReportProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
@@ -37,6 +38,7 @@ export function DialogRelatorio({
   const form = useForm<ReportSchema>({
     resolver: zodResolver(reportSchema),
     values: {
+      scopeServiceId: report?.scopeServiceId || 0,
       siteId: report?.sites.id || 0,
       technicianId: report?.technicianId || '',
       dateService: report?.dateService || new Date(),
@@ -47,6 +49,7 @@ export function DialogRelatorio({
     if (report?.id) {
       await updateReport({
         id: report?.id,
+        scopeServiceId: values.scopeServiceId,
         siteId: values.siteId,
         technicianId: values.technicianId,
         dateService: values.dateService,
@@ -73,7 +76,7 @@ export function DialogRelatorio({
         {dialogButton}
       </Button>
 
-      <DialogContent className="sm:max-h-[600px] sm:max-w-[300px]">
+      <DialogContent className="sm:max-h-[600px] sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
           <DialogDescription>{dialogDescription}</DialogDescription>
@@ -83,10 +86,34 @@ export function DialogRelatorio({
             <div className="grid grid-cols-1">
               <FormField
                 control={form.control}
+                name="scopeServiceId"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col pt-3">
+                    <FormLabel className="sr-only">Escopo do Serviço</FormLabel>
+                    <Select onValueChange={(value) => field.onChange(Number(value))} defaultValue={String(field.value)}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Escolha um Cliente" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {scopeServiceData?.map((item) => (
+                          <SelectItem key={item.id} value={String(item.id)}>
+                            {item.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
                 name="siteId"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ID Site</FormLabel>
+                  <FormItem className="flex flex-col pt-3">
+                    <FormLabel className="sr-only">ID Site</FormLabel>
                     <Select onValueChange={(value) => field.onChange(Number(value))} defaultValue={String(field.value)}>
                       <FormControl>
                         <SelectTrigger>
@@ -109,8 +136,8 @@ export function DialogRelatorio({
                 control={form.control}
                 name="technicianId"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Técnico</FormLabel>
+                  <FormItem className="flex flex-col pt-3">
+                    <FormLabel className="sr-only">Técnico</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -134,7 +161,7 @@ export function DialogRelatorio({
                 name="dateService"
                 render={({ field }) => (
                   <FormItem className="flex flex-col pt-3">
-                    <FormLabel>Data do Serviço</FormLabel>
+                    <FormLabel className="sr-only">Data do Serviço</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
