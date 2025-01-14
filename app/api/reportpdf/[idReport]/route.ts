@@ -11,7 +11,7 @@ export async function GET(request: Request, { params }: { params: { idReport: nu
   const page = await browser.newPage()
   console.log('Nova página aberta.')
 
-  await page.setViewport({ width: 1600, height: 16384 })
+  await page.setViewport({ width: 1600, height: 65536 })
   console.log('Tamanho da página definido.')
 
   page.goto(`${process.env.NEXT_PUBLIC_URL_APP}/reportviewer/${params.idReport}`, {
