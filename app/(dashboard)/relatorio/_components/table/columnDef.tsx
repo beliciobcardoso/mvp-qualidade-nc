@@ -67,7 +67,7 @@ export const columns: ColumnDef<ReportRelType>[] = [
   },
   {
     id: 'ScopeService',
-    accessorKey: 'scopeServices.name',
+    accessorKey: 'scopeService.name',
     header: ({ column }) => <DataTableColumnHeader column={column} title="Escopo do Serviço" />,
     cell: ({ row }) => <div className="pl-4">{row.original.scopeService.name}</div>,
   },

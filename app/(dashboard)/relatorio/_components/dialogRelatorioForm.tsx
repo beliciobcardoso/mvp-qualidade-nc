@@ -72,7 +72,7 @@ export function DialogRelatorioForm({
       <Button onClick={() => dialogStart()} variant="outline">
         {dialogButton}
       </Button>
-      <DialogContent className="sm:max-h-[500px] sm:max-w-[350px]">
+      <DialogContent className="sm:max-h-[500px] sm:max-w-[450px]">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>
         </DialogHeader>
@@ -84,8 +84,8 @@ export function DialogRelatorioForm({
                   control={form.control}
                   name="scopeServiceId"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Escopo de Serviço</FormLabel>
+                    <FormItem className="flex flex-col pt-3">
+                      <FormLabel className="sr-only">Escopo de Serviço</FormLabel>
                       <Popover open={openPopoverScopeService} onOpenChange={setOpenPopoverScopeService}>
                         <PopoverTrigger asChild>
                           <div className="flex items-center gap-2">
@@ -95,7 +95,7 @@ export function DialogRelatorioForm({
                                 variant="outline"
                                 // biome-ignore lint/a11y/useSemanticElements: <explanation>
                                 role="combobox"
-                                className={cn('w-[240px] justify-between', !field.value && 'text-muted-foreground')}
+                                className={cn('w-[350px] justify-between', !field.value && 'text-muted-foreground')}
                               >
                                 {field.value
                                   ? scopeServiceData?.find((scopeService) => scopeService.id === field.value)?.name
@@ -142,8 +142,8 @@ export function DialogRelatorioForm({
                   control={form.control}
                   name="siteId"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>ID Site</FormLabel>
+                    <FormItem className="flex flex-col pt-3">
+                      <FormLabel className="sr-only">ID Site</FormLabel>
                       <Popover open={openPopoverSite} onOpenChange={setOpenPopoverSite}>
                         <PopoverTrigger asChild>
                           <div className="flex items-center gap-2">
@@ -200,8 +200,8 @@ export function DialogRelatorioForm({
                   control={form.control}
                   name="technicianId"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Técnico</FormLabel>
+                    <FormItem className="flex flex-col pt-3">
+                      <FormLabel className="sr-only">Técnico</FormLabel>
                       <Popover open={openPopoverTechnician} onOpenChange={setOpenPopoverTechnician}>
                         <PopoverTrigger asChild>
                           <div className="flex items-center gap-2">
@@ -261,8 +261,8 @@ export function DialogRelatorioForm({
                   control={form.control}
                   name="dateService"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Data do Serviço</FormLabel>
+                    <FormItem className="flex flex-col pt-3">
+                      <FormLabel className="sr-only">Data do Serviço</FormLabel>
                       <Popover open={openCalendar} onOpenChange={setOpenCalendar}>
                         <PopoverTrigger asChild>
                           <FormControl>
