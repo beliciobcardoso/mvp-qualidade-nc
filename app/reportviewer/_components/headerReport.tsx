@@ -40,7 +40,7 @@ export default function HeaderReport({ relatorioHeader, descriptions }: Relatori
         <table className="w-full text-left">
           <thead>
             <tr>
-              <th className="w-4/5 px-2">Serviços</th>
+              <th className="w-[90%] px-2">Serviços</th>
               <th className="text-center">OK</th>
               <th className="text-center">NA</th>
             </tr>
