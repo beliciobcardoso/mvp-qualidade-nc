@@ -96,7 +96,7 @@ export function TableRelatorio<TData, TValue>({ columns, data }: DataTableProps<
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {`Totais de Realarios cirados: ${table.getFilteredRowModel().rows.length}.`}
+          {`Totais de Relatórios criados: ${table.getFilteredRowModel().rows.length}.`}
         </div>
         <div className="space-x-2">
           <Button
