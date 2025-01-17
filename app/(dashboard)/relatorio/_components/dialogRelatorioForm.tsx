@@ -12,6 +12,7 @@ import { CalendarIcon } from '@radix-ui/react-icons'
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { Check, ChevronsUpDown, PlusCircleIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -281,6 +282,7 @@ export function DialogRelatorioForm({
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
+                            locale={ptBR}
                             mode="single"
                             selected={field.value}
                             onSelect={(value) => {
