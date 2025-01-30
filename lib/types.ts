@@ -47,6 +47,36 @@ export type UserForm = {
   createdAt: Date
 }
 
+export type ProviderType = {
+  id?: string
+  name: string
+}
+
+export type CheckInType = {
+  id?: number
+  data: Date
+  providerId: string
+  userId: string
+  dateCheckIn: Date
+}
+
+export type PhotoCheckInType = {
+  id?: number
+  idCheckIn: number
+  checkIn: CheckInType
+  url: string
+  name: string
+  index: number
+  description: string
+}
+
+export type DescriptionCheckInType = {
+  id?: number
+  checkInId: number
+  checkIn: CheckInType
+  description: string
+}
+
 export type ClientType = {
   id?: string
   name: string

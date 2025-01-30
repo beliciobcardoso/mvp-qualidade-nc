@@ -16,6 +16,7 @@ import {
   ExpandIcon,
   IdCard,
   LandPlotIcon,
+  ListChecks,
   NotepadTextIcon,
   RadioTower,
   UserRoundPlus,
@@ -38,6 +39,11 @@ const data = {
       name: 'Relatórios',
       url: '/relatorio',
       icon: NotepadTextIcon,
+    },
+    {
+      name: 'Check-in',
+      url: '/checkin',
+      icon: ListChecks,
     },
   ],
   navAdm: [
