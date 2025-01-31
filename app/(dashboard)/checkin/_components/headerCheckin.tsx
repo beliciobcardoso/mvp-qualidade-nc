@@ -1,50 +1,36 @@
 import ncLogo from '@/assets/ncLogo.png'
-import type { PhotoAnalisysType, Relatorio, User } from '@/lib/types'
-import { PlusIcon } from 'lucide-react'
+import type { CheckInType, User } from '@/lib/types'
+import type { Provider } from '@prisma/client'
 import Image from 'next/image'
-import AproveReport from './aproveReport'
-import { DialogServiceDescription } from './dialogServiceDescription'
-import GeneratePdf from './generatePdf'
-import HeaderReportSite from './headerReportSite'
-import ModalAddCardPhoto from './modalAddCardPhoto'
-import { RemoveServices } from './removerServices'
-import ReopenReport from './reopenReport'
 
 interface RelatorioHeaderProps {
-  relatorioHeader: Relatorio
-  descriptions: {
-    id: number
-    idReport: number
-    service: string
-    status: string
-  }[]
-  photoAnalisys: PhotoAnalisysType[]
-  id: number
+  providerProps: Provider[]
+  checkinProps: CheckInType | null | undefined
   user: User
 }
 
-export default function HeaderReport({ relatorioHeader, descriptions, photoAnalisys, id, user }: RelatorioHeaderProps) {
+export default function HeaderCheckin({ providerProps, user }: RelatorioHeaderProps) {
   return (
     <header className="flex flex-col bg-white">
-      <div className="flex items-center justify-between">
-        <div className="h-20 w-44">
+      <div className="flex items-center justify-between w-[900px]">
+        <div className="h-20 w-44 ">
           <Image src={ncLogo} alt="Logo" width={400} height={400} className="h-full w-full" />
         </div>
-        <div className="flex justify-center items-center h-full w-[515px]">
-          <h1 className="text-2xl font-bold uppercase">{relatorioHeader.scopeService.name}</h1>
-        </div>
-        <div className="h-20 w-44">
-          <Image
-            src={relatorioHeader.sites.client.img ?? ncLogo}
-            alt="LogoClient"
-            width={400}
-            height={400}
-            className="h-full w-full"
-          />
+        <div className="flex justify-center items-center h-full w-full">
+          <h1 className="text-2xl font-bold uppercase">CHECK IN EHS</h1>
         </div>
       </div>
-      <HeaderReportSite relatorioHeader={relatorioHeader} />
-      <div>
+      <div className='flex flex-col gap-2 p-2 justify-end items-between bg-gray-100 w-full'>
+        <div className='flex gap-2 px-2 w-full bg-gray-300'>
+          <p className='w-1/2'><strong className='pr-2'>EMPRESA:</strong>LIFETEL</p>
+          <p className='w-1/5'><strong className='pr-2'>AUDITOR:</strong>Diellany Reis</p>
+        </div>
+        <div className='flex gap-2 px-2 w-full bg-gray-300'>
+          <p className='w-1/2'><strong className='pr-2'>ATIVIDADE:</strong>INSTALAÇÃO DE TRAVA - QUEDAS</p>
+          <p className='w-1/5'><strong className='pr-2'>DATA:</strong>23/10/2024</p>
+        </div>
+      </div>
+      {/* <div>
         <table className="w-full text-left">
           <thead>
             <tr>
@@ -128,7 +114,7 @@ export default function HeaderReport({ relatorioHeader, descriptions, photoAnali
             ''
           )}
         </div>
-      </div>
+      </div> */}
     </header>
   )
 }

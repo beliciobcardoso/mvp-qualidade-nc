@@ -74,7 +74,7 @@ export const columns: ColumnDef<CheckInRelationType>[] = [
     id: 'Ações',
     enableHiding: false,
     cell: ({ row }) => {
-      const relatorio = row.original
+      const ckeckIn = row.original
       const { dateCheckIn } = row.original
       return (
         <DropdownMenu>
@@ -89,22 +89,22 @@ export const columns: ColumnDef<CheckInRelationType>[] = [
             <EditCheckInCell row={row} />
             <DropdownMenuSeparator />
             {dateCheckIn && (
-              <Link href={`/relatorio/${relatorio.id}`}>
+              <Link href={`/checkin/${ckeckIn.id}`}>
                 <DropdownMenuItem className="cursor-pointer">Analisar</DropdownMenuItem>
               </Link>
             )}
             {dateCheckIn && (
-              <Link href={`/reportviewer/${relatorio.id}`} target="_blank">
+              <Link href={`/reportviewer/${ckeckIn.id}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">Visualizar</DropdownMenuItem>
               </Link>
             )}
             {dateCheckIn && (
-              <Link href={`/api/reportpdf/${relatorio.id}`} target="_blank">
+              <Link href={`/api/reportpdf/${ckeckIn.id}`} target="_blank">
                 <DropdownMenuItem className="cursor-pointer">Gerar PDF</DropdownMenuItem>
               </Link>
             )}
             {dateCheckIn && (
-              <Link href={`/relatorio/${relatorio.id}`}>
+              <Link href={`/checkin/${ckeckIn.id}`}>
                 <DropdownMenuItem className="cursor-pointer">Reabrir Check-in</DropdownMenuItem>
               </Link>
             )}
