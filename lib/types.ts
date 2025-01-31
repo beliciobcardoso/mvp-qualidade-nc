@@ -52,6 +52,16 @@ export type ProviderType = {
   name: string
 }
 
+export type CheckInRelationType = {
+  id?: number
+  providerId: string
+  userId: string
+  dateCheckIn: Date
+  createdAt: Date
+  provider: ProviderType
+  user: UserType
+}
+
 export type CheckInType = {
   id?: number
   providerId: string

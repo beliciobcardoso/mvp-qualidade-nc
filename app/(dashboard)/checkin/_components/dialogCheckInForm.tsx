@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -8,32 +9,31 @@ import { type CheckInSchema, checkInSchema } from '@/lib/formValidationSchemas'
 import type { DialogProps, User } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { Provider } from '@prisma/client'
 import { CalendarIcon } from '@radix-ui/react-icons'
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { format } from 'date-fns'
 import { Check, ChevronsUpDown, PlusCircleIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import type { Provider } from '@prisma/client'
 import { createCheckIn } from '../actions'
 
 type DialogCheckInFormProps = {
   dialogProps: DialogProps,
+  userData?: User,
   providerData: Provider[]
-  dataUser?: User
 }
 
 export function DialogCheckInForm({
   dialogProps,
-  dataUser,
+  userData,
   providerData
 }: DialogCheckInFormProps) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [openCalendar, setOpenCalendar] = useState(false)
-  const [openPopoverTechnician, setOpenPopoverTechnician] = useState(false)
+  const [openPopoverProvider, setOpenPopoverProvider] = useState(false)
   const [openPopoverSite, setOpenPopoverSite] = useState(false)
   const [openPopoverScopeService, setOpenPopoverScopeService] = useState(false)
 
@@ -46,7 +46,8 @@ export function DialogCheckInForm({
   })
 
   async function onSubmit(values: CheckInSchema) {
-    const idUser = await dataUser?.id
+    const idUser = await userData?.id
+    console.log('Form values', values, 'User id', idUser)
 
     try {
       await createCheckIn({
@@ -80,15 +81,13 @@ export function DialogCheckInForm({
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-1 gap-4">
               <div className="space-y-2">
-
-
                 <FormField
                   control={form.control}
                   name="providerId"
                   render={({ field }) => (
                     <FormItem className="flex flex-col pt-3">
                       <FormLabel className="sr-only">Fornecedor</FormLabel>
-                      <Popover open={openPopoverTechnician} onOpenChange={setOpenPopoverTechnician}>
+                      <Popover open={openPopoverProvider} onOpenChange={setOpenPopoverProvider}>
                         <PopoverTrigger asChild>
                           <div className="flex items-center gap-2">
                             <FormControl>
@@ -112,9 +111,9 @@ export function DialogCheckInForm({
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
                           <Command>
-                            <CommandInput placeholder="Buscar Técnico..." />
+                            <CommandInput placeholder="Buscar Fornecedor..." />
                             <CommandList>
-                              <CommandEmpty>Nenhum Técnico encontrado.</CommandEmpty>
+                              <CommandEmpty>Fornecedor não encontrado.</CommandEmpty>
                               <CommandGroup>
                                 {providerData?.map((provider) => (
                                   <CommandItem
@@ -122,7 +121,7 @@ export function DialogCheckInForm({
                                     value={provider.name}
                                     onSelect={() => {
                                       form.setValue('providerId', provider.id || '')
-                                      setOpenPopoverTechnician(false)
+                                      setOpenPopoverProvider(false)
                                     }}
                                   >
                                     {provider.name}
@@ -168,6 +167,7 @@ export function DialogCheckInForm({
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
                             mode="single"
+                            lang='pt-BR'
                             selected={field.value}
                             onSelect={(value) => {
                               field.onChange(value)

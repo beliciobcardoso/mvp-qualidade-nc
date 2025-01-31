@@ -15,7 +15,7 @@ export async function createCheckIn(data: CheckInType) {
   }
 }
 
-export async function updateCheckIn(data: CheckInType) {
+export async function updateCheckIn(data: Omit<CheckInType, 'userId'>) {
   try {
     const checkIn = await prisma.checkin.update({
       where: {
@@ -46,7 +46,23 @@ export async function getCheckInById(id: number) {
 
 export async function getAllCheckIn() {
   try {
-    const data = await prisma.checkin.findMany({})
+    const data = await prisma.checkin.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            avatar: true,
+            role: true,
+          },
+        },
+        provider: true,
+      },
+      orderBy: {
+        id: 'desc',
+      },
+    })
     return data
   } catch (error) {
     console.log(error)

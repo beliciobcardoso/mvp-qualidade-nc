@@ -120,7 +120,6 @@ export const checkInSchema = z.object({
     required_error: 'Uma data de check-in é obrigatória.',
   }),
   providerId: z.string().min(1, { message: 'Fornecedor é obrigatório.' }),
-  userId: z.string().min(1, { message: 'Usuário é obrigatório.' }),
 })
 
 export type CheckInSchema = z.infer<typeof checkInSchema>
