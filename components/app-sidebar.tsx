@@ -17,8 +17,10 @@ import {
   IdCard,
   LandPlotIcon,
   ListChecks,
+  NewspaperIcon,
   NotepadTextIcon,
   RadioTower,
+  Truck,
   UserRoundPlus,
   WrenchIcon,
 } from 'lucide-react'
@@ -64,6 +66,11 @@ const data = {
           url: '/admin/client',
         },
         {
+          title: 'Fornecedores',
+          icon: Truck,
+          url: '/admin/provider',
+        },
+        {
           title: 'Técnicos',
           icon: WrenchIcon,
           url: '/admin/technician',
@@ -85,7 +92,7 @@ const data = {
         },
         {
           title: 'Escopo do Serviço',
-          icon: LandPlotIcon,
+          icon: NewspaperIcon,
           url: '/admin/scopeService',
         },
       ],

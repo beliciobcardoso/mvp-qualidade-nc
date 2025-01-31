@@ -1,6 +1,6 @@
 import { CONFIG } from '@/config/config'
 import validateImageType from '@/lib/validateImageType'
-import { DeleteObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { DeleteObjectCommand, ListBucketsCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
 export const clientS3 = new S3Client({
   region: CONFIG.providers.storage.region,
@@ -12,12 +12,20 @@ export const clientS3 = new S3Client({
 })
 
 export const uploadObject = async (key: string, body: Buffer | Uint8Array | Blob | string, file: File) => {
-  const command = new PutObjectCommand({
-    Bucket: CONFIG.providers.storage.bucket,
-    Key: key,
+  const listBucket = new ListBucketsCommand({})
+  const result = await clientS3.send(listBucket)
+  const bucketName = result.Buckets?.find((bucket) => bucket.Name === CONFIG.providers.storage.bucket)?.Name
+
+  const keyName = `${bucketName}/${key}`
+
+  const input = {
+    Bucket: bucketName,
+    Key: keyName,
     Body: body,
     ContentType: file.type,
-  })
+  }
+
+  const command = new PutObjectCommand(input)
 
   if (validateImageType(file)) {
     try {
@@ -36,9 +44,15 @@ export const uploadObject = async (key: string, body: Buffer | Uint8Array | Blob
 export const deleteObject = async (url: string) => {
   const key = url.replace(`${CONFIG.providers.storage.endpoint}/${CONFIG.providers.storage.bucket}/`, '')
 
+  const listBucket = new ListBucketsCommand({})
+  const result = await clientS3.send(listBucket)
+  const bucketName = result.Buckets?.find((bucket) => bucket.Name === CONFIG.providers.storage.bucket)?.Name
+
+  const keyName = `${bucketName}/${key}`
+
   const command = new DeleteObjectCommand({
-    Bucket: CONFIG.providers.storage.bucket,
-    Key: key,
+    Bucket: bucketName,
+    Key: keyName,
   })
 
   try {

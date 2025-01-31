@@ -105,7 +105,7 @@ model User {
   avatar       String?
   analyst      Report[]  @relation("ANALYST")
   Report       Report[]
-  checkin      checkin[]
+  checkin      Checkin[]
 }
 
 enum Role {
@@ -118,7 +118,7 @@ enum Role {
 
 model PhotoCheckIn {
   id          Int     @id @default(autoincrement())
-  checkin     checkin @relation(fields: [idCheckIn], references: [id])
+  checkin     Checkin @relation(fields: [idCheckIn], references: [id])
   idCheckIn   Int
   url         String
   name        String
@@ -126,27 +126,27 @@ model PhotoCheckIn {
   description String
 }
 
-model provider {
+model Provider {
   id      String    @id @default(cuid())
   name    String
-  checkin checkin[]
+  checkin Checkin[]
 }
 
-model checkin {
+model Checkin {
   id                 Int                  @id @default(autoincrement())
   createdAt          DateTime             @default(now())
   dateCheckIn        DateTime
   user               User                 @relation(fields: [userId], references: [id])
   userId             String
-  provider           provider             @relation(fields: [providerId], references: [id])
+  provider           Provider             @relation(fields: [providerId], references: [id])
   providerId         String
   descriptionCheckIn DescriptionCheckIn[]
-  PhotoCheckIn       PhotoCheckIn[]
+  photoCheckIn       PhotoCheckIn[]
 }
 
 model DescriptionCheckIn {
   id          Int     @id @default(autoincrement())
-  checkin     checkin @relation(fields: [checkinId], references: [id])
+  checkin     Checkin @relation(fields: [checkinId], references: [id])
   checkinId   Int
   description String
 }

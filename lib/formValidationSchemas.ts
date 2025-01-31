@@ -125,3 +125,9 @@ export const checkInSchema = z.object({
 
 export type CheckInSchema = z.infer<typeof checkInSchema>
 
+export const providerSchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(3, { message: 'Nome do fornecedor é obrigatório.' }),
+})
+
+export type ProviderSchema = z.infer<typeof providerSchema>

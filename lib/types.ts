@@ -54,7 +54,6 @@ export type ProviderType = {
 
 export type CheckInType = {
   id?: number
-  data: Date
   providerId: string
   userId: string
   dateCheckIn: Date
@@ -237,6 +236,13 @@ export type dialogNewClientProps = {
   dialogDescription: string
   openDialog?: boolean
   dialogData?: ClientType
+}
+
+export type DialogProps = {
+  dialogButton: string
+  dialogTitle: string
+  dialogDescription: string
+  openDialog?: boolean
 }
 
 export type DialogReportProps = {

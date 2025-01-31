@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-const prismaClientSingleton = () => {
+const prismaClientSingleton = (p0: { log: string[] }) => {
   return new PrismaClient()
 }
 
@@ -9,7 +9,11 @@ declare const globalThis: {
   prismaGlobal: ReturnType<typeof prismaClientSingleton>
 } & typeof global
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
+const prisma =
+  globalThis.prismaGlobal ??
+  prismaClientSingleton({
+    log: ['query'],
+  })
 
 export default prisma
 
