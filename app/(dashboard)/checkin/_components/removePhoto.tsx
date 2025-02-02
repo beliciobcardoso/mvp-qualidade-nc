@@ -2,17 +2,17 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import type { PhotoAnalisysType } from '@/lib/types'
+import type { PhotoCheckInType } from '@/lib/types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { deletePhotoAnalisys } from '../actions'
+import { deletePhotoCheckIn } from '../../relatorio/actions'
 
 interface RemovePhotoProps {
   dialogButton: string
   dialogTitle: string
   dialogDescription: string
-  photoAnalisys: PhotoAnalisysType
+  photoAnalisys: PhotoCheckInType
   index: number
 }
 
@@ -26,8 +26,8 @@ export default function RemovePhoto({
   const [open, setOpen] = useState(false)
   const router = useRouter()
 
-  const handleDelete = async (photoAnalisysData: PhotoAnalisysType) => {
-    await deletePhotoAnalisys(photoAnalisysData)
+  const handleDelete = async (photoAnalisysData: PhotoCheckInType) => {
+    await deletePhotoCheckIn(photoAnalisysData)
     setOpen(false)
     router.refresh()
   }
@@ -43,7 +43,7 @@ export default function RemovePhoto({
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
         <div className="flex items-center justify-center">
-          <p>Deseja deletar a foto de número {index} deste Relatório?</p>
+          <p>Deseja deletar a foto de número {index} deste Check-in?</p>
         </div>
         <Card>
           <div className="flex h-full flex-col items-center justify-between truncate">

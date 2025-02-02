@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma'
 import type {
   DescriptionAnalisysType,
   PhotoAnalisysType,
+  PhotoCheckInType,
   Relatorio,
   ReportCreateType,
   ReportRelType,
@@ -33,8 +34,8 @@ export async function reduceImageSize(buffer: ArrayBuffer, width: number, height
   return formData
 }
 
-export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) {
-  if (!formData || !idReport) {
+export async function upLoadPhotoAnalisys(formData: FormData, id: number, type: 'check-in' | 'report') {
+  if (!formData || !id) {
     throw new Error('Parâmetros inválidos')
   }
   const file = formData.get('file') as File
@@ -43,7 +44,7 @@ export async function upLoadPhotoAnalisys(formData: FormData, idReport: number) 
   try {
     const binaryFile = await file.arrayBuffer()
     const fileBuffer = Buffer.from(binaryFile)
-    const keyName = `reports/${idReport}/${Date.now()}-${fileName}`
+    const keyName = `${type}/${id}/${Date.now()}-${fileName}`
     const result = await uploadObject(keyName, fileBuffer, file)
     return result
   } catch (error) {
@@ -56,6 +57,14 @@ export async function photoAnalisysLength(idReport: number) {
   return await prisma.photoAnalisys.count({
     where: {
       idReport,
+    },
+  })
+}
+
+export async function photoCheckInLength(id: number) {
+  return await prisma.photoCheckIn.count({
+    where: {
+      idCheckIn: id,
     },
   })
 }
@@ -80,8 +89,38 @@ export async function savePhotoAnalisys(data: PhotoAnalisysType) {
   })
 }
 
+export async function savePhotoCheckIn(data: PhotoCheckInType) {
+  if (data.id) {
+    return await prisma.photoCheckIn.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        ...data,
+      },
+    })
+  }
+
+  return await prisma.photoCheckIn.create({
+    data: {
+      ...data,
+    },
+  })
+}
+
 export async function saveDescriptionAnalisys({ id, description }: { id: number; description: string }) {
   return await prisma.photoAnalisys.update({
+    where: {
+      id,
+    },
+    data: {
+      description,
+    },
+  })
+}
+
+export async function saveDescriptionCheckIn({ id, description }: { id: number; description: string }) {
+  return await prisma.photoCheckIn.update({
     where: {
       id,
     },
@@ -122,6 +161,22 @@ export async function deletePhotoAnalisys(photoAnalisysData: PhotoAnalisysType) 
   }
 
   return await prisma.photoAnalisys.delete({
+    where: {
+      id,
+    },
+  })
+}
+
+export async function deletePhotoCheckIn(photoAnalisysData: PhotoCheckInType) {
+  const id = photoAnalisysData.id
+
+  const result = await deleteObject(photoAnalisysData.url)
+
+  if (!result) {
+    throw new Error('Erro ao deletar imagem')
+  }
+
+  return await prisma.photoCheckIn.delete({
     where: {
       id,
     },

@@ -9,7 +9,7 @@ import type { FileWithPath } from 'react-dropzone'
 import { useDropzone } from 'react-dropzone'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { photoAnalisysLength, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
+import { photoCheckInLength, savePhotoCheckIn, upLoadPhotoAnalisys } from '../../relatorio/actions'
 import RichTextEditor from './textEditor/rich-text-editor'
 
 interface ImageProcessingProps {
@@ -25,7 +25,7 @@ const formSchema = z.object({
 export function UploadImage() {
   const pathname = usePathname()
   const [description, setDescription] = useState('')
-  const idReport = Number(pathname.split('/').pop())
+  const idCheckIn = Number(pathname.split('/').pop())
   const router = useRouter()
   const [rotation, setRotation] = useState<number>(0)
   const [processedImage, setProcessedImage] = useState<string | null>(null)
@@ -86,7 +86,7 @@ export function UploadImage() {
     const formData = new FormData()
     formData.append('file', blob, fileName)
 
-    const url = await upLoadPhotoAnalisys(formData, idReport)
+    const url = await upLoadPhotoAnalisys(formData, idCheckIn, 'check-in')
     return url
   }
 
@@ -106,19 +106,17 @@ export function UploadImage() {
 
     const fileName = urlImage.split('/').pop() as string
 
-    const photoAnalisysListLength = await photoAnalisysLength(idReport)
-
-    console.log(photoAnalisysListLength)
+    const photoAnalisysListLength = await photoCheckInLength(idCheckIn)
 
     const data = {
-      idReport,
+      idCheckIn,
       url: urlImage,
       name: fileName,
       index: photoAnalisysListLength + 1,
       description: values.description,
     }
 
-    await savePhotoAnalisys(data)
+    await savePhotoCheckIn(data)
     setDescription('')
     router.refresh()
     setProcessedImage(null)

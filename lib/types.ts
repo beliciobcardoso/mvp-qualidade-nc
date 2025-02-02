@@ -72,7 +72,6 @@ export type CheckInType = {
 export type PhotoCheckInType = {
   id?: number
   idCheckIn: number
-  checkIn: CheckInType
   url: string
   name: string
   index: number

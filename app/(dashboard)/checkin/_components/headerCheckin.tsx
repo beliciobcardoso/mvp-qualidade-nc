@@ -2,6 +2,8 @@ import ncLogo from '@/assets/ncLogo.png'
 import type { CheckInType, User } from '@/lib/types'
 import type { Provider } from '@prisma/client'
 import Image from 'next/image'
+import ModalAddCardPhoto from './modalAddCardPhoto'
+import { PlusIcon } from 'lucide-react'
 
 interface RelatorioHeaderProps {
   providerProps: Provider[]
@@ -22,12 +24,12 @@ export default function HeaderCheckin({ providerProps, user }: RelatorioHeaderPr
       </div>
       <div className='flex flex-col gap-2 p-2 justify-end items-between bg-gray-100 w-full'>
         <div className='flex gap-2 px-2 w-full bg-gray-300'>
-          <p className='w-1/2'><strong className='pr-2'>EMPRESA:</strong>LIFETEL</p>
-          <p className='w-1/5'><strong className='pr-2'>AUDITOR:</strong>Diellany Reis</p>
+          <p className='w-1/2 bg-green-300'><strong className='pr-2'>EMPRESA:</strong>LIFETEL</p>
+          <p className='w-1/3 bg-green-300'><strong className='pr-2'>AUDITOR:</strong>Diellany Reis</p>
         </div>
         <div className='flex gap-2 px-2 w-full bg-gray-300'>
-          <p className='w-1/2'><strong className='pr-2'>ATIVIDADE:</strong>INSTALAÇÃO DE TRAVA - QUEDAS</p>
-          <p className='w-1/5'><strong className='pr-2'>DATA:</strong>23/10/2024</p>
+          <p className='w-2/3 bg-green-300'><strong className='pr-2'>ATIVIDADE:</strong>INSTALAÇÃO DE TRAVA - QUEDAS</p>
+          <p className='w-1/5 bg-green-300'><strong className='pr-2'>DATA:</strong>23/10/2024</p>
         </div>
       </div>
       {/* <div>
@@ -105,16 +107,17 @@ export default function HeaderCheckin({ providerProps, user }: RelatorioHeaderPr
             ''
           )}
           {descriptions.length > 0 && relatorioHeader.finishedAt === null ? (
-            <ModalAddCardPhoto
-              textButton={<PlusIcon className="h-6 w-6" />}
-              textDescription={'Adicione uma nova foto'}
-              textTitle={'Adicionar Foto'}
-            />
+           
           ) : (
             ''
           )}
         </div>
       </div> */}
+      <ModalAddCardPhoto
+        textButton={<PlusIcon className="h-6 w-6" />}
+        textDescription={'Adicione uma nova foto'}
+        textTitle={'Adicionar Foto'}
+      />
     </header>
   )
 }

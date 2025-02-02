@@ -68,3 +68,16 @@ export async function getAllCheckIn() {
     console.log(error)
   }
 }
+
+export async function getPhotoCheckInById(id: number) {
+  const photoAnalisys = await prisma.photoCheckIn.findMany({
+    orderBy: {
+      index: 'asc',
+    },
+    where: {
+      idCheckIn: id,
+    },
+  })
+
+  return photoAnalisys
+}

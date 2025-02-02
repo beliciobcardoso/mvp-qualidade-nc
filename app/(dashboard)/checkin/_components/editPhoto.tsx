@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
-import type { PhotoAnalisysType } from '@/lib/types'
+import type { PhotoAnalisysType, PhotoCheckInType } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ImagePlus, PenIcon, RotateCcw, RotateCw } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
@@ -11,7 +11,7 @@ import type { FileWithPath } from 'react-dropzone'
 import { useDropzone } from 'react-dropzone'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { deletePhoto, saveDescriptionAnalisys, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
+import { deletePhoto, saveDescriptionCheckIn, savePhotoCheckIn, upLoadPhotoAnalisys } from '../../relatorio/actions'
 import RichTextEditor from './textEditor/rich-text-editor'
 
 interface ImageProcessingProps {
@@ -23,7 +23,7 @@ interface ImageProcessingProps {
 interface RemovePhotoProps {
   dialogTitle: string
   dialogDescription: string
-  photoAnalisys: PhotoAnalisysType
+  photoAnalisys: PhotoCheckInType
   index: number
 }
 
@@ -37,7 +37,7 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
   const router = useRouter()
   const [isDragging, setIsDragging] = useState(false)
   const [imageUrl, setImageUrl] = useState('')
-  const idReport = Number(pathname.split('/').pop())
+  const idCheckIn = Number(pathname.split('/').pop())
   const [description, setDescription] = useState('')
   const [originalFileName, setOriginalFileName] = useState<string>('')
   const [processedImage, setProcessedImage] = useState<string | null>(null)
@@ -110,7 +110,7 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
     const formData = new FormData()
     formData.append('file', blob, fileName)
 
-    const url = await upLoadPhotoAnalisys(formData, idReport)
+    const url = await upLoadPhotoAnalisys(formData, idCheckIn, 'check-in')
     return url
   }
 
@@ -131,18 +131,19 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
 
       const data = {
         id: photoAnalisys.id,
-        idReport,
+        idCheckIn,
         url: urlImage,
         name: fileName,
         index: photoAnalisys.index,
         description: values.description,
       }
-      await savePhotoAnalisys(data)
+      await savePhotoCheckIn(data)
       router.refresh()
       setImageUrl('')
       setOpen(false)
     } else {
-      await saveDescriptionAnalisys({
+      console.log('id', photoAnalisys.id, 'description', values.description)
+      await saveDescriptionCheckIn({
         id: photoAnalisys.id as number,
         description: values.description,
       })
@@ -166,7 +167,7 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
           <DialogDescription>{dialogDescription}</DialogDescription>
         </DialogHeader>
         <div className="flex items-center justify-center">
-          <p>Deseja altera a foto de número {index} deste Relatório?</p>
+          <p>Deseja altera a foto de número {index} deste Check-in?</p>
         </div>
         <div className="flex flex-col items-center justify-start gap-2">
           <div

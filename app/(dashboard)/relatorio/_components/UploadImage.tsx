@@ -86,7 +86,7 @@ export function UploadImage() {
     const formData = new FormData()
     formData.append('file', blob, fileName)
 
-    const url = await upLoadPhotoAnalisys(formData, idReport)
+    const url = await upLoadPhotoAnalisys(formData, idReport, 'report')
     return url
   }
 
