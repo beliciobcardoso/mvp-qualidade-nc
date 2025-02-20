@@ -118,14 +118,31 @@ export async function deletePhotoAnalisys(photoAnalisysData: PhotoAnalisysType) 
   const result = await deleteObject(photoAnalisysData.url)
 
   if (!result) {
-    throw new Error('Erro ao deletar imagem')
+    throw new Error('Erro ao deletar imagem no storage')
   }
 
-  return await prisma.photoAnalisys.delete({
+  const resultDelete = await prisma.photoAnalisys.delete({
     where: {
       id,
     },
   })
+
+  if (resultDelete) {
+    await prisma.photoAnalisys.updateMany({
+      where: {
+        idReport: photoAnalisysData.idReport,
+        index: {
+          gt: photoAnalisysData.index,
+        },
+      },
+      data: {
+        index: {
+          decrement: 1,
+        },
+      },
+    })
+    return true
+  }
 }
 
 export async function deletePhoto(url: string) {
