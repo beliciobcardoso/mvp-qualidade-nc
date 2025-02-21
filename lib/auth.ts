@@ -24,7 +24,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       authorize: async (credentials) => {
         const email = credentials.email as string
         const password = credentials.password as string
-        console.log(email, password)
+        // console.log(email, password)
 
         const user = await prisma.user.findFirst({ where: { email } })
 

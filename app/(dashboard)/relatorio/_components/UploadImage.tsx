@@ -108,7 +108,7 @@ export function UploadImage() {
 
     const photoAnalisysListLength = await photoAnalisysLength(idReport)
 
-    console.log(photoAnalisysListLength)
+    // console.log(photoAnalisysListLength)
 
     const data = {
       idReport,
