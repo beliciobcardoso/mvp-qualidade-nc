@@ -4,6 +4,21 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import type { PhotoAnalisysType, Relatorio } from '@/lib/types'
 import Image from 'next/image'
 import PhotoCard from './photo/photoCard'
+import {
+  DndContext,
+  type DragEndEvent,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { useState } from "react";
 
 interface PhotoAnalisysProps {
   photoAnalisys: PhotoAnalisysType[]
@@ -11,14 +26,74 @@ interface PhotoAnalisysProps {
 }
 
 export default function PhotoAnalisys({ photoAnalisys, relatorioFinished }: PhotoAnalisysProps) {
+  const [photos, setPhotos] = useState(photoAnalisys);
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 8,
+      },
+    })
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      setPhotos((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id);
+        const newIndex = items.findIndex((item) => item.id === over.id);
+
+        const newOrder = arrayMove(items, oldIndex, newIndex);
+        handleOrderChange?.(newOrder);
+        return newOrder;
+      });
+    }
+  }
+
+  const handleOrderChange = async (newOrder: PhotoAnalisysType[]) => {
+    try {
+      // Aqui você implementa a chamada à sua API para salvar a nova ordem
+      const response = await fetch("/api/photos/reorder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ newOrder }),
+      });
+    } catch (error) {
+      console.error("Erro ao salvar a nova ordem:", error);
+      // Aqui você pode implementar uma notificação de erro para o usuário
+    }
+  };
+
   return (
     <>
       {photoAnalisys.length > 0 ? (
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {photoAnalisys.map((item, index) => (
-            <PhotoCard key={item.id} photo={item} index={index + 1} relatorioFinished={relatorioFinished} />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={photos.map((photo) => photo.id as number)}
+            strategy={rectSortingStrategy}
+          >
+
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {photos.map((item, index) => (
+                <PhotoCard key={item.id} photo={item} index={index + 1} relatorioFinished={relatorioFinished} />
+              ))}
+
+            </div >
+          </SortableContext>
+        </DndContext>
       ) : (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {Array.from({ length: 3 }, (_, index) => (
@@ -40,7 +115,8 @@ export default function PhotoAnalisys({ photoAnalisys, relatorioFinished }: Phot
             </Card>
           ))}
         </div>
-      )}
+      )
+      }
     </>
   )
 }
