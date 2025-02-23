@@ -11,6 +11,7 @@ import type {
 import { deleteObject, uploadObject } from '@/service/storage'
 import type { Client } from '@prisma/client'
 import sharp from 'sharp'
+import { revalidatePath } from 'next/cache'
 
 export async function teste(file: ArrayBuffer) {
   const result = await sharp(file).toBuffer()
@@ -78,17 +79,49 @@ export async function savePhotoAnalisys(data: PhotoAnalisysType) {
       ...data,
     },
   })
+  // try {
+  //   const result = await prisma.photoAnalisys.update({
+  //     where: {
+  //       id: data.id,
+  //     },
+  //     data: {
+  //       url: data.url,
+  //       name: data.name,
+  //       description: data.description,
+  //     },
+  //   })
+  //   revalidatePath(`/relatorio/${data.idReport}`)
+  //   return result
+  // } catch (error) {
+  //   console.error('Erro ao salvar foto:', error)
+  //   return null
+  // }
 }
 
-export async function saveDescriptionAnalisys({ id, description }: { id: number; description: string }) {
-  return await prisma.photoAnalisys.update({
-    where: {
-      id,
-    },
-    data: {
-      description,
-    },
-  })
+export async function saveDescriptionAnalisys(data: { id: number; description: string }) {
+  try {
+    const photo = await prisma.photoAnalisys.findUnique({
+      where: { id: data.id },
+      select: { idReport: true },
+    })
+
+    const result = await prisma.photoAnalisys.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        description: data.description,
+      },
+    })
+
+    if (photo) {
+      revalidatePath(`/relatorio/${photo.idReport}`)
+    }
+    return result
+  } catch (error) {
+    console.error('Erro ao salvar descrição:', error)
+    return null
+  }
 }
 
 export async function getPhotoAnalisys() {
