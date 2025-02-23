@@ -115,39 +115,41 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    if (processedImage) {
-      const result = await deletePhoto(photoAnalisys.url)
+    try {
+      if (processedImage) {
+        const result = await deletePhoto(photoAnalisys.url)
 
-      if (!result) {
-        return
+        if (!result) {
+          return
+        }
+
+        const urlImage = await saveStorage(processedImage as string)
+
+        if (!urlImage) {
+          return
+        }
+        const fileName = urlImage.split('/').pop() as string
+
+        const data = {
+          id: photoAnalisys.id,
+          idReport,
+          url: urlImage,
+          name: fileName,
+          index: photoAnalisys.index,
+          description: values.description,
+        }
+        await savePhotoAnalisys(data)
+      } else {
+        await saveDescriptionAnalisys({
+          id: photoAnalisys.id as number,
+          description: values.description,
+        })
       }
-
-      const urlImage = await saveStorage(processedImage as string)
-
-      if (!urlImage) {
-        return
-      }
-      const fileName = urlImage.split('/').pop() as string
-
-      const data = {
-        id: photoAnalisys.id,
-        idReport,
-        url: urlImage,
-        name: fileName,
-        index: photoAnalisys.index,
-        description: values.description,
-      }
-      await savePhotoAnalisys(data)
-      router.refresh()
       setImageUrl('')
       setOpen(false)
-    } else {
-      await saveDescriptionAnalisys({
-        id: photoAnalisys.id as number,
-        description: values.description,
-      })
       router.refresh()
-      setOpen(false)
+    } catch (error) {
+      console.error('Erro ao salvar:', error)
     }
   }
 
@@ -156,7 +158,15 @@ export default function EditPhoto({ dialogTitle, dialogDescription, photoAnalisy
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          router.refresh()
+        }
+        setOpen(isOpen)
+      }}
+    >
       <Button onClick={() => setOpen(true)} variant={'outline'}>
         <PenIcon className="cursor-pointer" size={24} />
       </Button>

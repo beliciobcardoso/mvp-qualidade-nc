@@ -7,6 +7,10 @@ import { Suspense } from 'react'
 import HeaderReport from '../_components/headerReport'
 import PhotoAnalisys from '../_components/photoAnalisys'
 
+export const fetchCache = 'force-no-store'
+export const revalidate = 0
+export const dynamic = 'force-dynamic'
+
 export default async function Page({ params }: { params: { id: string } }) {
   const session = await auth()
 
@@ -37,7 +41,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           />
         </Suspense>
         <aside className="container flex flex-col items-center py-4">
-          {<PhotoAnalisys photoAnalisys={photoAnalisys} relatorioFinished={relatorioHeader} />}
+          {<PhotoAnalisys
+            key={JSON.stringify(photoAnalisys)}
+            photoAnalisys={photoAnalisys}
+            relatorioFinished={relatorioHeader}
+          />}
         </aside>
       </div>
     </main>

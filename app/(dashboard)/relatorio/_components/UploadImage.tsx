@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { photoAnalisysLength, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
 import RichTextEditor from './textEditor/rich-text-editor'
+import { deletePhoto } from '../actions'
 
 interface ImageProcessingProps {
   width?: number
@@ -118,7 +119,12 @@ export function UploadImage() {
       description: values.description,
     }
 
-    await savePhotoAnalisys(data)
+    const result = await savePhotoAnalisys(data)
+
+    if (!result) {
+      deletePhoto(urlImage)
+      return
+    }
     setDescription('')
     router.refresh()
     setProcessedImage(null)
