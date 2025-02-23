@@ -11,8 +11,8 @@ import type { FileWithPath } from 'react-dropzone'
 import { useDropzone } from 'react-dropzone'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { deletePhoto, saveDescriptionAnalisys, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
-import RichTextEditor from './textEditor/rich-text-editor'
+import { deletePhoto, saveDescriptionAnalisys, savePhotoAnalisys, upLoadPhotoAnalisys } from '../../actions'
+import RichTextEditor from '../textEditor/rich-text-editor'
 
 interface ImageProcessingProps {
   width?: number

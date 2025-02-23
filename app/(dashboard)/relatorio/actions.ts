@@ -145,6 +145,17 @@ export async function deletePhotoAnalisys(photoAnalisysData: PhotoAnalisysType) 
   }
 }
 
+export async function updateNewIndexPhotoAnalisys(id: number, index: number) {
+  return await prisma.photoAnalisys.update({
+    where: {
+      id,
+    },
+    data: {
+      index,
+    },
+  })
+}
+
 export async function deletePhoto(url: string) {
   const result = await deleteObject(url)
 

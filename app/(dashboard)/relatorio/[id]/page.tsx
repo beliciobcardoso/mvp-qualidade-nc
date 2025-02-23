@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           />
         </Suspense>
         <aside className="container flex flex-col items-center py-4">
-          {<PhotoAnalisys photoAnalisys={photoAnalisys} relatorioHeader={relatorioHeader} />}
+          {<PhotoAnalisys photoAnalisys={photoAnalisys} relatorioFinished={relatorioHeader} />}
         </aside>
       </div>
     </main>
