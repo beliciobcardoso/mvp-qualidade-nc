@@ -6,7 +6,7 @@ import type { PhotoAnalisysType } from '@/lib/types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { deletePhotoAnalisys } from '../actions'
+import { deletePhotoAnalisys } from '../../actions'
 
 interface RemovePhotoProps {
   dialogButton: string
