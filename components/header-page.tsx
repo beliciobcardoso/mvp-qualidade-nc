@@ -9,7 +9,7 @@ interface HeaderPageProps {
 
 export default function HeaderPage({ pageName }: HeaderPageProps) {
   return (
-    <header className="sticky top-0 flex h-[68px] shrink-0 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-[53px]">
+    <header className="sticky top-0 z-10 flex h-[68px] shrink-0 border-b bg-background transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-[53px]">
       <div className="flex items-center gap-2 px-1">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
