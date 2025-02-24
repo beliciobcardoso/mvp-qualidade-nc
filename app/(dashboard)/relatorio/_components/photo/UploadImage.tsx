@@ -9,9 +9,9 @@ import type { FileWithPath } from 'react-dropzone'
 import { useDropzone } from 'react-dropzone'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { photoAnalisysLength, savePhotoAnalisys, upLoadPhotoAnalisys } from '../actions'
-import RichTextEditor from './textEditor/rich-text-editor'
-import { deletePhoto } from '../actions'
+import { photoAnalisysLength, savePhotoAnalisys, upLoadPhotoAnalisys } from '../../actions'
+import RichTextEditor from '../textEditor/rich-text-editor'
+import { deletePhoto } from '../../actions'
 
 interface ImageProcessingProps {
   width?: number
@@ -144,7 +144,7 @@ export function UploadImage() {
       >
         <input {...getInputProps()} />
         {processedImage ? (
-          <img src={processedImage} alt="Imagem processada" className="border border-gray-200 rounded-lg mx-auto" />
+          <img src={processedImage || ''} alt="Imagem processada" className="border border-gray-200 rounded-lg mx-auto" />
         ) : (
           <div className="px-2 bg-muted rounded-lg flex flex-col h-full items-center justify-center w-full">
             <ImagePlus className="w-8 h-8 text-muted-foreground" />

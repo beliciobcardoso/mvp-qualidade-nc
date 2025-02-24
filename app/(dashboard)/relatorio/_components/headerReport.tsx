@@ -6,7 +6,7 @@ import AproveReport from './aproveReport'
 import { DialogServiceDescription } from './dialogServiceDescription'
 import GeneratePdf from './generatePdf'
 import HeaderReportSite from './headerReportSite'
-import ModalAddCardPhoto from './modalAddCardPhoto'
+import ModalAddCardPhoto from './photo/modalAddCardPhoto'
 import { RemoveServices } from './removerServices'
 import ReopenReport from './reopenReport'
 
